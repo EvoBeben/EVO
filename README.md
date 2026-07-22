@@ -1,2 +1,86 @@
-# EVO
-EVO Ai
+# EVO — Day Trader Trends Dashboard
+
+A single-page dashboard for day traders: it ranks the **top 10 assets by live
+social-media momentum** and shows **many price graphs in one view** — a per-row
+sparkline, an overlaid combined movement chart, and a per-asset graph grid.
+
+> ⚠️ **For research only — not financial advice.** These trends indicate where
+> attention and volatility are concentrating, not what you should buy or sell.
+> Do your own research and manage risk.
+
+![dashboard](https://img.shields.io/badge/stack-zero--dependency%20Node-informational)
+
+## What it does
+
+- **Top 10 social-trend movers** — a ranked list combining social signals from
+  multiple sources into one *social score* per asset (crypto **and** stocks),
+  each with price, 24h % change, source badges, and a mini price chart.
+- **Combined movement chart** — the strongest movers overlaid on one axis,
+  indexed to 100 at series start so you can compare *relative* moves. Hover for a
+  crosshair + tooltip; click legend chips to toggle series.
+- **Per-asset graph grid** — every mover's own chart, so multiple website-sourced
+  graphs live together in one view.
+- **Auto-refresh** every 60s, light/dark themes, fully responsive.
+
+## Data sources (all free, no API key)
+
+| Source | Used for |
+|---|---|
+| [CoinGecko](https://www.coingecko.com/en/api) `/coins/markets`, `/search/trending` | crypto prices, 24h/7d change, 7-day sparkline, search-trend signal |
+| [Stocktwits](https://stocktwits.com) `/trending/symbols` | trending stock tickers + watchlist popularity |
+| [Reddit](https://www.reddit.com) r/wallstreetbets, r/CryptoCurrency, r/stocks `/hot` | cashtag (`$TSLA`) mention counts |
+| [Yahoo Finance](https://finance.yahoo.com) `/v8/finance/chart` | stock price, % change, intraday sparkline |
+
+All sources are fetched **server-side** (so there are no browser CORS issues),
+merged, scored, and cached for 60 seconds to respect rate limits. If a source is
+temporarily down it's skipped gracefully rather than breaking the dashboard.
+
+### How the social score works
+
+Each candidate ticker accumulates a weighted score:
+
+- **Reddit** — 3 points per hot-post mention (counted once per post)
+- **Stocktwits** — up to ~6 for trending rank + a bonus for watchlist size
+- **CoinGecko Trending** — up to ~5 by trending rank
+
+The top candidates are then joined with live price data; the 10 highest-scoring
+assets that have usable price data become the movers.
+
+## Run it
+
+Requires **Node.js 18+** (uses the built-in `fetch` and HTTP server — **no
+`npm install` needed**).
+
+```bash
+npm start          # or: node server.js
+# open http://localhost:3000
+```
+
+Change the port with `PORT=8080 npm start`.
+
+### Demo mode
+
+If **every** live source is unreachable (offline, rate-limited, or blocked by a
+network policy), the dashboard automatically serves a clearly-labeled **demo
+dataset** so the UI is never blank. A banner makes this explicit — it is never
+presented as live data. Run on an unrestricted connection for live data.
+
+## Project layout
+
+```
+server.js       # zero-dependency Node server: source adapters, scoring, cache, API + static
+demo-data.js    # labeled offline fallback dataset
+public/
+  index.html    # dashboard shell
+  styles.css    # theme-aware styling (light/dark)
+  app.js        # rendering + hand-drawn canvas charts (sparklines, combined chart, hover)
+```
+
+## Notes & limits
+
+- Not financial advice; social buzz is a *volatility/attention* signal, not a
+  price prediction. High buzz often means high risk.
+- Public endpoints can rate-limit or change; the 60s cache and graceful
+  degradation keep the app resilient, but a source may occasionally be missing.
+- Cashtag parsing is heuristic — a `$WORD` in a Reddit title is treated as a
+  ticker; obvious noise is filtered by requiring live price data to appear.

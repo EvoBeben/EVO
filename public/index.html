@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EVO — Day Trader Trends Dashboard</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%93%88%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="logo">EVO</span>
+          <div class="brand-text">
+            <h1>Day Trader Trends</h1>
+            <p>Top movers ranked by live social-media momentum</p>
+          </div>
+        </div>
+        <div class="controls">
+          <label class="auto">
+            <input type="checkbox" id="autorefresh" checked />
+            <span>Auto refresh</span>
+          </label>
+          <button id="refresh" class="btn">↻ Refresh</button>
+          <button id="theme" class="btn icon" title="Toggle theme" aria-label="Toggle theme">◐</button>
+        </div>
+      </header>
+
+      <div class="disclaimer" role="note">
+        ⚠ For research only — not financial advice. Trends indicate attention &amp; volatility,
+        not a recommendation to trade. Do your own research and manage risk.
+      </div>
+
+      <section class="stats" id="stats" aria-label="Summary"></section>
+
+      <main class="grid">
+        <section class="panel panel-list" aria-label="Top 10 social-trend movers">
+          <div class="panel-head">
+            <h2>Top 10 Social-Trend Movers</h2>
+            <span class="hint" id="updated">loading…</span>
+          </div>
+          <div class="list-head">
+            <span class="col-rank">#</span>
+            <span class="col-asset">Asset</span>
+            <span class="col-spark">7-day / intraday</span>
+            <span class="col-price">Price</span>
+            <span class="col-chg">24h</span>
+            <span class="col-social">Social</span>
+          </div>
+          <ol id="movers" class="movers"></ol>
+        </section>
+
+        <section class="panel panel-chart" aria-label="Combined movement chart">
+          <div class="panel-head">
+            <h2>Combined Movement</h2>
+            <span class="hint">Indexed to 100 at series start — compare relative moves</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="combined" role="img" aria-label="Overlaid normalized price movement of top movers"></canvas>
+            <div class="tooltip" id="combined-tip" hidden></div>
+          </div>
+          <div class="legend" id="legend"></div>
+        </section>
+
+        <section class="panel panel-mini" aria-label="Individual movement graphs">
+          <div class="panel-head">
+            <h2>Per-Asset Graphs</h2>
+            <span class="hint">Every mover's own chart — multiple sources, one view</span>
+          </div>
+          <div class="mini-grid" id="minis"></div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Sources: CoinGecko · Stocktwits · Reddit (r/wallstreetbets, r/CryptoCurrency, r/stocks) · Yahoo Finance</span>
+        <span id="latency"></span>
+      </footer>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

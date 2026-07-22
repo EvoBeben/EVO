@@ -1,0 +1,14 @@
+{
+  "name": "evo-daytrader-dashboard",
+  "version": "1.0.0",
+  "description": "EVO Day Trader Trends Dashboard — top 10 social-media-driven market movers with multi-source charts in one view.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
