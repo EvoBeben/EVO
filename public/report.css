@@ -118,8 +118,8 @@ table.movers .nm { color: var(--muted); font-size: 8.5px; }
 .barlist .fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
 .barlist .bval { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 9.5px; }
 .srcbars .srow { display: grid; grid-template-columns: 92px 1fr 30px; align-items: center; gap: 8px; padding: 5px 0; }
-.srcbars .track { height: 12px; background: var(--surf); border-radius: 3px; overflow: hidden; }
-.srcbars .fill { height: 100%; background: var(--s1); border-radius: 3px; }
+.srcbars .track { display: inline-block; height: 12px; background: var(--surf); border-radius: 3px; overflow: hidden; vertical-align: middle; }
+.srcbars .fill { display: block; height: 100%; background: var(--s1); border-radius: 3px; }
 .srcbars .sname { font-size: 9.5px; }
 .srcbars .sct { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 9.5px; }
 .mini-note { color: var(--sub); font-size: 9.5px; margin-top: 6px; }
@@ -135,6 +135,50 @@ table.movers .nm { color: var(--muted); font-size: 8.5px; }
 .dcard .drow { display: flex; justify-content: space-between; font-size: 9px; padding: 2px 0; color: var(--sub); }
 .dcard .drow b { color: var(--ink); font-variant-numeric: tabular-nums; }
 .dcard .dtitle { font-size: 8.5px; color: var(--sub); font-style: italic; margin-top: 6px; line-height: 1.4; border-top: 1px solid var(--hair); padding-top: 6px; }
+
+/* ---- Reddit Radar page ---- */
+.sub-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 4px; }
+.sub-chip { font-size: 8.5px; padding: 2px 7px; border-radius: 999px; background: var(--surf);
+  border: 1px solid var(--line); color: var(--sub); }
+.reddit-split { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; }
+.rlist { display: flex; flex-direction: column; gap: 2px; }
+.rrow { display: grid; grid-template-columns: 16px 44px 1fr 26px auto; align-items: center; gap: 7px; padding: 3px 0; }
+.rrow .rr-rank { color: var(--muted); font-weight: 700; font-size: 9px; }
+.rrow .rr-sym { font-weight: 700; font-size: 10px; }
+.rrow .rr-track { height: 11px; background: var(--surf); border-radius: 3px; overflow: hidden; }
+.rrow .rr-fill { display: block; height: 100%; background: var(--s2); border-radius: 3px; }
+.rrow .rr-m { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 9.5px; }
+.rrow .rr-subs { display: flex; gap: 3px; flex-wrap: wrap; }
+.rr-chip { font-size: 7px; padding: 1px 4px; border-radius: 4px; background: var(--surf); border: 1px solid var(--line); color: var(--muted); }
+.rposts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rpost { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.rp-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
+.rp-sub { font-weight: 700; font-size: 8.5px; color: var(--s2); }
+.rp-meta { font-size: 8px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rp-title { font-size: 9.5px; line-height: 1.35; }
+.rp-tags { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+.rp-tag { font-size: 7.5px; font-weight: 700; padding: 1px 5px; border-radius: 4px; background: var(--surf); border: 1px solid var(--line); color: var(--sub); }
+
+/* ---- Should You Short? page ---- */
+.short-caution { background: #fdeceb; border: 1px solid #e6b3b1; border-left: 3px solid var(--down);
+  border-radius: 8px; padding: 10px 14px; font-size: 9.5px; color: #7a2321; margin-bottom: 12px; }
+.short-caution b { color: #641b19; }
+table.shorts { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+table.shorts th { text-align: left; color: var(--muted); font-size: 8px; text-transform: uppercase; letter-spacing: .4px;
+  padding: 6px 5px; border-bottom: 1.5px solid var(--line); }
+table.shorts td { padding: 8px 5px; border-bottom: 1px solid var(--hair); vertical-align: middle; }
+table.shorts .num { text-align: right; font-variant-numeric: tabular-nums; }
+table.shorts .sym { font-weight: 700; }
+table.shorts .nm { color: var(--muted); font-size: 8px; }
+.conv { display: flex; align-items: center; gap: 6px; }
+.conv .track { display: inline-block; width: 46px; height: 9px; background: var(--surf); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; flex: none; vertical-align: middle; }
+.conv .fill { display: block; height: 100%; background: var(--down); border-radius: 2px; }
+.conv .lab { font-size: 8px; font-weight: 700; color: var(--down); text-transform: uppercase; }
+.confirm-pill { font-size: 8px; font-weight: 700; padding: 1px 6px; border-radius: 999px; background: var(--down-soft); color: var(--down); }
+.short-note { font-size: 8.5px; color: var(--sub); }
+.short-empty { border: 1px dashed var(--line); border-radius: 10px; padding: 22px; text-align: center; color: var(--sub); font-size: 11px; }
+.short-legend { margin-top: 12px; font-size: 9px; color: var(--sub); line-height: 1.6; }
+.short-legend b { color: var(--ink); }
 
 /* ---- Methodology page ---- */
 .method { font-size: 10px; }

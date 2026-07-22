@@ -26,20 +26,34 @@ sparkline, an overlaid combined movement chart, and a per-asset graph grid.
 
 | Source | Used for |
 |---|---|
+| **Market / price** | |
 | [CoinGecko](https://www.coingecko.com/en/api) `/coins/markets`, `/search/trending` | crypto prices, 24h/7d change, 7-day sparkline, search-trend signal |
-| [Binance](https://binance-docs.github.io/apidocs/spot/en/) `/ticker/24hr`, `/klines` | broad crypto price + 24h movement universe; sparklines for coins CoinGecko doesn't cover |
-| [Stocktwits](https://stocktwits.com) `/trending/symbols` | trending stock tickers + watchlist popularity |
-| [Reddit](https://www.reddit.com) `/hot` × 8 subs | cashtag/name mention counts (see below) |
-| [Hacker News](https://hn.algolia.com/api) `/search?tags=front_page` | front-page headline mentions of tickers/companies (tech & finance attention) |
+| [Binance](https://binance-docs.github.io/apidocs/spot/en/) `/ticker/24hr`, `/klines` | broad crypto price + movement universe; sparkline backfill |
+| [CoinPaprika](https://api.coinpaprika.com) `/tickers` | crypto price + 24h/7d change + market cap (~2,500 assets) |
+| [CoinCap](https://docs.coincap.io) `/assets` | crypto price + 24h change breadth / cross-check |
+| [CoinLore](https://www.coinlore.com/cryptocurrency-data-api) `/tickers` | crypto price + 24h/7d change backup |
+| [Bitfinex](https://docs.bitfinex.com) `/tickers` | major-exchange last price + 24h change |
+| [Coinbase](https://docs.cdp.coinbase.com) `/products/{sym}/stats` | US-exchange daily stats (per-mover confirmation) |
 | [Yahoo Finance](https://finance.yahoo.com) `/v8/finance/chart` | stock price, % change, intraday sparkline |
-| [alternative.me](https://alternative.me/crypto/fear-and-greed-index/) `/fng` | Crypto Fear & Greed Index (market-wide sentiment gauge) |
+| **Social / news / attention** | |
+| [Stocktwits](https://stocktwits.com) `/trending/symbols` | trending stock tickers + watchlist popularity |
+| [Reddit](https://www.reddit.com) `/hot` × 17 subs | ticker mention counts (see below) |
+| [Hacker News](https://hn.algolia.com/api) `/search?tags=front_page` | front-page headline mentions |
+| [Wikipedia](https://wikimedia.org/api/rest_v1/) `/metrics/pageviews` | daily pageviews on an asset's article (attention proxy) |
+| [Google News](https://news.google.com) `/rss/search` | recent news-headline volume per asset |
+| **Sentiment** | |
+| [alternative.me](https://alternative.me/crypto/fear-and-greed-index/) `/fng` | Crypto Fear & Greed Index (market-wide gauge) |
 
-Reddit subs scanned: **r/wallstreetbets, r/CryptoCurrency, r/stocks, r/StockMarket,
-r/Daytrading, r/options, r/SatoshiStreetBets, r/pennystocks**.
+Reddit subs scanned (17): **wallstreetbets, stocks, StockMarket, investing,
+Daytrading, swingtrading, options, thetagang, pennystocks, smallstreetbets,
+Superstonk, CryptoCurrency, CryptoMarkets, SatoshiStreetBets, ethtrader, Bitcoin,
+altcoin**.
 
 All sources are fetched **server-side** (so there are no browser CORS issues),
 merged, scored, and cached for 60 seconds to respect rate limits. If a source is
 temporarily down it's skipped gracefully rather than breaking the dashboard.
+Multiple independent price sources also power the **cross-source down-confirmation**
+in the report's *Should You Short?* section.
 
 ### How the social score works
 
@@ -49,24 +63,30 @@ Each candidate ticker accumulates a weighted score:
 - **Hacker News** — 2.5 points per front-page headline mention
 - **Stocktwits** — up to ~6 for trending rank + a bonus for watchlist size
 - **CoinGecko Trending** — up to ~5 by trending rank
+- **Google News** — up to 4 by recent headline volume
+- **Wikipedia** — up to 3 by pageview attention
 
-Mentions are matched by `$cashtag` **and** by known company/asset name (e.g.
-"Tesla" → `TSLA`). The top candidates are then joined with live price data; the
-10 highest-scoring assets that have usable price data become the movers.
+Tickers are matched three ways: **`$cashtags`** (`$TSLA`), **bare uppercase
+tickers** from a known-symbol list (minus common-word stopwords like THE/CEO/YOLO),
+and **company/asset names** (e.g. "Tesla" → `TSLA`). The top candidates are then
+joined with live price data; the 10 highest-scoring assets with usable price data
+become the movers.
 
-## Market Trends Update (5-page report)
+## Market Trends Update (7-page report)
 
 Open **`/report`** (or click **📄 Report** in the dashboard) for a print-ready,
-5-page briefing generated from the same live data:
+7-page briefing generated from the same live data:
 
 1. **Cover** — executive summary, headline stats, Crypto Fear & Greed gauge, top-3 to watch
 2. **Top 10 movers** — full table (price, 24h/7d, buzz, sources, bias) + combined indexed chart
 3. **Momentum & social breakdown** — gainers/losers, most-discussed, source contribution
-4. **Per-asset detail** — a card per top mover with its own graph and signals
-5. **Methodology, sources & disclaimer**
+4. **Reddit Radar** — most-mentioned tickers, mentions per sub, hottest posts, and the matching method
+5. **Should You Short?** — every asset trending down, ranked by short-setup conviction with cross-source down-confirmation
+6. **Per-asset detail** — a card per top mover with its own graph and signals
+7. **Methodology, sources & disclaimer**
 
 Click **⭳ Save as PDF** (or your browser's Print → Save as PDF) to export it — the
-CSS lays it out as exactly five A4 pages.
+CSS lays it out as exactly seven A4 pages.
 
 ## Run it
 

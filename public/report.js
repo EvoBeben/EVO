@@ -124,6 +124,7 @@ const now = () => new Date();
 const dateStr = (d) => d.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 const timeStr = (d) => d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
 
+const TOTAL_PAGES = 7;
 function head(page, total) {
   return `<div class="rhead">
     <span class="logo">EVO</span>
@@ -154,7 +155,7 @@ function pageCover(d) {
   const summary = `Trading attention is concentrating in <b>${esc(names)}</b>. Across the ten most-discussed assets the average 24-hour move is <b>${fmtPct(avg)}</b> (${gainers} up, ${losers} down). The strongest move belongs to <b>${esc(topGain.symbol)}</b> at ${fmtPct(topGain.change24h)}, while <b>${esc(topLoss.symbol)}</b> lags at ${fmtPct(topLoss.change24h)}.${fg ? ` Market sentiment reads <b>${esc(fg.label)}</b> (${fg.value}/100) on the Crypto Fear &amp; Greed Index.` : ""}`;
 
   return `<section class="page">
-    ${head(1, 5)}
+    ${head(1, TOTAL_PAGES)}
     <div class="page-body">
       <div class="cover-hero">
         <div class="kicker">Daily Briefing ${modeTag}</div>
@@ -205,7 +206,7 @@ function pageTable(d) {
   </tr>`).join("");
 
   return `<section class="page">
-    ${head(2, 5)}
+    ${head(2, TOTAL_PAGES)}
     <div class="page-body">
       <div class="page-title">Top 10 Social-Trend Movers</div>
       <div class="page-sub">Ranked by weighted social signal, then joined with live price data. 24h and 7d are price changes.</div>
@@ -249,7 +250,7 @@ function pageMomentum(d) {
   const maxBuzz = Math.max(1, ...byBuzz.map((x) => x.socialScore));
 
   return `<section class="page">
-    ${head(3, 5)}
+    ${head(3, TOTAL_PAGES)}
     <div class="page-body">
       <div class="page-title">Momentum &amp; Social Breakdown</div>
       <div class="page-sub">Who is moving, and where the attention is coming from.</div>
@@ -287,10 +288,147 @@ function pageMomentum(d) {
   </section>`;
 }
 
+function pageReddit(d) {
+  const r = (d.social && d.social.reddit) || { subs: [], perSub: {}, tickers: [], posts: [], scanned: 0, subsOk: 0 };
+  const tickers = r.tickers || [];
+  const maxM = Math.max(1, ...tickers.map((t) => t.mentions));
+  const perSub = Object.entries(r.perSub || {}).sort((a, b) => b[1] - a[1]);
+  const maxSub = Math.max(1, ...perSub.map((s) => s[1]));
+
+  const tickerRows = tickers.length
+    ? tickers.map((t, i) => `<div class="rrow">
+        <span class="rr-rank">${i + 1}</span>
+        <span class="rr-sym">${esc(t.symbol)}</span>
+        <span class="rr-track"><span class="rr-fill" style="width:${(t.mentions / maxM) * 100}%"></span></span>
+        <span class="rr-m">${t.mentions}</span>
+        <span class="rr-subs">${(t.subs || []).slice(0, 3).map((s) => `<span class="rr-chip">r/${esc(s)}</span>`).join("")}</span>
+      </div>`).join("")
+    : `<div class="short-empty">No tracked tickers were mentioned in the scanned Reddit posts this run.</div>`;
+
+  const subChips = (r.subs || []).map((s) => `<span class="sub-chip">r/${esc(s)}</span>`).join("");
+
+  const posts = (r.posts || []).slice(0, 8).map((p) => `<div class="rpost">
+      <div class="rp-top"><span class="rp-sub">r/${esc(p.sub)}</span>
+        <span class="rp-meta">▲ ${Number(p.score).toLocaleString()} · ${Number(p.comments).toLocaleString()} comments</span></div>
+      <div class="rp-title">${esc(p.title)}</div>
+      <div class="rp-tags">${(p.tickers || []).map((t) => `<span class="rp-tag">${esc(t)}</span>`).join("")}</div>
+    </div>`).join("");
+
+  const subBars = perSub.slice(0, 12).map(([s, c]) => `<div class="srow">
+      <span class="sname">r/${esc(s)}</span>
+      <span class="track"><span class="fill" style="width:${(c / maxSub) * 100}%"></span></span>
+      <span class="sct">${c}</span></div>`).join("");
+
+  return `<section class="page">
+    ${head(4, TOTAL_PAGES)}
+    <div class="page-body">
+      <div class="page-title">Reddit Radar</div>
+      <div class="page-sub">What retail traders are talking about — ${r.subsOk || (r.subs || []).length} subreddits scanned, ${r.scanned || 0} hot posts parsed for tickers.</div>
+
+      <h3 class="sec">Subreddits scanned (${(r.subs || []).length})</h3>
+      <div class="sub-chips">${subChips}</div>
+
+      <div class="reddit-split">
+        <div>
+          <h3 class="sec">Most-mentioned tickers on Reddit</h3>
+          <div class="rlist">${tickerRows}</div>
+        </div>
+        <div>
+          <h3 class="sec">Where the chatter is (mentions per sub)</h3>
+          <div class="srcbars">${subBars}</div>
+        </div>
+      </div>
+
+      <h3 class="sec">Hottest posts mentioning a tracked ticker</h3>
+      <div class="rposts">${posts || '<div class="short-note">No notable posts this run.</div>'}</div>
+
+      <div class="short-legend" style="margin-top:10px">
+        Tickers are matched three ways: <b>$cashtags</b> (e.g. <span style="font-family:var(--mono)">$TSLA</span>),
+        <b>bare uppercase tickers</b> from a known-symbol list (minus common-word stopwords like THE/CEO/YOLO), and
+        <b>company/asset names</b> (e.g. “Tesla” → TSLA). Stickied/mod posts are skipped.
+      </div>
+    </div>
+    ${foot()}
+  </section>`;
+}
+
+// Short-setup score: reward downside (24h + 7d), attention on a falling asset
+// (crowded = volatile), and cross-source agreement that it's down.
+function shortScore(x) {
+  let s = 0;
+  if (x.change24h != null && x.change24h < 0) s += Math.min(40, -x.change24h * 4);
+  if (x.change7d != null && x.change7d < 0) s += Math.min(25, -x.change7d * 2);
+  s += Math.min(20, (x.socialScore || 0) * 0.4);           // attention weight
+  if (x.priceSourceCount) s += (x.downConfirms / x.priceSourceCount) * 15; // conviction
+  return s;
+}
+function shortReason(x) {
+  const bits = [];
+  if (x.change7d != null && x.change7d < 0) bits.push(`down ${fmtPct(x.change7d)} over 7d`);
+  else if (x.change24h < 0) bits.push("intraday weakness");
+  if (x.priceSourceCount > 1) bits.push(`${x.downConfirms}/${x.priceSourceCount} price sources agree`);
+  if ((x.socialScore || 0) >= 20) bits.push("heavy chatter on the drop");
+  if (x.sentiment === "bearish") bits.push("bearish bias");
+  return bits.slice(0, 3).join(" · ") || "mild pullback";
+}
+
+function pageShort(d) {
+  // Anything showing downside: 24h negative OR 7d negative.
+  const shorts = d.movers
+    .filter((x) => (x.change24h != null && x.change24h < 0) || (x.change7d != null && x.change7d < 0))
+    .map((x) => ({ ...x, ss: shortScore(x) }))
+    .sort((a, b) => b.ss - a.ss);
+  const maxSS = Math.max(1, ...shorts.map((x) => x.ss));
+  const convLabel = (r) => (r >= 0.72 ? "High" : r >= 0.45 ? "Medium" : "Low");
+
+  const body = shorts.length
+    ? `<table class="shorts">
+        <thead><tr><th>#</th><th>Asset</th><th class="num">Price</th><th class="num">24h</th><th class="num">7d</th>
+          <th class="num">Buzz</th><th>Down-confirm</th><th>Conviction</th><th>Why it screens short</th></tr></thead>
+        <tbody>${shorts.map((x, i) => {
+          const conv = x.ss / maxSS;
+          return `<tr>
+            <td class="rank" style="color:var(--muted);font-weight:700">${i + 1}</td>
+            <td><span class="sym">${esc(x.symbol)}</span> <span class="nm">${esc(x.name)}</span></td>
+            <td class="num">${fmtPrice(x.price)}</td>
+            <td class="num chg ${x.change24h == null ? "" : cls(x.change24h)}">${x.change24h == null ? "—" : fmtPct(x.change24h)}</td>
+            <td class="num chg ${x.change7d == null ? "" : cls(x.change7d)}">${x.change7d == null ? "—" : fmtPct(x.change7d)}</td>
+            <td class="num">${x.socialScore}</td>
+            <td>${x.priceSourceCount > 1 ? `<span class="confirm-pill">${x.downConfirms}/${x.priceSourceCount} down</span>` : '<span class="short-note">n/a</span>'}</td>
+            <td><span class="conv"><span class="track"><span class="fill" style="width:${Math.round(conv * 100)}%"></span></span><span class="lab">${convLabel(conv)}</span></span></td>
+            <td><span class="short-note">${esc(shortReason(x))}</span></td>
+          </tr>`;
+        }).join("")}</tbody>
+      </table>
+      <div class="short-legend">
+        <b>Down-confirm</b> = how many independent price sources (Binance, CoinPaprika, CoinCap, CoinLore, Bitfinex, Coinbase, CoinGecko) report a 24h decline — higher agreement = a more reliable down-move, not noise.
+        <b>Conviction</b> blends downside magnitude (24h + 7d), the amount of social attention on the falling asset, and that cross-source agreement.
+        A falling name with <i>high</i> buzz is crowded and volatile — that cuts both ways (squeeze risk).
+      </div>`
+    : `<div class="short-empty">No assets are screening short right now — every tracked mover is flat-to-up on both the 24h and 7d windows. Breadth is broadly positive today.</div>`;
+
+  return `<section class="page">
+    ${head(5, TOTAL_PAGES)}
+    <div class="page-body">
+      <div class="page-title">Should You Short?</div>
+      <div class="page-sub">Every tracked asset that is currently trending down, ranked by how strongly it screens as a short setup.</div>
+
+      <div class="short-caution">
+        <b>⚠ Read this first.</b> Short-selling has <b>theoretically unlimited loss</b> and borrow/financing costs, and heavily-discussed
+        falling names are exactly the ones prone to violent short squeezes. This screen flags <i>downward momentum + attention</i> — it is
+        <b>not</b> a signal to sell short, and nothing here is financial advice.
+      </div>
+
+      ${body}
+    </div>
+    ${foot()}
+  </section>`;
+}
+
 function pageDetail(d) {
   const top = d.movers.slice(0, 6);
   return `<section class="page">
-    ${head(4, 5)}
+    ${head(6, TOTAL_PAGES)}
     <div class="page-body">
       <div class="page-title">Per-Asset Detail</div>
       <div class="page-sub">The six most-discussed assets, each with its own price graph and the signals behind its ranking.</div>
@@ -314,16 +452,23 @@ function pageDetail(d) {
 
 function pageMethod(d) {
   const sources = [
-    ["CoinGecko", "Market data + trending", "Crypto prices, 24h/7d change, 7-day sparkline, and the trending-search list (a social/search interest proxy)."],
-    ["Binance", "Market data", "Broad crypto price + 24h movement universe (USDT pairs); supplies sparklines for coins CoinGecko doesn't cover."],
+    ["CoinGecko", "Market + trending", "Crypto prices, 24h/7d change, 7-day sparkline, and the trending-search list (a social/search proxy)."],
+    ["Binance", "Market (price)", "Broad crypto price + 24h movement universe (USDT pairs); supplies sparklines for coins CoinGecko misses."],
+    ["CoinPaprika", "Market (price)", "Crypto price plus 24h and 7d change and market cap across ~2,500 assets."],
+    ["CoinCap", "Market (price)", "Crypto price + 24h change breadth; independent cross-check."],
+    ["CoinLore", "Market (price)", "Crypto price + 24h/7d change backup for coverage gaps."],
+    ["Bitfinex", "Market (price)", "Major-exchange last price + 24h change — an independent exchange read."],
+    ["Coinbase", "Market (price)", "US-exchange daily stats used to confirm each crypto mover's move."],
+    ["Yahoo Finance", "Market (price)", "Stock price, % change, and intraday sparkline for equities surfaced by social sources."],
     ["Stocktwits", "Social", "Trending stock tickers and watchlist popularity from the Stocktwits community."],
-    ["Reddit", "Social", "Cashtag/name mentions across r/wallstreetbets, r/CryptoCurrency, r/stocks, r/StockMarket, r/Daytrading, r/options, r/SatoshiStreetBets, r/pennystocks."],
-    ["Hacker News", "News / social", "Front-page story headlines scanned for tickers and company names (tech & finance attention)."],
-    ["Yahoo Finance", "Market data", "Stock price, % change, and intraday sparkline for equities surfaced by social sources."],
-    ["alternative.me", "Sentiment", "Crypto Fear & Greed Index — a market-wide sentiment gauge (0 = extreme fear, 100 = extreme greed)."],
+    ["Reddit", "Social", "Ticker mentions across 17 trading/crypto subs (WSB, stocks, StockMarket, investing, Daytrading, swingtrading, options, thetagang, pennystocks, smallstreetbets, Superstonk, CryptoCurrency, CryptoMarkets, SatoshiStreetBets, ethtrader, Bitcoin, altcoin). Matched by cashtag, bare ticker, and company name. See the Reddit Radar page."],
+    ["Hacker News", "News / social", "Front-page headlines scanned for tickers and company names (tech & finance attention)."],
+    ["Wikipedia", "Attention", "Daily pageviews on an asset's encyclopedia article — a neutral attention gauge."],
+    ["Google News", "News", "Recent news-headline volume per asset from Google News search."],
+    ["alternative.me", "Sentiment", "Crypto Fear & Greed Index — market-wide sentiment (0 = extreme fear, 100 = extreme greed)."],
   ];
   return `<section class="page">
-    ${head(5, 5)}
+    ${head(7, TOTAL_PAGES)}
     <div class="page-body">
       <div class="page-title">Methodology, Sources &amp; Disclaimer</div>
       <div class="page-sub">How this report is built and what it can — and can't — tell you.</div>
@@ -331,7 +476,7 @@ function pageMethod(d) {
       <h3 class="sec">How the buzz score works</h3>
       <div class="method">
         <p>Every candidate ticker accumulates a weighted <b>social score</b> from the signal sources. The highest-scoring assets that also have live price data become the ten movers.</p>
-        <div class="formula">score = 3.0 × reddit_mentions&nbsp; + 2.5 × hackernews_mentions&nbsp; + (stocktwits_rank + watchlist_bonus)&nbsp; + coingecko_trending_rank</div>
+        <div class="formula">score = 3.0 × reddit_mentions&nbsp; + 2.5 × hn_mentions&nbsp; + (stocktwits_rank + watchlist_bonus)&nbsp; + coingecko_trending_rank&nbsp; + min(4, 0.5 × news_items)&nbsp; + min(3, wiki_views / 20k)</div>
         <p>Mentions are counted once per post/headline. Price movement (24h/7d) is shown alongside but does <i>not</i> feed the score — buzz measures <b>attention</b>, price measures <b>outcome</b>. All feeds are fetched server-side, merged, scored, and cached for 60 seconds.</p>
       </div>
 
@@ -391,7 +536,7 @@ async function main() {
   }
   document.getElementById("tb-mode").textContent = d.demo ? "demo data" : "live data";
   document.getElementById("report").innerHTML =
-    pageCover(d) + pageTable(d) + pageMomentum(d) + pageDetail(d) + pageMethod(d);
+    pageCover(d) + pageTable(d) + pageMomentum(d) + pageReddit(d) + pageShort(d) + pageDetail(d) + pageMethod(d);
   // canvases need a layout pass before drawing
   requestAnimationFrame(() => requestAnimationFrame(() => draw(d)));
   window.__reportReady = true;
