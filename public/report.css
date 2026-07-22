@@ -1,0 +1,162 @@
+/* EVO Market Trends Update — print-first, light theme (reads well on paper,
+   PDF, and email). Five fixed A4 pages. Palette from the data-viz reference. */
+:root {
+  --ink: #0b0b0b; --sub: #52514e; --muted: #898781; --line: #e1e0d9; --hair: #efeee9;
+  --surf: #f7f7f4; --card: #fcfcfb;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+  --up: #0f8b0f; --down: #d03b3b;
+  --up-soft: rgba(15, 139, 15, 0.12); --down-soft: rgba(208, 59, 59, 0.12);
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #e9e9e5; color: var(--ink); font-family: var(--font); font-size: 10.5px; line-height: 1.5; }
+
+/* ---- Toolbar (screen only) ---- */
+.toolbar {
+  position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 12px;
+  background: #1a1a19; color: #fff; padding: 10px 18px; font-size: 13px;
+}
+.toolbar .spacer { flex: 1; }
+.toolbar b { color: #7fd4a8; }
+.tb-link { color: #cfe0f5; text-decoration: none; }
+.tb-btn { background: var(--s1); color: #fff; border: 0; border-radius: 8px; padding: 7px 14px; font-size: 13px; cursor: pointer; font-family: inherit; }
+.loading { padding: 60px; text-align: center; color: var(--muted); }
+
+/* ---- Page model ---- */
+.report { padding: 20px 0 60px; }
+.page {
+  width: 210mm; min-height: 297mm; background: var(--card); margin: 0 auto 18px;
+  padding: 16mm 15mm 14mm; position: relative; box-shadow: 0 4px 24px rgba(0,0,0,.14);
+  display: flex; flex-direction: column;
+}
+.page-body { flex: 1; }
+
+/* ---- Shared header/footer ---- */
+.rhead { display: flex; align-items: center; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 9px; }
+.rhead .logo { font-weight: 800; font-size: 15px; letter-spacing: .5px; color: #fff;
+  background: linear-gradient(135deg, var(--s1), var(--s3)); border-radius: 7px; padding: 5px 9px; }
+.rhead .htxt h1 { font-size: 14px; letter-spacing: -.2px; }
+.rhead .htxt p { color: var(--muted); font-size: 9px; }
+.rhead .hmeta { margin-left: auto; text-align: right; color: var(--muted); font-size: 8.5px; }
+.rfoot { display: flex; justify-content: space-between; border-top: 1px solid var(--line);
+  padding-top: 7px; margin-top: 12px; color: var(--muted); font-size: 8px; }
+.page-title { font-size: 15px; margin: 14px 0 3px; letter-spacing: -.2px; }
+.page-sub { color: var(--sub); font-size: 10px; margin-bottom: 12px; }
+h3.sec { font-size: 10px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 16px 0 8px; }
+
+/* ---- Cover page ---- */
+.cover-hero { margin-top: 26px; }
+.cover-hero .kicker { color: var(--s1); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 10px; }
+.cover-hero h2 { font-size: 30px; line-height: 1.15; letter-spacing: -.6px; margin: 6px 0; }
+.cover-hero .when { color: var(--sub); font-size: 11px; }
+.mode-tag { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  padding: 2px 9px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
+.mode-live { background: var(--up-soft); color: var(--up); }
+.mode-demo { background: rgba(237,161,0,.16); color: #9a6b00; }
+
+.summary { margin-top: 22px; background: var(--surf); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.summary h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 6px; }
+.summary p { font-size: 12px; line-height: 1.6; }
+
+.statrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+.stat { border: 1px solid var(--line); border-radius: 10px; padding: 11px 13px; }
+.stat .l { color: var(--muted); font-size: 8.5px; text-transform: uppercase; letter-spacing: .4px; }
+.stat .v { font-size: 22px; font-weight: 700; letter-spacing: -.5px; margin-top: 3px; }
+.stat .s { color: var(--sub); font-size: 9px; margin-top: 1px; }
+
+/* Fear & Greed gauge */
+.gauge { display: flex; align-items: center; gap: 18px; margin-top: 20px; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.gauge .dial { width: 150px; height: 84px; flex: none; }
+.gauge .ginfo .gl { color: var(--muted); font-size: 9px; text-transform: uppercase; letter-spacing: .5px; }
+.gauge .ginfo .gv { font-size: 26px; font-weight: 700; }
+.gauge .ginfo .gc { font-size: 12px; font-weight: 600; }
+.gauge .ginfo p { color: var(--sub); font-size: 9.5px; margin-top: 4px; max-width: 300px; }
+
+.callouts { margin-top: 20px; }
+.callout { display: flex; align-items: baseline; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--hair); }
+.callout .rank { font-weight: 800; color: var(--s1); width: 18px; }
+.callout .co-sym { font-weight: 700; width: 62px; }
+.callout .co-text { color: var(--sub); font-size: 10px; flex: 1; }
+.callout .co-chg { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ---- Movers table ---- */
+table.movers { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+table.movers th { text-align: left; color: var(--muted); font-size: 8px; text-transform: uppercase; letter-spacing: .4px;
+  padding: 6px 6px; border-bottom: 1.5px solid var(--line); }
+table.movers td { padding: 7px 6px; border-bottom: 1px solid var(--hair); vertical-align: middle; }
+table.movers .num { text-align: right; font-variant-numeric: tabular-nums; }
+table.movers .rank { color: var(--muted); font-weight: 700; }
+table.movers .sym { font-weight: 700; }
+table.movers .nm { color: var(--muted); font-size: 8.5px; }
+.kindtag { font-size: 7.5px; font-weight: 700; text-transform: uppercase; padding: 1px 4px; border-radius: 4px;
+  background: var(--surf); color: var(--sub); border: 1px solid var(--line); }
+.chg { font-weight: 700; font-variant-numeric: tabular-nums; }
+.up { color: var(--up); } .down { color: var(--down); }
+.src-badges { display: flex; gap: 3px; flex-wrap: wrap; }
+.src-badge { font-size: 7px; text-transform: uppercase; letter-spacing: .2px; padding: 1px 4px; border-radius: 4px;
+  border: 1px solid var(--line); color: var(--sub); }
+.sent { font-size: 8px; font-weight: 700; text-transform: uppercase; padding: 1px 6px; border-radius: 999px; }
+.sent.bullish { background: var(--up-soft); color: var(--up); }
+.sent.bearish { background: var(--down-soft); color: var(--down); }
+.sent.neutral { background: var(--surf); color: var(--sub); }
+
+/* ---- Charts ---- */
+.chartbox { margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.chartbox .cap { color: var(--muted); font-size: 9px; margin-bottom: 6px; }
+.chartbox canvas { width: 100%; height: 150px; display: block; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
+.legend .item { display: flex; align-items: center; gap: 5px; font-size: 9px; color: var(--sub); }
+.legend .sw { width: 9px; height: 9px; border-radius: 2px; }
+
+/* ---- Momentum page ---- */
+.split2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.barlist .row { display: grid; grid-template-columns: 58px 1fr 52px; align-items: center; gap: 8px; padding: 4px 0; }
+.barlist .row .bsym { font-weight: 700; font-size: 9.5px; }
+.barlist .track { height: 12px; background: var(--surf); border-radius: 3px; position: relative; overflow: hidden; }
+.barlist .fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+.barlist .bval { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 9.5px; }
+.srcbars .srow { display: grid; grid-template-columns: 92px 1fr 30px; align-items: center; gap: 8px; padding: 5px 0; }
+.srcbars .track { height: 12px; background: var(--surf); border-radius: 3px; overflow: hidden; }
+.srcbars .fill { height: 100%; background: var(--s1); border-radius: 3px; }
+.srcbars .sname { font-size: 9.5px; }
+.srcbars .sct { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; font-size: 9.5px; }
+.mini-note { color: var(--sub); font-size: 9.5px; margin-top: 6px; }
+
+/* ---- Detail cards ---- */
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 6px; }
+.dcard { border: 1px solid var(--line); border-radius: 10px; padding: 11px 13px; }
+.dcard .dtop { display: flex; align-items: baseline; justify-content: space-between; }
+.dcard .dsym { font-weight: 800; font-size: 13px; }
+.dcard .dname { color: var(--muted); font-size: 8.5px; }
+.dcard .dprice { font-weight: 700; font-variant-numeric: tabular-nums; }
+.dcard canvas { width: 100%; height: 44px; display: block; margin: 8px 0; }
+.dcard .drow { display: flex; justify-content: space-between; font-size: 9px; padding: 2px 0; color: var(--sub); }
+.dcard .drow b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.dcard .dtitle { font-size: 8.5px; color: var(--sub); font-style: italic; margin-top: 6px; line-height: 1.4; border-top: 1px solid var(--hair); padding-top: 6px; }
+
+/* ---- Methodology page ---- */
+.method { font-size: 10px; }
+.method p { margin-bottom: 8px; }
+.formula { background: var(--surf); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  font-family: var(--mono); font-size: 9.5px; margin: 8px 0; }
+table.sources { width: 100%; border-collapse: collapse; font-size: 9.5px; margin-top: 4px; }
+table.sources th { text-align: left; color: var(--muted); font-size: 8px; text-transform: uppercase; letter-spacing: .4px; padding: 6px; border-bottom: 1.5px solid var(--line); }
+table.sources td { padding: 6px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+table.sources .snm { font-weight: 700; white-space: nowrap; }
+.disc-box { margin-top: 14px; background: #fff9ec; border: 1px solid #f0d795; border-left: 3px solid var(--s4);
+  border-radius: 8px; padding: 11px 14px; font-size: 9.5px; color: #6b5410; }
+ul.lim { list-style: none; font-size: 9.5px; }
+ul.lim li { position: relative; padding-left: 14px; margin-bottom: 5px; color: var(--sub); }
+ul.lim li::before { content: "▸"; position: absolute; left: 0; color: var(--muted); }
+
+/* ---- Print ---- */
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: #fff; }
+  .no-print { display: none !important; }
+  .report { padding: 0; }
+  .page { box-shadow: none; margin: 0; break-after: page; page-break-after: always; }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+}

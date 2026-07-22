@@ -205,11 +205,14 @@ function renderStats(data) {
   const top = movers[0];
   const hottest = [...movers].sort((a, b) => (b.change24h ?? -1e9) - (a.change24h ?? -1e9))[0];
 
+  const fg = data.market && data.market.fearGreed;
   const tiles = [
     { label: "Tracked movers", value: String(movers.length), sub: `${gainers} up · ${movers.length - gainers} down` },
     { label: "Avg 24h move", value: fmtPct(avg), sub: "across the top 10", cls: cls(avg) },
     { label: "Top by buzz", value: top ? top.symbol : "—", sub: top ? `score ${top.socialScore}` : "" },
-    { label: "Biggest 24h move", value: hottest ? fmtPct(hottest.change24h) : "—", sub: hottest ? hottest.symbol : "", cls: hottest ? cls(hottest.change24h) : "" },
+    fg
+      ? { label: "Fear & Greed", value: String(fg.value), sub: fg.label, cls: fg.value >= 55 ? "up" : fg.value <= 45 ? "down" : "" }
+      : { label: "Biggest 24h move", value: hottest ? fmtPct(hottest.change24h) : "—", sub: hottest ? hottest.symbol : "", cls: hottest ? cls(hottest.change24h) : "" },
   ];
   $("#stats").innerHTML = tiles.map((t) =>
     `<div class="tile"><div class="label">${t.label}</div>` +

@@ -1,16 +1,21 @@
 // EVO — Day Trader Trends Dashboard
 // Zero-dependency Node server (built-in modules only). Aggregates free, public,
 // no-key market + social data server-side (avoiding browser CORS) and serves a
-// single-page dashboard of the top social-media-driven movers with charts.
+// single-page dashboard of the top social-media-driven movers with charts, plus
+// a printable 5-page Market Trends Update at /report.
 //
 //   npm start           # then open http://localhost:3000
 //
 // Data sources (all free, no API key):
-//   - CoinGecko  /coins/markets           -> crypto prices, 24h/7d change, 7d sparkline
-//   - CoinGecko  /search/trending         -> search-trend signal (social proxy)
-//   - Stocktwits /trending/symbols        -> trending stock tickers + watchlist popularity
-//   - Reddit     r/wallstreetbets, r/CryptoCurrency /hot -> cashtag mentions (social)
-//   - Yahoo      /v8/finance/chart/<SYM>  -> stock price, % change, intraday sparkline
+//   - CoinGecko  /coins/markets      -> crypto prices, 24h/7d change, 7d sparkline
+//   - CoinGecko  /search/trending    -> search-trend signal (social proxy)
+//   - Binance    /ticker/24hr        -> broad crypto price + 24h movement universe
+//   - Binance    /klines             -> sparkline for crypto not covered by CoinGecko
+//   - Stocktwits /trending/symbols   -> trending stock tickers + watchlist popularity
+//   - Reddit     8 trading subs /hot -> cashtag mentions (social)
+//   - Hacker News (Algolia) frontpage-> tech/finance headline mentions (social/news)
+//   - Yahoo      /v8/finance/chart   -> stock price, % change, intraday sparkline
+//   - alternative.me /fng            -> Crypto Fear & Greed market-sentiment index
 
 import http from "node:http";
 import { readFile } from "node:fs/promises";
@@ -21,6 +26,18 @@ import { demoDashboard } from "./demo-data.js";
 const PORT = process.env.PORT || 3000;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = path.join(__dirname, "public");
+
+// Company/asset name -> ticker, used to catch plain-name mentions (Hacker News
+// headlines and Reddit titles rarely use $cashtags).
+const NAME_TO_TICKER = {
+  BITCOIN: "BTC", ETHEREUM: "ETH", SOLANA: "SOL", DOGECOIN: "DOGE", CARDANO: "ADA",
+  RIPPLE: "XRP", "SHIBA INU": "SHIB", CHAINLINK: "LINK", POLKADOT: "DOT", AVALANCHE: "AVAX",
+  TESLA: "TSLA", NVIDIA: "NVDA", APPLE: "AAPL", AMAZON: "AMZN", MICROSOFT: "MSFT",
+  GOOGLE: "GOOGL", ALPHABET: "GOOGL", META: "META", FACEBOOK: "META", NETFLIX: "NFLX",
+  GAMESTOP: "GME", PALANTIR: "PLTR", "MICRO DEVICES": "AMD", COINBASE: "COIN",
+  MICROSTRATEGY: "MSTR", "SUPER MICRO": "SMCI", BROADCOM: "AVGO", INTEL: "INTC",
+};
+const STABLE_OR_LEVERAGED = /^(USDT|USDC|BUSD|TUSD|FDUSD|DAI|USDP|EUR|GBP)$|UP$|DOWN$|BULL$|BEAR$/;
 
 // ---------------------------------------------------------------------------
 // Small HTTP JSON fetch helper (uses Node 18+ global fetch) with timeout.
@@ -81,9 +98,43 @@ async function fetchCryptoMarkets() {
       volume: c.total_volume,
       image: c.image,
       spark: (c.sparkline_in_7d && c.sparkline_in_7d.price) || [],
+      source: "CoinGecko",
     });
   }
   return map;
+}
+
+// Binance 24h tickers — broad crypto price + movement universe (USDT pairs).
+async function fetchBinanceUniverse() {
+  const rows = await getJSON("https://api.binance.com/api/v3/ticker/24hr");
+  const map = new Map();
+  for (const r of rows) {
+    const sym = String(r.symbol || "");
+    if (!sym.endsWith("USDT")) continue;
+    const base = sym.slice(0, -4).toUpperCase();
+    if (!base || STABLE_OR_LEVERAGED.test(base)) continue;
+    map.set(base, {
+      symbol: base,
+      name: base,
+      kind: "crypto",
+      price: parseFloat(r.lastPrice),
+      change24h: parseFloat(r.priceChangePercent),
+      change7d: null,
+      marketCap: null,
+      volume: parseFloat(r.quoteVolume),
+      image: null,
+      spark: [],
+      source: "Binance",
+    });
+  }
+  return map;
+}
+
+// Binance hourly klines -> a 7-day close sparkline for a single base symbol.
+async function fetchBinanceKlines(base) {
+  const url = `https://api.binance.com/api/v3/klines?symbol=${base}USDT&interval=1h&limit=168`;
+  const rows = await getJSON(url);
+  return rows.map((k) => parseFloat(k[4])).filter((v) => !Number.isNaN(v));
 }
 
 // CoinGecko "trending" search list — a social/search interest proxy for crypto.
@@ -93,12 +144,7 @@ async function fetchCryptoTrending() {
   const coins = (data && data.coins) || [];
   coins.forEach((entry, i) => {
     const item = entry.item || {};
-    out.push({
-      symbol: String(item.symbol || "").toUpperCase(),
-      name: item.name,
-      rank: i,
-      source: "CoinGecko Trending",
-    });
+    out.push({ symbol: String(item.symbol || "").toUpperCase(), name: item.name, rank: i });
   });
   return out;
 }
@@ -114,23 +160,37 @@ async function fetchStocktwitsTrending() {
       name: s.title,
       watchers: s.watchlist_count || 0,
       rank: i,
-      source: "Stocktwits",
     });
   });
   return out;
 }
 
-// Reddit cashtag mentions across a couple of trading subs.
-async function fetchRedditMentions() {
-  const subs = ["wallstreetbets", "CryptoCurrency", "stocks"];
-  const counts = new Map(); // SYM -> { mentions, titles:[] }
+// Scan a chunk of text for tickers: $cashtags plus known company/asset names.
+function extractTickers(text) {
+  const found = new Set();
+  const up = text.toUpperCase();
+  let m;
   const cashtag = /\$([A-Za-z]{1,6})\b/g;
+  while ((m = cashtag.exec(text)) !== null) found.add(m[1].toUpperCase());
+  for (const [name, tk] of Object.entries(NAME_TO_TICKER)) {
+    if (up.includes(name)) found.add(tk);
+  }
+  return [...found];
+}
+
+// Reddit cashtag/name mentions across a broad set of trading subs.
+async function fetchRedditMentions() {
+  const subs = [
+    "wallstreetbets", "CryptoCurrency", "stocks", "StockMarket",
+    "Daytrading", "options", "SatoshiStreetBets", "pennystocks",
+  ];
+  const counts = new Map(); // SYM -> { mentions, titles:[] }
   const results = await Promise.all(
     subs.map((sub) =>
       safe(
         `reddit/${sub}`,
         () =>
-          getJSON(`https://www.reddit.com/r/${sub}/hot.json?limit=50`, {
+          getJSON(`https://www.reddit.com/r/${sub}/hot.json?limit=40`, {
             headers: { "User-Agent": "web:evo-daytrader:1.0 (by /u/evo)" },
           }),
         null
@@ -141,13 +201,7 @@ async function fetchRedditMentions() {
     const posts = (data && data.data && data.data.children) || [];
     for (const p of posts) {
       const title = (p.data && p.data.title) || "";
-      const seen = new Set();
-      let m;
-      cashtag.lastIndex = 0;
-      while ((m = cashtag.exec(title)) !== null) {
-        const sym = m[1].toUpperCase();
-        if (seen.has(sym)) continue; // count each ticker once per post
-        seen.add(sym);
+      for (const sym of extractTickers(title)) {
         const cur = counts.get(sym) || { mentions: 0, titles: [] };
         cur.mentions += 1;
         if (cur.titles.length < 3) cur.titles.push(title);
@@ -156,6 +210,30 @@ async function fetchRedditMentions() {
     }
   }
   return counts;
+}
+
+// Hacker News (Algolia) front-page stories -> headline mentions (news/social).
+async function fetchHackerNews() {
+  const data = await getJSON("https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=50");
+  const counts = new Map();
+  for (const hit of (data && data.hits) || []) {
+    const title = hit.title || hit.story_title || "";
+    for (const sym of extractTickers(title)) {
+      const cur = counts.get(sym) || { mentions: 0, titles: [] };
+      cur.mentions += 1;
+      if (cur.titles.length < 2) cur.titles.push(title);
+      counts.set(sym, cur);
+    }
+  }
+  return counts;
+}
+
+// Crypto Fear & Greed Index (market-wide sentiment gauge).
+async function fetchFearGreed() {
+  const data = await getJSON("https://api.alternative.me/fng/?limit=1");
+  const d = (data && data.data && data.data[0]) || null;
+  if (!d) return null;
+  return { value: Number(d.value), label: d.value_classification };
 }
 
 // Yahoo Finance chart for a single stock symbol -> price, %chg, intraday spark.
@@ -186,6 +264,7 @@ async function fetchStockQuote(symbol) {
     volume: meta.regularMarketVolume || null,
     image: null,
     spark: closes.slice(-120),
+    source: "Yahoo Finance",
   };
 }
 
@@ -200,18 +279,24 @@ function classifySentiment(change) {
 }
 
 async function buildDashboard() {
-  const [crypto, cgTrending, stTrending, redditCounts] = await Promise.all([
-    safe("coingecko/markets", fetchCryptoMarkets, new Map()),
-    safe("coingecko/trending", fetchCryptoTrending, []),
-    safe("stocktwits/trending", fetchStocktwitsTrending, []),
-    safe("reddit/mentions", fetchRedditMentions, new Map()),
-  ]);
+  const [cgMarkets, binance, cgTrending, stTrending, redditCounts, hnCounts, fearGreed] =
+    await Promise.all([
+      safe("coingecko/markets", fetchCryptoMarkets, new Map()),
+      safe("binance/universe", fetchBinanceUniverse, new Map()),
+      safe("coingecko/trending", fetchCryptoTrending, []),
+      safe("stocktwits/trending", fetchStocktwitsTrending, []),
+      safe("reddit/mentions", fetchRedditMentions, new Map()),
+      safe("hackernews/frontpage", fetchHackerNews, new Map()),
+      safe("alternative.me/fng", fetchFearGreed, null),
+    ]);
+
+  // Unified crypto universe: prefer CoinGecko (has sparkline + market cap),
+  // fall back to Binance for breadth.
+  const crypto = new Map(binance);
+  for (const [sym, info] of cgMarkets) crypto.set(sym, info);
 
   // Score every candidate symbol by a weighted social signal.
-  //   Reddit mention  -> 3 each
-  //   Stocktwits rank -> up to ~6 (front of list weighs more) + watcher bonus
-  //   CoinGecko trend -> up to ~5 (front of list weighs more)
-  const scores = new Map(); // SYM -> { score, sources:Set, mentions, watchers, titles }
+  const scores = new Map();
   const bump = (sym, pts, source, extra = {}) => {
     if (!sym) return;
     const cur =
@@ -221,12 +306,15 @@ async function buildDashboard() {
     cur.sources.add(source);
     if (extra.mentions) cur.mentions += extra.mentions;
     if (extra.watchers) cur.watchers = Math.max(cur.watchers, extra.watchers);
-    if (extra.titles) cur.titles = cur.titles.concat(extra.titles).slice(0, 3);
+    if (extra.titles) cur.titles = cur.titles.concat(extra.titles).slice(0, 4);
     scores.set(sym, cur);
   };
 
   for (const [sym, info] of redditCounts) {
     bump(sym, info.mentions * 3, "Reddit", { mentions: info.mentions, titles: info.titles });
+  }
+  for (const [sym, info] of hnCounts) {
+    bump(sym, info.mentions * 2.5, "Hacker News", { mentions: info.mentions, titles: info.titles });
   }
   stTrending.forEach((s) => {
     const rankPts = Math.max(0, 6 - s.rank * 0.2);
@@ -237,12 +325,11 @@ async function buildDashboard() {
     bump(t.symbol, Math.max(0, 5 - t.rank * 0.3), "CoinGecko Trending");
   });
 
-  // Rank candidates, then attach price/movement data.
   const ranked = [...scores.values()].sort((a, b) => b.score - a.score);
 
   // Which of the top candidates are stocks needing a Yahoo lookup?
   const need = [];
-  for (const cand of ranked.slice(0, 24)) {
+  for (const cand of ranked.slice(0, 26)) {
     if (!crypto.has(cand.symbol)) need.push(cand.symbol);
     if (need.length >= 14) break;
   }
@@ -270,6 +357,7 @@ async function buildDashboard() {
       marketCap: market.marketCap,
       image: market.image,
       spark: market.spark || [],
+      priceSource: market.source,
       socialScore: Math.round(cand.score * 10) / 10,
       mentions: cand.mentions,
       watchers: cand.watchers,
@@ -280,13 +368,25 @@ async function buildDashboard() {
     if (movers.length >= 10) break;
   }
 
+  // Backfill sparklines for crypto movers that came from Binance (no sparkline).
+  await Promise.all(
+    movers
+      .filter((m) => m.kind === "crypto" && (!m.spark || m.spark.length < 2))
+      .map(async (m) => {
+        m.spark = await safe(`binance/klines/${m.symbol}`, () => fetchBinanceKlines(m.symbol), []);
+      })
+  );
+
   return {
     generatedAt: new Date().toISOString(),
     universeSize: crypto.size,
+    market: { fearGreed },
     counts: {
       redditSymbols: redditCounts.size,
+      hackerNews: hnCounts.size,
       stocktwits: stTrending.length,
       cryptoTrending: cgTrending.length,
+      binance: binance.size,
     },
     movers,
   };
@@ -333,6 +433,7 @@ const MIME = {
 async function serveStatic(req, res) {
   let rel = decodeURIComponent(req.url.split("?")[0]);
   if (rel === "/") rel = "/index.html";
+  if (rel === "/report") rel = "/report.html";
   const filePath = path.join(PUBLIC_DIR, path.normalize(rel));
   if (!filePath.startsWith(PUBLIC_DIR)) {
     res.writeHead(403).end("Forbidden");
@@ -367,5 +468,6 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`\n  EVO Day Trader Trends Dashboard`);
-  console.log(`  ▸ http://localhost:${PORT}\n`);
+  console.log(`  ▸ dashboard: http://localhost:${PORT}`);
+  console.log(`  ▸ report:    http://localhost:${PORT}/report\n`);
 });
