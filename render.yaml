@@ -1,0 +1,12 @@
+# Render Blueprint — one-click deploy of the EVO dashboard as an always-on web
+# service. In the Render dashboard: New ▸ Blueprint ▸ connect this repo, and pick
+# the branch below. Render injects PORT; the app already listens on it.
+services:
+  - type: web
+    name: evo-daytrader
+    runtime: docker
+    plan: free
+    branch: claude/day-trader-trends-dashboard-8lysev
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    autoDeploy: true

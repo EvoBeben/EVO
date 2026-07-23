@@ -100,6 +100,40 @@ npm start          # or: node server.js
 
 Change the port with `PORT=8080 npm start`.
 
+## Deploy (always-on URL)
+
+The app is containerized and reads `PORT` from the environment, so it runs on any
+host with zero config. No build step, no database, no secrets.
+
+### Docker
+
+```bash
+docker build -t evo-daytrader .
+docker run -p 3000:3000 evo-daytrader
+# open http://localhost:3000
+```
+
+### Render (free, one-click via Blueprint)
+
+A [`render.yaml`](./render.yaml) blueprint is included. In the
+[Render dashboard](https://dashboard.render.com/): **New ▸ Blueprint**, connect
+this repo, and select the branch (`claude/day-trader-trends-dashboard-8lysev`).
+Render builds the Dockerfile, injects `PORT`, health-checks `/`, and gives you a
+public `https://…onrender.com` URL that redeploys on every push. (On the free
+tier the instance sleeps after inactivity and wakes on the next request.)
+
+### Railway / Fly.io
+
+Both detect the Dockerfile automatically:
+
+```bash
+# Railway:  railway up          (from the repo root)
+# Fly.io:   fly launch          (accept the detected Dockerfile, then `fly deploy`)
+```
+
+> The dashboard fetches public data at runtime, so the host must allow outbound
+> HTTPS (all the platforms above do by default). No API keys are required.
+
 ### Demo mode
 
 If **every** live source is unreachable (offline, rate-limited, or blocked by a
@@ -110,6 +144,8 @@ presented as live data. Run on an unrestricted connection for live data.
 ## Project layout
 
 ```
+Dockerfile      # container image (zero-dep, no build step)
+render.yaml     # Render Blueprint for one-click always-on deploy
 server.js       # zero-dependency Node server: source adapters, scoring, cache, API + static
 demo-data.js    # labeled offline fallback dataset
 public/
