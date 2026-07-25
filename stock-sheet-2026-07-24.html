@@ -130,89 +130,94 @@
 
   footer { border-top:1px solid var(--rule); padding-top:14px; font-family:var(--mono); font-size:11px; color:var(--ink-3); line-height:1.7; }
 
-  /* ---------- print: sheet on page 1, sources as appendix ---------- */
-  @page { size:A3 portrait; margin:12mm 11mm; }
+  /* ---------- print: dark, three A4 pages ---------- */
+  @page { size:A4 portrait; margin:0; }
   @media print {
-    :root {
-      --paper:#FFFFFF; --surface:#FFFFFF; --surface-2:#FAFBFC; --inset:#F4F6F9;
-      --ink:#0F151D; --ink-2:#414C59; --ink-3:#6B7885;
-      --rule:#D5DCE4; --rule-2:#B9C4D0;
-      --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D;
-      --bar-track:#E6EAEF;
+    /* dark palette, tuned for print rendering — must outrank the theme attribute */
+    :root, :root[data-theme="dark"], :root[data-theme="light"] {
+      --paper:#0D1117; --surface:#161D26; --surface-2:#1B222C; --inset:#111820;
+      --ink:#EDF1F6; --ink-2:#B6C1CE; --ink-3:#8492A1;
+      --rule:#2A343F; --rule-2:#3A4653;
+      --accent:#8FADF7; --up:#3FCFA3; --down:#FF8168; --ember:#EE9A55;
+      --bar-track:#242E39;
     }
     * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
-    body { background:#FFFFFF; font-size:8.1px; line-height:1.4; }
-    .sheet { max-width:none; padding:0; gap:6px; }
+    html, body { background:var(--paper) !important; }
+    body { color:var(--ink); font-size:10px; line-height:1.46; }
+    .sheet { max-width:none; padding:11mm 11mm; gap:8px; }
 
-    .masthead { padding-bottom:7px; border-bottom-width:1.5px; gap:5px; }
-    .masthead h1 { font-size:25px; }
-    .eyebrow { font-size:6.6px; }
-    .dateline { font-size:7px; }
-    .thesis { font-size:9.1px; line-height:1.4; max-width:none; }
+    .masthead { padding-bottom:9px; border-bottom-width:2px; gap:6px; }
+    .masthead h1 { font-size:27px; }
+    .eyebrow { font-size:9px; }
+    .dateline { font-size:9.4px; }
+    .thesis { font-size:11.1px; line-height:1.45; max-width:none; }
 
-    .stats { grid-template-columns:repeat(6,1fr); }
-    .stat { padding:6px 8px 7px; gap:1px; }
-    .stat-k { font-size:6.2px; }
-    .stat-v { font-size:12.5px; }
-    .stat-d { font-size:6.8px; }
+    .stats { grid-template-columns:repeat(3,1fr); }
+    .stat { padding:7px 11px 8px; gap:1px; }
+    .stat-k { font-size:8.4px; }
+    .stat-v { font-size:14.6px; }
+    .stat-d { font-size:9.2px; }
 
-    .sec-head { padding-bottom:4px; margin-bottom:7px; }
-    .sec-head h2 { font-size:12.5px; }
-    .sec-note { font-size:6.6px; }
+    .sec-head { padding-bottom:5px; margin-bottom:8px; }
+    .sec-head h2 { font-size:15px; }
+    .sec-note { font-size:9px; }
 
-    .boards { grid-template-columns:1fr 1fr; gap:9px; }
-    .board-head { padding:6px 9px; }
-    .board-head h3 { font-size:10px; }
-    .board-sub { font-size:6.2px; }
-    ol.rows li { padding:4.1px 9px 4.5px; gap:1px 6px; }
-    .rk { font-size:6.4px; }
-    .tkr { font-size:8.3px; }
-    .co { font-size:7.2px; }
-    .pct { font-size:9.2px; }
-    .bar { height:3.6px; margin:2px 0 1px; }
-    .why { font-size:7.1px; line-height:1.33; }
-    .why b { font-size:6.2px; }
-    .also { padding:5px 9px; font-size:6.9px; line-height:1.35; }
-    .also b { font-size:6.2px; }
+    /* one board per page, full width */
+    .boards { grid-template-columns:1fr; gap:0; }
+    .board + .board { break-before:page; margin-top:0; }
+    .board-head { padding:9px 13px; }
+    .board-head h3 { font-size:14px; }
+    .dir { font-size:13px; }
+    .board-sub { font-size:8.4px; }
+    ol.rows li { padding:5.8px 13px 6.2px; gap:1.5px 9px; grid-template-columns:24px 1fr auto; }
+    .rk { font-size:8.6px; }
+    .tkr { font-size:10.6px; }
+    .co { font-size:9.6px; }
+    .pct { font-size:12px; }
+    .bar { height:5px; margin:3px 0 2px; }
+    .why { font-size:9.2px; line-height:1.4; }
+    .why b { font-size:8.4px; }
+    .also { padding:6px 13px; font-size:8.7px; line-height:1.38; }
+    .also b { font-size:8.4px; }
 
-    .callout { padding:7px 10px; gap:2px; border-left-width:2px; }
-    .callout h3 { font-size:9.4px; }
-    .callout p { font-size:7.4px; line-height:1.38; max-width:none; }
+    .callout { padding:9px 13px; gap:3px; border-left-width:3px; }
+    .callout h3 { font-size:12px; }
+    .callout p { font-size:9.4px; line-height:1.4; max-width:none; }
 
     .macro { grid-template-columns:repeat(3,1fr); }
-    .mcard { padding:6px 9px; gap:2px; }
-    .mcard h4 { font-size:6.2px; }
-    .mcard p { font-size:7.2px; line-height:1.36; }
+    .mcard { padding:6.5px 11px; gap:2px; }
+    .mcard h4 { font-size:7.9px; }
+    .mcard p { font-size:8.9px; line-height:1.4; }
 
-    .reddit { padding:8px 11px 9px; gap:5px; border-top-width:2px; }
-    .reddit-head h2 { font-size:11.5px; }
-    .tag { font-size:6px; padding:1px 5px; }
-    .warn { font-size:7.1px; line-height:1.36; max-width:none; }
-    .rgrid { grid-template-columns:repeat(4,1fr); }
-    .rcard { padding:6px 8px; gap:2px; }
-    .rcard .tkr { font-size:8px; }
-    .rcard p { font-size:7px; line-height:1.34; }
-    .rrank { font-size:6px; }
-    .sent { font-size:6.4px; }
+    /* final page: retail layer, method, sources */
+    .reddit { break-before:page; padding:12px 15px 13px; gap:8px; border-top-width:3px; }
+    .reddit-head h2 { font-size:16px; }
+    .tag { font-size:8.2px; padding:2px 7px; }
+    .warn { font-size:9.9px; line-height:1.44; max-width:none; }
+    .rgrid { grid-template-columns:repeat(2,1fr); }
+    .rcard { padding:9px 11px; gap:3px; }
+    .rcard .tkr { font-size:11px; }
+    .rcard p { font-size:9.7px; line-height:1.42; }
+    .rrank { font-size:8.2px; }
+    .sent { font-size:8.8px; }
 
-    .method { padding:6px 10px; font-size:6.9px; line-height:1.38; }
+    .method { padding:10px 13px; font-size:9.6px; line-height:1.46; }
 
-    /* sources — always expanded in print, kept on the sheet */
-    details.src > summary { list-style:none; font-size:9px; padding:0 0 6px; border-bottom:1.5px solid var(--ink); margin-bottom:10px; }
+    /* sources — always expanded in print */
+    details.src > summary { list-style:none; font-size:12px; padding:0 0 7px; border-bottom:2px solid var(--ink); margin-bottom:11px; }
     details.src > summary::-webkit-details-marker { display:none; }
-    .src-body { display:block !important; padding:0; }
-    .src-body { columns:3; column-gap:14px; }
-    .src-group { margin-bottom:7px; break-inside:avoid; }
-    .src-group h4 { font-size:6.2px; margin-bottom:4px; }
-    .src-group ol { columns:1; font-size:6.8px; line-height:1.35; }
-    .src-group li { margin-bottom:1.5px; }
+    .src-body { display:block !important; padding:0; columns:3; column-gap:16px; }
+    .src-group { margin-bottom:11px; break-inside:avoid; }
+    .src-group h4 { font-size:7.8px; margin-bottom:4px; }
+    .src-group ol { columns:1; font-size:8.4px; line-height:1.4; }
+    .src-group li { margin-bottom:2.5px; }
     .src-group li a { color:var(--ink-2); }
 
-    footer { padding-top:6px; font-size:6.6px; line-height:1.45; }
+    footer { padding-top:9px; font-size:8.8px; line-height:1.55; }
 
-    /* keep units intact across page breaks — whole grids, not just their cells */
-    .stats, .macro, .rgrid, .boards, .board, .callout, .mcard, .rcard, .stat,
-    .reddit, .method, .src-group, ol.rows li, .src-group li { break-inside:avoid; }
+    /* keep units intact across page breaks */
+    .stats, .macro, .rgrid, .callout, .mcard, .rcard, .stat,
+    .method, .src-group, ol.rows li, .src-group li { break-inside:avoid; }
     .masthead, .sec-head { break-after:avoid; }
     a { text-decoration:none; }
   }
