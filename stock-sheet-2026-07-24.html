@@ -130,6 +130,72 @@
 
   footer { border-top:1px solid var(--rule); padding-top:14px; font-family:var(--mono); font-size:11px; color:var(--ink-3); line-height:1.7; }
 
+  /* ---------- phone: bigger type, one column, no pinch-zoom ---------- */
+  @media (max-width: 700px) {
+    body { font-size:16px; line-height:1.55; }
+    .sheet { padding:22px 14px 44px; gap:26px; }
+
+    .masthead { padding-bottom:15px; gap:10px; }
+    .masthead-top { flex-direction:column; gap:9px; }
+    .masthead h1 { font-size:2.15rem; }
+    .dateline { font-size:11.5px; }
+    .thesis { font-size:1.06rem; line-height:1.5; }
+
+    .stats { grid-template-columns:1fr 1fr; }
+    .stat { padding:11px 12px 12px; }
+    .stat-k { font-size:10px; letter-spacing:.1em; }
+    .stat-v { font-size:1.2rem; }
+    .stat-d { font-size:11px; }
+
+    .sec-head { flex-wrap:wrap; gap:3px 12px; margin-bottom:14px; }
+    .sec-head h2 { font-size:1.3rem; }
+    .sec-note { margin-left:0; text-align:left; width:100%; font-size:10.5px; }
+
+    /* boards stack; rows stay scannable — ticker and move on one line */
+    .boards { grid-template-columns:1fr; gap:22px; }
+    .board-head { padding:13px 14px; }
+    .board-head h3 { font-size:1.1rem; }
+    ol.rows li { padding:13px 14px 14px; grid-template-columns:20px 1fr auto; gap:3px 8px; }
+    .rk { font-size:10.5px; }
+    .tkr { font-size:15px; }
+    .co { font-size:13.5px; }
+    .pct { font-size:16px; }
+    .bar { height:7px; margin:5px 0 3px; }
+    .why { font-size:14px; line-height:1.5; }
+    .why b { font-size:11px; }
+    .also { padding:12px 14px; font-size:13.5px; line-height:1.5; }
+    .also b { font-size:11px; }
+
+    .callout { padding:14px 15px; }
+    .callout h3 { font-size:1.05rem; }
+    .callout p { font-size:14px; line-height:1.52; }
+
+    .macro { grid-template-columns:1fr; }
+    .mcard { padding:13px 14px; }
+    .mcard h4 { font-size:10px; }
+    .mcard p { font-size:14px; line-height:1.52; }
+
+    .reddit { padding:18px 14px 20px; gap:14px; }
+    .reddit-head h2 { font-size:1.25rem; }
+    .warn { font-size:13.5px; line-height:1.52; }
+    .rgrid { grid-template-columns:1fr; }
+    .rcard { padding:12px 14px; }
+    .rcard .tkr { font-size:14px; }
+    .rcard p { font-size:13.5px; line-height:1.5; }
+    .sent { font-size:11px; }
+
+    .method { padding:14px 15px; font-size:13.5px; line-height:1.55; }
+
+    details.src > summary { padding:15px; font-size:12px; }
+    .src-body { padding:0 15px 20px; gap:20px; }
+    .src-group ol { columns:1; font-size:13.5px; }
+    .src-group li { margin-bottom:8px; }
+    .src-group li a { text-decoration:underline; text-underline-offset:2px; }
+
+    footer { font-size:11px; line-height:1.75; }
+  }
+
+
   /* ---------- print: dark, three A4 pages ---------- */
   @page { size:A4 portrait; margin:0; }
   @media print {
