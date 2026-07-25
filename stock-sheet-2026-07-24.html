@@ -130,7 +130,7 @@
   .callout p { font-size:13.5px; color:var(--ink-2); max-width:74ch; }
 
   /* ---------- macro ---------- */
-  .macro { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2px; background:var(--rule); border:1px solid var(--rule); }
+  .macro { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2px; background:var(--rule); border:1px solid var(--rule); }
   .mcard { background:var(--surface); padding:15px 18px; display:flex; flex-direction:column; gap:5px; }
   .mcard h4 { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
   .mcard p { font-size:13px; color:var(--ink-2); }
@@ -240,7 +240,7 @@
      Page box is 120mm wide, so the <=700px phone rules above drive the layout.
      Height is set to the full content height, so the PDF is a single ribbon
      with no page breaks anywhere. page height is measured from the content (8756 CSS px at 120mm wide). */
-  @page { size:120mm 2941mm; margin:0; }
+  @page { size:120mm 2953mm; margin:0; }
   @media print {
     /* dark palette — must outrank the data-theme attribute */
     :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -621,7 +621,10 @@
       <li><i class="pv pv-s">&#9682;</i><span><strong>Single source</strong>, or derived arithmetically from two reported closing prices. Not cross-checked. Values shown with <code>&asymp;</code> are derived rather than reported directly.</span></li>
       <li><i class="pv pv-n">&#9675;</i><span><strong>Not sourced.</strong> No figure for that window survived checking, so the cell reads <code>n/a</code> and shows a bare axis rather than an estimated bar. This applies to the 30&nbsp;day column for MU, NOW, ROL, MOH and INTC.</span></li>
     </ul>
-    <p><strong>Known limitations.</strong> As-of dates are not uniform &mdash; vendor snapshots range from roughly 14 to 24 July, so a &ldquo;30 day&rdquo; window is not the same 30 days for every row. Several sources were undated, and a few were plainly stale relative to the week&rsquo;s events: the HOOD 30&nbsp;day figure covers 5 June to 7 July and predates this week entirely, and the SMCI 30&nbsp;day average combines a mid-July snapshot with a post-earnings derivation, which is why it nets to roughly flat despite a 25% move on the week. <strong>The mini charts are net-change slopes, not price paths.</strong> Each panel runs flat at the period start and ends at the reported return, so its gradient shows direction and size of the net move &mdash; left panel the 7 day window, right panel the 30 day. They share one <code>&plusmn;40%</code> vertical scale, so gradients are comparable across every row and both windows; four cells run past it &mdash; UTZ on both windows and LESL on both &mdash; and carry an arrowhead to say so, with the true figure always printed beside the panel. The straight line is deliberate: no daily closes were reachable, so the shape between the two endpoints is unknown and is not drawn. A name can end a window flat having moved sharply in between &mdash; MU round-tripped a 12% gain inside this very week &mdash; and that detour is invisible here by design. Percentages are price returns and exclude dividends. LESL is a distressed situation where the quoted price moved faster than the sources tracking it.</p>
+    <p><strong>Windows are not aligned.</strong> As-of dates are not uniform &mdash; vendor snapshots range from roughly 14 to 24 July, so a &ldquo;30 day&rdquo; window is not the same 30 days for every row. Several sources were undated. Two are plainly stale relative to the week&rsquo;s events: the HOOD 30&nbsp;day figure covers 5 June to 7 July and predates this week entirely, and the SMCI 30&nbsp;day average combines a mid-July snapshot with a post-earnings derivation, which is why it nets to roughly flat despite a 25% move on the week.</p>
+      <p><strong>The charts are net-change slopes, not price paths.</strong> Each panel runs flat at the period start and ends at the reported return, so its gradient shows the direction and size of the net move &mdash; left panel the 7&nbsp;day window, right panel the 30&nbsp;day. They share one <code>&plusmn;40%</code> vertical scale, so gradients are comparable across every row and both windows; four cells run past it (UTZ and LESL, both windows each) and carry an arrowhead to say so, with the true figure always printed beside the panel.</p>
+      <p><strong>The straight line is deliberate.</strong> No daily closes were reachable when this was compiled, so the shape between the two endpoints is unknown and is not drawn rather than guessed. A name can finish a window flat having moved sharply in between &mdash; MU round-tripped a 12% gain inside this very week &mdash; and that detour is invisible here by design.</p>
+      <p>Percentages are price returns and exclude dividends. LESL is a distressed situation in which the quoted price moved faster than the sources tracking it.</p>
   </section>
 
   <details class="src">

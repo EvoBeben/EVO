@@ -51,24 +51,35 @@ Two artefacts, same source file:
 - Print CSS states its layout explicitly — the print layout viewport is *not* the
   page box width, so `max-width` media queries do not apply to it
 
-## Outstanding
+## Status
 
-Replace the two-endpoint slopes with **real per-day lines** — 7 points and 30
-points, each day averaged across every available source.
+**Complete.** Built from the data reachable in this environment.
 
-Blocked in the original session: no daily closes were reachable. Direct HTTP to
-Yahoo/Stooq/Nasdaq/AlphaVantage/FMP/TwelveData was refused by the egress policy,
-WebFetch returned 403 on every finance host tried, and WebSearch yields roughly
-one approximate price per query against a 460-point requirement.
+## Documented limitation — per-day series
 
-Needs `query1.finance.yahoo.com` or `stooq.com` reachable — either gives all
-460 closes in about 20 requests. Verify with:
+Real per-day lines (7 and 30 points, each day averaged across sources) were
+requested and could not be built. No daily closes were reachable:
+
+- Direct HTTP to Yahoo, Stooq, Nasdaq, Alpha Vantage, FMP and Twelve Data was
+  refused by the egress policy at the proxy (`CONNECT` 403)
+- WebFetch returned 403 on every finance host tried (stockanalysis, macrotrends,
+  slickcharts, WSJ, financecharts, stockinvest, nasdaq.com, companiesmarketcap)
+- WebSearch returns roughly one approximate figure per query — often intraday
+  rather than a settled close — against a 460-point requirement
+
+Interpolating between the two known endpoints was rejected deliberately: evenly
+spaced points on a straight line carry no information the slope does not already
+carry, while looking like a real price history. The panels therefore draw only
+what is known, and the source log says so on the sheet itself.
+
+If a future session can reach `query1.finance.yahoo.com` or `stooq.com`, all 460
+closes come down in about 20 requests. Verify first with:
 
 ```
 curl -sS "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?range=1mo&interval=1d"
 ```
 
-If that returns JSON, pull 23 trading days (24 Jun – 24 Jul 2026) for all 20
-tickers, average across sources where they disagree, and redraw both panels.
-Note a 30-point line in a ~90px panel is ~3px per point — daily detail pays off
-on the 7 day side; weekly points may read better on the 30 day side.
+Then pull 23 trading days (24 Jun – 24 Jul 2026) for all 20 tickers, average
+where sources disagree, and redraw both panels. Note a 30-point line in a ~90px
+panel is ~3px per point — daily detail pays off on the 7 day side; weekly points
+may read better on the 30 day side.
