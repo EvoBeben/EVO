@@ -74,7 +74,7 @@
   .dir { font-family:var(--mono); font-size:15px; font-weight:700; }
   .board-sub { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-left:auto; }
   ol.rows { list-style:none; }
-  ol.rows li { padding:11px 18px 12px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk name pct" ". bar bar" ". why why"; gap:3px 10px; align-items:baseline; }
+  ol.rows li { padding:11px 18px 12px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk name pct" ". bar bar" ". trail trail" ". why why"; gap:3px 10px; align-items:baseline; }
   ol.rows li:last-child { border-bottom:0; }
   .rk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
   .name { grid-area:name; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:baseline; min-width:0; }
@@ -88,6 +88,23 @@
   .why b { font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
   .also { padding:11px 18px; background:var(--surface-2); font-size:12.5px; color:var(--ink-2); border-top:1px solid var(--rule); }
   .also b { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:400; display:block; margin-bottom:2px; }
+
+
+  /* ---------- 7d / 30d trail (merged, averaged price data) ---------- */
+  .trail { grid-area:trail; display:flex; flex-wrap:wrap; align-items:baseline; gap:3px 7px; font-family:var(--mono); font-size:10.5px; font-variant-numeric:tabular-nums; color:var(--ink-3); margin:1px 0 2px; }
+  .trail b { font-weight:400; letter-spacing:.09em; color:var(--ink-3); opacity:.75; }
+  .trail em { font-style:normal; color:var(--ink-2); }
+  .trail .pv { font-style:normal; font-size:8px; line-height:1; margin-left:1px; }
+  .pv-a { color:var(--accent); } .pv-s { color:var(--ink-3); } .pv-n { color:var(--ink-3); opacity:.5; }
+
+  /* ---------- provenance log ---------- */
+  .prov { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--ember); padding:16px 20px; display:flex; flex-direction:column; gap:9px; }
+  .prov h3 { font-family:var(--serif); font-size:1.08rem; font-weight:600; }
+  .prov p { font-size:13px; color:var(--ink-2); max-width:82ch; }
+  .prov ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .prov li { font-size:12.5px; color:var(--ink-2); display:flex; gap:8px; align-items:baseline; }
+  .prov li i { font-style:normal; font-size:9px; line-height:1.6; }
+  .prov code { font-family:var(--mono); font-size:11.5px; color:var(--ink); }
 
   /* ---------- callout ---------- */
   .callout { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent); padding:16px 20px; display:flex; flex-direction:column; gap:6px; }
@@ -161,6 +178,10 @@
     .co { font-size:13.5px; }
     .pct { font-size:16px; }
     .bar { height:7px; margin:5px 0 3px; }
+    .trail { font-size:11.5px; gap:3px 8px; }
+    .trail .pv { font-size:9px; }
+    .prov { padding:14px 15px; }
+    .prov p, .prov li { font-size:13.5px; }
     .why { font-size:14px; line-height:1.5; }
     .why b { font-size:11px; }
     .also { padding:12px 14px; font-size:13.5px; line-height:1.5; }
@@ -200,7 +221,7 @@
      Page box is 120mm wide, so the <=700px phone rules above drive the layout.
      Height is set to the full content height, so the PDF is a single ribbon
      with no page breaks anywhere. page height is measured from the content (8756 CSS px at 120mm wide). */
-  @page { size:120mm 2292mm; margin:0; }
+  @page { size:120mm 2673mm; margin:0; }
   @media print {
     /* dark palette — must outrank the data-theme attribute */
     :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -243,6 +264,10 @@
     .co { font-size:13.5px; }
     .pct { font-size:16px; }
     .bar { height:7px; margin:5px 0 3px; }
+    .trail { font-size:11.5px; gap:3px 8px; }
+    .trail .pv { font-size:9px; }
+    .prov { padding:14px 15px; }
+    .prov p, .prov li { font-size:13.5px; }
     .why { font-size:14px; line-height:1.5; }
     .why b { font-size:11px; }
     .also { padding:12px 14px; font-size:13.5px; line-height:1.5; }
@@ -321,6 +346,7 @@
             <span class="name"><span class="tkr">UTZ</span><span class="co">Utz Brands</span></span>
             <span class="pct pos">+89.2%</span>
             <span class="bar u"><span style="width:99.1%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>+89.2%</em> <b>30D</b> <em>&asymp; +86%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Tue 21</b> &middot; Taken private by Intersnack Group in a $2.9bn deal. The week's only true one-off &mdash; a closed-end event, not a trend.</span>
           </li>
           <li>
@@ -328,6 +354,7 @@
             <span class="name"><span class="tkr">SMCI</span><span class="co">Super Micro Computer</span></span>
             <span class="pct pos">+25.0%</span>
             <span class="bar u"><span style="width:27.8%"></span></span>
+            <span class="trail" title="2+ sources, averaged"><b>7D</b> <em>&asymp; +28%</em> <b>30D</b> <em>&asymp; &minus;1%</em><i class="pv pv-a">&#9679;</i></span>
             <span class="why"><b>Tue&ndash;Wed</b> &middot; Over $60bn of new Q4 orders, record backlog, and gross-margin guidance lifted from 8.2&ndash;8.4% to 15&ndash;17%. Plans an AI data centre with SpaceX.</span>
           </li>
           <li>
@@ -335,6 +362,7 @@
             <span class="name"><span class="tkr">ACHR</span><span class="co">Archer Aviation</span></span>
             <span class="pct pos">+22.0%</span>
             <span class="bar u"><span style="width:24.4%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>+22.0%</em> <b>30D</b> <em>&minus;13.1%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Mon 20</b> &middot; Defence-tech partnership; the single largest one-day move of Monday's session.</span>
           </li>
           <li>
@@ -342,6 +370,7 @@
             <span class="name"><span class="tkr">NBIS</span><span class="co">Nebius Group</span></span>
             <span class="pct pos">+18.9%</span>
             <span class="bar u"><span style="width:21.0%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>&asymp; +19%</em> <b>30D</b> <em>&minus;24%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Tue 21</b> &middot; Nvidia disclosed a 9.3% stake in the neocloud &mdash; ~22.3m shares, tracing to a $2bn March investment. Analyst targets followed.</span>
           </li>
           <li>
@@ -349,6 +378,7 @@
             <span class="name"><span class="tkr">MU</span><span class="co">Micron Technology</span></span>
             <span class="pct pos">+12.0%</span>
             <span class="bar u"><span style="width:13.3%"></span></span>
+            <span class="trail" title="not sourced"><b>7D</b> <em>&asymp; +4%</em> <b>30D</b> <em>not sourced</em><i class="pv pv-n">&#9675;</i></span>
             <span class="why"><b>Tue 21</b> &middot; Memory melt-up: WDC and STX each rose about the same, the DRAM ETF +11%. Round-tripped by Friday &mdash; see below.</span>
           </li>
           <li>
@@ -356,6 +386,7 @@
             <span class="name"><span class="tkr">COIN</span><span class="co">Coinbase</span></span>
             <span class="pct pos">+9.6%</span>
             <span class="bar u"><span style="width:10.7%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>&asymp; +10%</em> <b>30D</b> <em>&minus;32%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Tue 21</b> &middot; Bitcoin hit its highest since 16 June on CLARITY Act optimism and a fifth straight day of spot-ETF inflows.</span>
           </li>
           <li>
@@ -363,6 +394,7 @@
             <span class="name"><span class="tkr">WULF</span><span class="co">TeraWulf</span></span>
             <span class="pct pos">+8.0%</span>
             <span class="bar u"><span style="width:8.9%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>+8.0%</em> <b>30D</b> <em>&asymp; &minus;23%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Tue 21</b> &middot; Carried up in the same crypto-equity bid as COIN and HOOD.</span>
           </li>
           <li>
@@ -370,6 +402,7 @@
             <span class="name"><span class="tkr">NOW</span><span class="co">ServiceNow</span></span>
             <span class="pct pos">+7.3%</span>
             <span class="bar u"><span style="width:8.1%"></span></span>
+            <span class="trail" title="not sourced"><b>7D</b> <em>+7.3%</em> <b>30D</b> <em>not sourced</em><i class="pv pv-n">&#9675;</i></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.90 vs $0.85&ndash;0.86 est, subscription revenue +23%, FY guidance raised, AI ACV past $1bn. A rare beat that was actually paid for.</span>
           </li>
           <li>
@@ -377,6 +410,7 @@
             <span class="name"><span class="tkr">HOOD</span><span class="co">Robinhood</span></span>
             <span class="pct pos">+7.1%</span>
             <span class="bar u"><span style="width:7.9%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>+7.1%</em> <b>30D</b> <em>+36.9%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Tue 21</b> &middot; Crypto-linked bid; closed at $106.36.</span>
           </li>
           <li>
@@ -384,6 +418,7 @@
             <span class="name"><span class="tkr">HAS</span><span class="co">Hasbro</span></span>
             <span class="pct pos">+7.0%</span>
             <span class="bar u"><span style="width:7.8%"></span></span>
+            <span class="trail" title="2+ sources, averaged"><b>7D</b> <em>+7.0%</em> <b>30D</b> <em>&minus;5.7%</em><i class="pv pv-a">&#9679;</i></span>
             <span class="why"><b>Tue 21</b> &middot; Q2 beat on both lines, FY adjusted EBITDA guidance raised.</span>
           </li>
         </ol>
@@ -402,6 +437,7 @@
             <span class="name"><span class="tkr">LESL</span><span class="co">Leslie's</span></span>
             <span class="pct neg">&minus;47.0%</span>
             <span class="bar d"><span style="width:52.2%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>&asymp; &minus;60%</em> <b>30D</b> <em>&asymp; &minus;60%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Wed 22</b> &middot; Weighing Chapter 11. About $757m of debt against $61m FY25 adjusted EBITDA &mdash; roughly 12.5&times; leverage. Down over 99% since its 2020 IPO.</span>
           </li>
           <li>
@@ -409,6 +445,7 @@
             <span class="name"><span class="tkr">ACI</span><span class="co">Albertsons</span></span>
             <span class="pct neg">&minus;22.0%</span>
             <span class="bar d"><span style="width:24.4%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>&minus;22.0%</em> <b>30D</b> <em>&minus;24.2%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.42 vs $0.54 est and FY26 guidance cut to $1.75&ndash;1.85 from $2.22&ndash;2.32. Identical sales flipped to a decline. Losing low-income shoppers to Walmart, Amazon and Aldi.</span>
           </li>
           <li>
@@ -416,6 +453,7 @@
             <span class="name"><span class="tkr">PEGA</span><span class="co">Pegasystems</span></span>
             <span class="pct neg">&minus;16.7%</span>
             <span class="bar d"><span style="width:18.6%"></span></span>
+            <span class="trail" title="single source"><b>7D</b> <em>&minus;15.2%</em> <b>30D</b> <em>&minus;12%</em><i class="pv pv-s">&#9682;</i></span>
             <span class="why"><b>Wed 22</b> &middot; Q2 miss, slower contract growth, and a warning that AI-driven spending delays are hitting demand. The clearest "AI eats software" print of the week.</span>
           </li>
           <li>
@@ -423,6 +461,7 @@
             <span class="name"><span class="tkr">ROL</span><span class="co">Rollins</span></span>
             <span class="pct neg">&minus;14.7%</span>
             <span class="bar d"><span style="width:16.3%"></span></span>
+            <span class="trail" title="not sourced"><b>7D</b> <em>&minus;14.7%</em> <b>30D</b> <em>not sourced</em><i class="pv pv-n">&#9675;</i></span>
             <span class="why"><b>Wed 22</b> &middot; EPS $0.32 on $1.08bn, both light, and the FY organic growth outlook cut on weak residential demand &mdash; despite a 99th straight quarter of revenue growth.</span>
           </li>
           <li>
@@ -430,6 +469,7 @@
             <span class="name"><span class="tkr">TSLA</span><span class="co">Tesla</span></span>
             <span class="pct neg">&minus;14.5%</span>
             <span class="bar d"><span style="width:16.1%"></span></span>
+            <span class="trail" title="2+ sources, averaged"><b>7D</b> <em>&minus;19%</em> <b>30D</b> <em>&asymp; &minus;8.5%</em><i class="pv pv-a">&#9679;</i></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings-reaction day on record. Record $28.2bn revenue and 480,126 deliveries, but operating income fell 57%, margin hit 1.4%, FCF turned negative and capex heads past $25bn. Down ~19% on the week.</span>
           </li>
           <li>
@@ -437,6 +477,7 @@
             <span class="name"><span class="tkr">SNDK</span><span class="co">SanDisk</span></span>
             <span class="pct neg">&minus;11.0%</span>
             <span class="bar d"><span style="width:12.2%"></span></span>
+            <span class="trail" title="2+ sources, averaged"><b>7D</b> <em>&minus;11.0%</em> <b>30D</b> <em>&minus;24.0%</em><i class="pv pv-a">&#9679;</i></span>
             <span class="why"><b>Fri 24</b> &middot; Memory supply-glut fears as Samsung and SK Hynix add capacity. Still up ~526% YTD &mdash; this reads as profit-taking, not a broken thesis.</span>
           </li>
           <li>
@@ -444,6 +485,7 @@
             <span class="name"><span class="tkr">MOH</span><span class="co">Molina Healthcare</span></span>
             <span class="pct neg">&minus;9.2%</span>
             <span class="bar d"><span style="width:10.2%"></span></span>
+            <span class="trail" title="not sourced"><b>7D</b> <em>&minus;9.7%</em> <b>30D</b> <em>not sourced</em><i class="pv pv-n">&#9675;</i></span>
             <span class="why"><b>Thu 23</b> &middot; Beat on EPS at $1.51 but sold on falling membership and lower premium revenue. Health care is the only S&amp;P sector shrinking this quarter.</span>
           </li>
           <li>
@@ -451,6 +493,7 @@
             <span class="name"><span class="tkr">WDC</span><span class="co">Western Digital</span></span>
             <span class="pct neg">&minus;9.0%</span>
             <span class="bar d"><span style="width:10.0%"></span></span>
+            <span class="trail" title="2+ sources, averaged"><b>7D</b> <em>&minus;9.0%</em> <b>30D</b> <em>&asymp; &minus;33.6%</em><i class="pv pv-a">&#9679;</i></span>
             <span class="why"><b>Fri 24</b> &middot; Same memory unwind; SK Hynix and Micron fell 6&ndash;8% alongside. Both ends of the round trip inside four sessions.</span>
           </li>
           <li>
@@ -458,6 +501,7 @@
             <span class="name"><span class="tkr">INTC</span><span class="co">Intel</span></span>
             <span class="pct neg">&minus;8.0%</span>
             <span class="bar d"><span style="width:8.9%"></span></span>
+            <span class="trail" title="not sourced"><b>7D</b> <em>&minus;8.0%</em> <b>30D</b> <em>not sourced</em><i class="pv pv-n">&#9675;</i></span>
             <span class="why"><b>Fri 24</b> &middot; Revenue $16.1bn (+25%, fastest in 15 years), EPS $0.42 versus $0.21 est, data-centre and AI +59%. Popped 13% after hours, then gave it all back once capex above $20bn landed.</span>
           </li>
           <li>
@@ -465,6 +509,7 @@
             <span class="name"><span class="tkr">GOOGL</span><span class="co">Alphabet</span></span>
             <span class="pct neg">&minus;7.1%</span>
             <span class="bar d"><span style="width:7.9%"></span></span>
+            <span class="trail" title="2+ sources, averaged"><b>7D</b> <em>&minus;7.1%</em> <b>30D</b> <em>&asymp; &minus;8.3%</em><i class="pv pv-a">&#9679;</i></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings reaction since Feb 2025. Revenue $119.8bn (+24%), Cloud +82%, 12th straight double-digit quarter &mdash; erased by FY capex guided to $195&ndash;205bn and a warning that 2027 goes higher still.</span>
           </li>
         </ol>
@@ -545,7 +590,18 @@
   </section>
 
   <section class="method">
-    <b>How to read this.</b> Moves are the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July 2026 from the sources below; nothing here is investment advice.
+    <b>How to read this.</b> Each row carries a <b>7&nbsp;day</b> and <b>30&nbsp;day</b> price trail; those two figures are merged and averaged from multiple vendors, and the marker beside them states which &mdash; see the source log below before relying on them. The headline percentage is the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July 2026 from the sources below; nothing here is investment advice.
+  </section>
+
+  <section class="prov">
+    <h3>Source log &mdash; how the 7&nbsp;day and 30&nbsp;day figures were built</h3>
+    <p><strong>These two columns are merged, averaged data and are not exchange-verified.</strong> No single price feed was available when this sheet was compiled, so the figures were assembled from multiple published vendor snapshots. Where two or more sources reported the same window and disagreed, the values were <strong>averaged</strong> and the result marked accordingly. Treat them as indicative of direction and rough magnitude, not as exact returns. Every figure on the mover boards above &mdash; the headline single-session move &mdash; is separately sourced and is not affected by this.</p>
+    <ul>
+      <li><i class="pv pv-a">&#9679;</i><span><strong>Averaged.</strong> Two or more sources for the same window, mean taken. Spreads were sometimes wide: TSLA 30&nbsp;day came from &minus;10.97% and &minus;6.0%; GOOGL from &minus;5.67% and &minus;11%; WDC from &minus;36% and &minus;31.14%; HAS from &minus;6.7% and &minus;4.79%.</span></li>
+      <li><i class="pv pv-s">&#9682;</i><span><strong>Single source</strong>, or derived arithmetically from two reported closing prices. Not cross-checked. Values shown with <code>&asymp;</code> are derived rather than reported directly.</span></li>
+      <li><i class="pv pv-n">&#9675;</i><span><strong>Not sourced.</strong> No figure for that window survived checking, so the cell is left empty rather than estimated. This applies to the 30&nbsp;day column for MU, NOW, ROL, MOH and INTC.</span></li>
+    </ul>
+    <p><strong>Known limitations.</strong> As-of dates are not uniform &mdash; vendor snapshots range from roughly 14 to 24 July, so a &ldquo;30 day&rdquo; window is not the same 30 days for every row. Several sources were undated, and a few were plainly stale relative to the week&rsquo;s events: the HOOD 30&nbsp;day figure covers 5 June to 7 July and predates this week entirely, and the SMCI 30&nbsp;day average combines a mid-July snapshot with a post-earnings derivation, which is why it nets to roughly flat despite a 25% move on the week. Percentages are price returns and exclude dividends. LESL is a distressed situation where the quoted price moved faster than the sources tracking it.</p>
   </section>
 
   <details class="src">
