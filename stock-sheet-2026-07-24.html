@@ -6,6 +6,16 @@
     --rule:#DDE3EA; --rule-2:#C9D2DC;
     --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D; --gold:#9A6B12;
     --bar-track:#E6EAEF;
+    --fs-2xs: clamp(9px,  0.14vw + 8.6px, 10.5px);
+    --fs-xs:  clamp(10px, 0.18vw + 9.5px, 11.5px);
+    --fs-sm:  clamp(11.4px,0.22vw + 10.7px, 12.8px);
+    --fs-md:  clamp(12.6px,0.30vw + 11.7px, 14.2px);
+    --fs-lg:  clamp(13.2px,0.34vw + 12.2px, 15.2px);
+    --fs-xl:  clamp(14.4px,0.40vw + 13.2px, 16.8px);
+    --fs-h3:  clamp(15px,  0.48vw + 13.6px, 18.5px);
+    --fs-h2:  clamp(17px,  0.70vw + 15px,  22px);
+    --fs-h1:  clamp(27px,  3.10vw + 16px,  50px);
+    --sp:     clamp(9px,   0.9vw + 5px,   18px);
     --serif: "Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
     --sans: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --mono: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
@@ -36,75 +46,77 @@
 
   body {
     background:var(--paper); color:var(--ink);
-    font-family:var(--sans); font-size:15px; line-height:1.55;
+    font-family:var(--sans); font-size:var(--fs-md); line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
-  .sheet { max-width:1180px; margin:0 auto; padding:clamp(20px,4vw,52px) clamp(16px,4vw,40px) 64px; display:flex; flex-direction:column; gap:34px; }
+  .sheet { max-width:1180px; margin:0 auto; padding:clamp(18px,3vw,44px) clamp(14px,3vw,36px) 52px; display:flex; flex-direction:column; gap:clamp(18px,2.2vw,30px); }
   h1,h2,h3 { text-wrap:balance; }
   a { color:var(--accent); }
   a:focus-visible, summary:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
 
-  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); }
+  .eyebrow { font-family:var(--mono); font-size:var(--fs-xs); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); }
 
   /* ---------- masthead ---------- */
-  .masthead { border-bottom:2px solid var(--ink); padding-bottom:20px; display:flex; flex-direction:column; gap:12px; }
+  .masthead { border-bottom:2px solid var(--ink); padding-bottom:clamp(11px,1.2vw,18px); display:flex; flex-direction:column; gap:12px; }
   .masthead-top { display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:baseline; }
-  .masthead h1 { font-family:var(--serif); font-size:clamp(2rem,5.4vw,3.15rem); line-height:1.03; letter-spacing:-.015em; font-weight:600; }
-  .dateline { font-family:var(--mono); font-size:12px; color:var(--ink-2); letter-spacing:.04em; }
-  .thesis { font-family:var(--serif); font-size:clamp(1.02rem,2vw,1.24rem); line-height:1.5; color:var(--ink-2); max-width:66ch; }
+  .masthead h1 { font-family:var(--serif); font-size:var(--fs-h1); line-height:1.03; letter-spacing:-.015em; font-weight:600; }
+  .dateline { font-family:var(--mono); font-size:var(--fs-xs); color:var(--ink-2); letter-spacing:.04em; }
+  .thesis { font-family:var(--serif); font-size:var(--fs-h3); line-height:1.5; color:var(--ink-2); max-width:66ch; }
 
   /* ---------- stat row ---------- */
   .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:2px; background:var(--rule); border:1px solid var(--rule); }
-  .stat { background:var(--surface); padding:13px 15px 15px; display:flex; flex-direction:column; gap:3px; }
-  .stat-k { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
-  .stat-v { font-family:var(--mono); font-size:1.32rem; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
-  .stat-d { font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--ink-2); }
+  .stat { background:var(--surface); padding:clamp(8px,0.8vw,12px) clamp(10px,1vw,14px) clamp(9px,0.9vw,13px); display:flex; flex-direction:column; gap:3px; }
+  .stat-k { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
+  .stat-v { font-family:var(--mono); font-size:var(--fs-h2); font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .stat-d { font-family:var(--mono); font-size:var(--fs-xs); font-variant-numeric:tabular-nums; color:var(--ink-2); }
   .pos { color:var(--up); } .neg { color:var(--down); }
 
   /* ---------- section frame ---------- */
-  .sec-head { display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule-2); padding-bottom:7px; margin-bottom:16px; }
-  .sec-head h2 { font-family:var(--serif); font-size:1.35rem; font-weight:600; letter-spacing:-.01em; }
-  .sec-note { font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-left:auto; text-align:right; }
+  .sec-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 14px; border-bottom:1px solid var(--rule-2); padding-bottom:6px; margin-bottom:clamp(8px,1vw,14px); }
+  .sec-head h2 { font-family:var(--serif); font-size:var(--fs-h2); font-weight:600; letter-spacing:-.01em; }
+  .sec-note { font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); margin-left:auto; text-align:right; }
 
   /* ---------- movers ---------- */
-  .boards { display:grid; grid-template-columns:repeat(auto-fit,minmax(430px,1fr)); gap:30px; }
+  .boards { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:clamp(14px,1.6vw,24px); }
   .board { background:var(--surface); border:1px solid var(--rule); }
-  .board-head { padding:14px 18px; border-bottom:1px solid var(--rule); display:flex; align-items:baseline; gap:10px; }
-  .board-head h3 { font-family:var(--serif); font-size:1.14rem; font-weight:600; }
-  .dir { font-family:var(--mono); font-size:15px; font-weight:700; }
-  .board-sub { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-left:auto; }
+  .board-head { padding:clamp(8px,0.9vw,13px) clamp(11px,1.1vw,16px); border-bottom:1px solid var(--rule); display:flex; align-items:baseline; gap:10px; }
+  .board-head h3 { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .dir { font-family:var(--mono); font-size:var(--fs-lg); font-weight:700; }
+  .board-sub { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-left:auto; }
   ol.rows { list-style:none; }
-  ol.rows li { padding:11px 18px 12px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk name pct" ". bar bar" ". why why"; gap:3px 10px; align-items:baseline; }
+  ol.rows li { padding:clamp(7px,0.75vw,10px) clamp(11px,1.1vw,16px) clamp(8px,0.8vw,11px); border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto auto; grid-template-areas:"rk name px pct" ". bar bar bar" ". why why why"; gap:3px 10px; align-items:baseline; }
   ol.rows li:last-child { border-bottom:0; }
-  .rk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .rk { grid-area:rk; font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); font-variant-numeric:tabular-nums; }
   .name { grid-area:name; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:center; min-width:0; }
   .mk { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:4px; flex:none;
         font-family:var(--mono); font-size:9px; font-weight:700; line-height:1; letter-spacing:.01em;
         color:var(--c); background:color-mix(in srgb, var(--c) 16%, transparent);
         border:1px solid color-mix(in srgb, var(--c) 34%, transparent); }
 
-  .tkr { font-family:var(--mono); font-size:13.5px; font-weight:600; letter-spacing:.02em; }
-  .co { font-size:12.5px; color:var(--ink-3); }
-  .pct { grid-area:pct; font-family:var(--mono); font-size:15px; font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:-.02em; white-space:nowrap; }
+  .tkr { font-family:var(--mono); font-size:var(--fs-lg); font-weight:600; letter-spacing:.02em; }
+  .co { font-size:var(--fs-sm); color:var(--ink-3); }
+  .px { grid-area:px; font-family:var(--mono); font-size:var(--fs-sm); font-variant-numeric:tabular-nums; color:var(--ink-2); white-space:nowrap; }
+  .px.nil { color:var(--ink-3); opacity:.6; }
+  .pct { grid-area:pct; font-family:var(--mono); font-size:var(--fs-xl); font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:-.02em; white-space:nowrap; }
   .bar { grid-area:bar; height:6px; background:var(--bar-track); margin:4px 0 2px; }
   .bar span { display:block; height:100%; border-radius:0 3px 3px 0; }
   .bar.u span { background:var(--up); } .bar.d span { background:var(--down); }
-  .why { grid-area:why; font-size:12.5px; line-height:1.45; color:var(--ink-2); }
-  .why b { font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
-  .also { padding:11px 18px; background:var(--surface-2); font-size:12.5px; color:var(--ink-2); border-top:1px solid var(--rule); }
-  .also b { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:400; display:block; margin-bottom:2px; }
+  .why { grid-area:why; font-size:var(--fs-sm); line-height:1.45; color:var(--ink-2); }
+  .why b { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
+  .also { padding:clamp(7px,0.8vw,11px) clamp(11px,1.1vw,16px); background:var(--surface-2); font-size:var(--fs-sm); color:var(--ink-2); border-top:1px solid var(--rule); }
+  .also b { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:400; display:block; margin-bottom:2px; }
 
 
   /* ---------- crypto board ---------- */
   .cboard { background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--gold); }
   ol.crows { list-style:none; }
-  ol.crows li { padding:10px 18px 11px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto auto; grid-template-areas:"rk name px chg" ". note note note"; gap:2px 12px; align-items:baseline; }
+  ol.crows li { padding:clamp(7px,0.75vw,10px) clamp(11px,1.1vw,16px) clamp(8px,0.8vw,11px); border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto auto; grid-template-areas:"rk name px chg" ". note note note"; gap:2px 12px; align-items:baseline; }
   ol.crows li:last-child { border-bottom:0; }
   ol.crows li.lead { background:var(--surface-2); }
-  .cpx { grid-area:px; font-family:var(--mono); font-size:13.5px; font-variant-numeric:tabular-nums; color:var(--ink); white-space:nowrap; }
-  .cchg { grid-area:chg; font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; min-width:7ch; text-align:right; }
-  .cnote { grid-area:note; font-size:12px; line-height:1.45; color:var(--ink-2); }
-  .cnote b { font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
+  .cpx { grid-area:px; font-family:var(--mono); font-size:var(--fs-sm); font-variant-numeric:tabular-nums; color:var(--ink); white-space:nowrap; }
+  .cchg { grid-area:chg; font-family:var(--mono); font-size:var(--fs-lg); font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; min-width:7ch; text-align:right; }
+  .cnote { grid-area:note; font-size:var(--fs-sm); line-height:1.45; color:var(--ink-2); }
+  .cnote b { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
   .nil { color:var(--ink-3); opacity:.7; }
 
   /* ---------- social buzz ---------- */
@@ -113,135 +125,93 @@
   .buzz .brk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
   .buzz .nm { grid-area:nm; min-width:0; }
   .buzz li:last-child { border-bottom:0; }
-  .buzz .btk { font-family:var(--mono); font-size:12.5px; font-weight:600; }
-  .buzz .bco { font-size:12px; color:var(--ink-3); margin-left:6px; }
-  .buzz .bv { grid-area:val; font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums; color:var(--ember); white-space:nowrap; }
-  .buzz .bs { grid-area:sub; font-size:11.5px; line-height:1.45; color:var(--ink-3); }
+  .buzz .btk { font-family:var(--mono); font-size:var(--fs-sm); font-weight:600; }
+  .buzz .bco { font-size:var(--fs-xs); color:var(--ink-3); margin-left:6px; }
+  .buzz .bv { grid-area:val; font-family:var(--mono); font-size:var(--fs-sm); font-weight:600; font-variant-numeric:tabular-nums; color:var(--ember); white-space:nowrap; }
+  .buzz .bs { grid-area:sub; font-size:var(--fs-xs); line-height:1.45; color:var(--ink-3); }
 
   /* ---------- provenance log ---------- */
-  .prov { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--ember); padding:16px 20px; display:flex; flex-direction:column; gap:9px; }
-  .prov h3 { font-family:var(--serif); font-size:1.08rem; font-weight:600; }
-  .prov p { font-size:13px; color:var(--ink-2); max-width:82ch; }
+  .prov { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--ember); padding:clamp(10px,1.1vw,15px) clamp(12px,1.3vw,18px); display:flex; flex-direction:column; gap:9px; }
+  .prov h3 { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .prov p { font-size:var(--fs-sm); color:var(--ink-2); max-width:82ch; }
   .prov ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
-  .prov li { font-size:12.5px; color:var(--ink-2); display:flex; gap:8px; align-items:baseline; }
+  .prov li { font-size:var(--fs-sm); color:var(--ink-2); display:flex; gap:8px; align-items:baseline; }
   .prov li i { font-style:normal; font-size:9px; line-height:1.6; }
   .prov code { font-family:var(--mono); font-size:11.5px; color:var(--ink); }
 
   /* ---------- callout ---------- */
-  .callout { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent); padding:16px 20px; display:flex; flex-direction:column; gap:6px; }
-  .callout h3 { font-family:var(--serif); font-size:1.08rem; font-weight:600; }
-  .callout p { font-size:13.5px; color:var(--ink-2); max-width:74ch; }
+  .callout { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent); padding:clamp(10px,1.1vw,15px) clamp(12px,1.3vw,18px); display:flex; flex-direction:column; gap:6px; }
+  .callout h3 { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .callout p { font-size:var(--fs-sm); color:var(--ink-2); max-width:74ch; }
 
   /* ---------- macro ---------- */
   .macro { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2px; background:var(--rule); border:1px solid var(--rule); }
-  .mcard { background:var(--surface); padding:15px 18px; display:flex; flex-direction:column; gap:5px; }
-  .mcard h4 { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
-  .mcard p { font-size:13px; color:var(--ink-2); }
+  .mcard { background:var(--surface); padding:clamp(9px,1vw,14px) clamp(11px,1.1vw,16px); display:flex; flex-direction:column; gap:5px; }
+  .mcard h4 { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
+  .mcard p { font-size:var(--fs-sm); color:var(--ink-2); }
   .mcard strong { color:var(--ink); font-weight:600; }
 
   /* ---------- reddit ---------- */
-  .reddit { background:var(--inset); border:1px solid var(--rule-2); border-top:3px solid var(--ember); padding:22px clamp(16px,3vw,26px) 24px; display:flex; flex-direction:column; gap:16px; }
+  .reddit { background:var(--inset); border:1px solid var(--rule-2); border-top:3px solid var(--ember); padding:clamp(12px,1.4vw,20px) clamp(12px,1.6vw,22px) clamp(13px,1.5vw,21px); display:flex; flex-direction:column; gap:clamp(9px,1vw,14px); }
   .reddit-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; }
-  .reddit-head h2 { font-family:var(--serif); font-size:1.32rem; font-weight:600; }
-  .tag { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ember); border:1px solid var(--ember); padding:2px 7px; }
-  .warn { font-size:12.5px; color:var(--ink-2); max-width:80ch; }
+  .reddit-head h2 { font-family:var(--serif); font-size:var(--fs-h2); font-weight:600; }
+  .tag { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.12em; text-transform:uppercase; color:var(--ember); border:1px solid var(--ember); padding:2px 7px; }
+  .warn { font-size:var(--fs-sm); color:var(--ink-2); max-width:80ch; }
   .rgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:2px; background:var(--rule-2); border:1px solid var(--rule-2); }
-  .rcard { background:var(--surface); padding:13px 15px; display:flex; flex-direction:column; gap:4px; }
+  .rcard { background:var(--surface); padding:clamp(9px,1vw,13px) clamp(10px,1.1vw,15px); display:flex; flex-direction:column; gap:4px; }
   .rcard .tkr { font-size:13px; }
-  .rrank { font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ember); }
-  .rcard p { font-size:12.5px; color:var(--ink-2); }
-  .sent { font-family:var(--mono); font-size:11px; font-variant-numeric:tabular-nums; color:var(--ink-3); }
+  .rrank { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.1em; color:var(--ember); }
+  .rcard p { font-size:var(--fs-sm); color:var(--ink-2); }
+  .sent { font-family:var(--mono); font-size:var(--fs-xs); font-variant-numeric:tabular-nums; color:var(--ink-3); }
 
   /* ---------- method + sources ---------- */
-  .method { font-size:12.5px; color:var(--ink-2); background:var(--surface); border:1px solid var(--rule); padding:15px 18px; }
+  .method { font-size:var(--fs-sm); color:var(--ink-2); background:var(--surface); border:1px solid var(--rule); padding:clamp(9px,1vw,14px) clamp(11px,1.1vw,16px); }
   .method b { color:var(--ink); }
   details.src { background:var(--surface); border:1px solid var(--rule); }
-  details.src > summary { cursor:pointer; padding:13px 18px; font-family:var(--mono); font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2); }
+  details.src > summary { cursor:pointer; padding:clamp(9px,1vw,13px) clamp(11px,1.1vw,16px); font-family:var(--mono); font-size:var(--fs-xs); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2); }
   .src-body { padding:0 18px 18px; display:flex; flex-direction:column; gap:16px; }
-  .src-group h4 { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:400; margin-bottom:7px; padding-bottom:5px; border-bottom:1px solid var(--rule); }
+  .src-group h4 { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:400; margin-bottom:7px; padding-bottom:5px; border-bottom:1px solid var(--rule); }
   .src-group.reddit-src h4 { color:var(--ember); border-bottom-color:var(--ember); }
-  .src-group ol { list-style:none; columns:2; column-gap:26px; font-size:12px; }
+  .src-group ol { list-style:none; columns:2; column-gap:24px; font-size:var(--fs-xs); }
   .src-group li { break-inside:avoid; margin-bottom:4px; color:var(--ink-3); }
   .src-group li a { text-decoration:none; }
   .src-group li a:hover { text-decoration:underline; }
   @media (max-width:640px) { .src-group ol { columns:1; } }
 
-  footer { border-top:1px solid var(--rule); padding-top:14px; font-family:var(--mono); font-size:11px; color:var(--ink-3); line-height:1.7; }
+  footer { border-top:1px solid var(--rule); padding-top:11px; font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); line-height:1.7; }
 
-  /* ---------- phone: bigger type, one column, no pinch-zoom ---------- */
+  /* ---------- phone: layout only — the fluid scale above handles type ---------- */
   @media (max-width: 700px) {
-    body { font-size:16px; line-height:1.55; }
-    .sheet { padding:22px 14px 44px; gap:26px; }
-
-    .masthead { padding-bottom:15px; gap:10px; }
-    .masthead-top { flex-direction:column; gap:9px; }
-    .masthead h1 { font-size:2.15rem; }
-    .dateline { font-size:11.5px; }
-    .thesis { font-size:1.06rem; line-height:1.5; }
-
+    /* single column can carry larger text — density belongs on desktop */
+    :root {
+      --fs-2xs: clamp(10px,  0.40vw + 8.90px, 11.5px);
+      --fs-xs:  clamp(11.2px,0.50vw + 9.85px, 12.6px);
+      --fs-sm:  clamp(12.8px,0.60vw + 11.06px,14px);
+      --fs-md:  clamp(14px,  0.90vw + 11.30px,15.5px);
+      --fs-lg:  clamp(14.4px,0.80vw + 12.10px,16px);
+      --fs-xl:  clamp(15.5px,0.90vw + 12.90px,17.5px);
+      --fs-h3:  clamp(16px,  1.00vw + 13.10px,19px);
+      --fs-h2:  clamp(18px,  1.40vw + 14.04px,22px);
+      --fs-h1:  clamp(30px,  6.00vw + 10.60px,44px);
+    }
+    .masthead-top { flex-direction:column; gap:8px; }
     .stats { grid-template-columns:1fr 1fr; }
-    .stat { padding:11px 12px 12px; }
-    .stat-k { font-size:10px; letter-spacing:.1em; }
-    .stat-v { font-size:1.2rem; }
-    .stat-d { font-size:11px; }
-
-    .sec-head { flex-wrap:wrap; gap:3px 12px; margin-bottom:14px; }
-    .sec-head h2 { font-size:1.3rem; }
-    .sec-note { margin-left:0; text-align:left; width:100%; font-size:10.5px; }
-
-    /* boards stack; rows stay scannable — ticker and move on one line */
-    .boards { grid-template-columns:1fr; gap:22px; }
-    .board-head { padding:13px 14px; }
-    .board-head h3 { font-size:1.1rem; }
-    ol.rows li { padding:13px 14px 14px; grid-template-columns:20px 1fr auto; gap:3px 8px; }
-    .rk { font-size:10.5px; }
-    .tkr { font-size:15px; }
+    .sec-note { margin-left:0; text-align:left; width:100%; }
+    .boards { grid-template-columns:1fr; }
+    .macro, .rgrid { grid-template-columns:1fr; }
+    ol.rows li { grid-template-columns:19px 1fr auto auto; gap:2px 7px; }
+    ol.crows li { grid-template-columns:19px 1fr auto auto; gap:2px 8px; }
     .mk { width:22px; height:22px; font-size:10px; }
-    .co { font-size:13.5px; }
-    .pct { font-size:16px; }
-    .bar { height:7px; margin:5px 0 3px; }
-    .prov { padding:14px 15px; }
-    .prov p, .prov li { font-size:13.5px; }
-    .why { font-size:14px; line-height:1.5; }
-    .why b { font-size:11px; }
-    .also { padding:12px 14px; font-size:13.5px; line-height:1.5; }
-    .also b { font-size:11px; }
-
-    .callout { padding:14px 15px; }
-    .callout h3 { font-size:1.05rem; }
-    .callout p { font-size:14px; line-height:1.52; }
-
-    .macro { grid-template-columns:1fr; }
-    .mcard { padding:13px 14px; }
-    .mcard h4 { font-size:10px; }
-    .mcard p { font-size:14px; line-height:1.52; }
-
-    .reddit { padding:18px 14px 20px; gap:14px; }
-    .reddit-head h2 { font-size:1.25rem; }
-    .warn { font-size:13.5px; line-height:1.52; }
-    .rgrid { grid-template-columns:1fr; }
-    .rcard { padding:12px 14px; }
-    .rcard .tkr { font-size:14px; }
-    .rcard p { font-size:13.5px; line-height:1.5; }
-    .sent { font-size:11px; }
-
-    .method { padding:14px 15px; font-size:13.5px; line-height:1.55; }
-
-    details.src > summary { padding:15px; font-size:12px; }
-    .src-body { padding:0 15px 20px; gap:20px; }
-    .src-group ol { columns:1; font-size:13.5px; }
-    .src-group li { margin-bottom:8px; }
+    .src-group ol { columns:1; }
+    .src-group li { margin-bottom:7px; }
     .src-group li a { text-decoration:underline; text-underline-offset:2px; }
-
-    footer { font-size:11px; line-height:1.75; }
   }
-
 
   /* ---------- print: one continuous scrollable page, dark, phone-width ----------
      Page box is 120mm wide, so the <=700px phone rules above drive the layout.
      Height is set to the full content height, so the PDF is a single ribbon
      with no page breaks anywhere. page height is measured from the content (8756 CSS px at 120mm wide). */
-  @page { size:120mm 3075mm; margin:0; }
+  @page { size:120mm 3040mm; margin:0; }
   @media print {
     /* dark palette — must outrank the data-theme attribute */
     :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -278,7 +248,17 @@
     .boards { grid-template-columns:1fr; gap:22px; }
     .board-head { padding:13px 14px; }
     .board-head h3 { font-size:1.1rem; }
-    ol.rows li { padding:13px 14px 14px; grid-template-columns:20px 1fr auto; gap:3px 8px; }
+    ol.rows li { padding:9px 13px 10px; grid-template-columns:20px 1fr auto auto; gap:2px 7px; }
+    ol.crows li { padding:9px 13px 10px; grid-template-columns:20px 1fr auto auto; gap:2px 7px; }
+    .px { font-size:12.5px; }
+    .cpx { font-size:12.5px; }
+    .cchg { font-size:13.5px; }
+    .cnote { font-size:12.5px; line-height:1.45; }
+    .buzz .btk { font-size:13px; }
+    .buzz .bv { font-size:13px; }
+    .buzz .bs { font-size:11.5px; }
+    .buzz .bco { font-size:11.5px; }
+    .mk { width:21px; height:21px; font-size:9.5px; }
     .rk { font-size:10.5px; }
     .tkr { font-size:15px; }
     .mk { width:22px; height:22px; font-size:10px; }
@@ -363,6 +343,7 @@
           <li>
             <span class="rk">01</span>
             <span class="name"><span class="mk" style="--c:#A8434F" aria-hidden="true">UZ</span><span class="tkr">UTZ</span><span class="co">Utz Brands</span></span>
+            <span class="px">$14.06</span>
             <span class="pct pos">+89.2%</span>
             <span class="bar u"><span style="width:99.1%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Taken private by Intersnack Group in a $2.9bn deal. The week's only true one-off &mdash; a closed-end event, not a trend.</span>
@@ -370,6 +351,7 @@
           <li>
             <span class="rk">02</span>
             <span class="name"><span class="mk" style="--c:#3C6E9B" aria-hidden="true">SM</span><span class="tkr">SMCI</span><span class="co">Super Micro Computer</span></span>
+            <span class="px">$31.20</span>
             <span class="pct pos">+25.0%</span>
             <span class="bar u"><span style="width:27.8%"></span></span>
             <span class="why"><b>Tue&ndash;Wed</b> &middot; Over $60bn of new Q4 orders, record backlog, and gross-margin guidance lifted from 8.2&ndash;8.4% to 15&ndash;17%. Plans an AI data centre with SpaceX.</span>
@@ -377,6 +359,7 @@
           <li>
             <span class="rk">03</span>
             <span class="name"><span class="mk" style="--c:#4A6072" aria-hidden="true">AR</span><span class="tkr">ACHR</span><span class="co">Archer Aviation</span></span>
+            <span class="px">$5.28</span>
             <span class="pct pos">+22.0%</span>
             <span class="bar u"><span style="width:24.4%"></span></span>
             <span class="why"><b>Mon 20</b> &middot; Defence-tech partnership; the single largest one-day move of Monday's session.</span>
@@ -384,6 +367,7 @@
           <li>
             <span class="rk">04</span>
             <span class="name"><span class="mk" style="--c:#3E63A8" aria-hidden="true">NB</span><span class="tkr">NBIS</span><span class="co">Nebius Group</span></span>
+            <span class="px">$216.92</span>
             <span class="pct pos">+18.9%</span>
             <span class="bar u"><span style="width:21.0%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Nvidia disclosed a 9.3% stake in the neocloud &mdash; ~22.3m shares, tracing to a $2bn March investment. Analyst targets followed.</span>
@@ -391,6 +375,7 @@
           <li>
             <span class="rk">05</span>
             <span class="name"><span class="mk" style="--c:#2F6193" aria-hidden="true">MU</span><span class="tkr">MU</span><span class="co">Micron Technology</span></span>
+            <span class="px">$913.53</span>
             <span class="pct pos">+12.0%</span>
             <span class="bar u"><span style="width:13.3%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Memory melt-up: WDC and STX each rose about the same, the DRAM ETF +11%. Round-tripped by Friday &mdash; see below.</span>
@@ -398,6 +383,7 @@
           <li>
             <span class="rk">06</span>
             <span class="name"><span class="mk" style="--c:#3660B8" aria-hidden="true">CB</span><span class="tkr">COIN</span><span class="co">Coinbase</span></span>
+            <span class="px nil">n/a</span>
             <span class="pct pos">+9.6%</span>
             <span class="bar u"><span style="width:10.7%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Bitcoin hit its highest since 16 June on CLARITY Act optimism and a fifth straight day of spot-ETF inflows.</span>
@@ -405,6 +391,7 @@
           <li>
             <span class="rk">07</span>
             <span class="name"><span class="mk" style="--c:#2E7F79" aria-hidden="true">TW</span><span class="tkr">WULF</span><span class="co">TeraWulf</span></span>
+            <span class="px">$19.92</span>
             <span class="pct pos">+8.0%</span>
             <span class="bar u"><span style="width:8.9%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Carried up in the same crypto-equity bid as COIN and HOOD.</span>
@@ -412,6 +399,7 @@
           <li>
             <span class="rk">08</span>
             <span class="name"><span class="mk" style="--c:#3F7A63" aria-hidden="true">SN</span><span class="tkr">NOW</span><span class="co">ServiceNow</span></span>
+            <span class="px">$91.94</span>
             <span class="pct pos">+7.3%</span>
             <span class="bar u"><span style="width:8.1%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.90 vs $0.85&ndash;0.86 est, subscription revenue +23%, FY guidance raised, AI ACV past $1bn. A rare beat that was actually paid for.</span>
@@ -419,6 +407,7 @@
           <li>
             <span class="rk">09</span>
             <span class="name"><span class="mk" style="--c:#6E8A3C" aria-hidden="true">RH</span><span class="tkr">HOOD</span><span class="co">Robinhood</span></span>
+            <span class="px">$106.36</span>
             <span class="pct pos">+7.1%</span>
             <span class="bar u"><span style="width:7.9%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Crypto-linked bid; closed at $106.36.</span>
@@ -426,6 +415,7 @@
           <li>
             <span class="rk">10</span>
             <span class="name"><span class="mk" style="--c:#356E9E" aria-hidden="true">HB</span><span class="tkr">HAS</span><span class="co">Hasbro</span></span>
+            <span class="px nil">n/a</span>
             <span class="pct pos">+7.0%</span>
             <span class="bar u"><span style="width:7.8%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Q2 beat on both lines, FY adjusted EBITDA guidance raised.</span>
@@ -444,6 +434,7 @@
           <li>
             <span class="rk">01</span>
             <span class="name"><span class="mk" style="--c:#3D6D96" aria-hidden="true">LS</span><span class="tkr">LESL</span><span class="co">Leslie's</span></span>
+            <span class="px">$1.31</span>
             <span class="pct neg">&minus;47.0%</span>
             <span class="bar d"><span style="width:52.2%"></span></span>
             <span class="why"><b>Wed 22</b> &middot; Weighing Chapter 11. About $757m of debt against $61m FY25 adjusted EBITDA &mdash; roughly 12.5&times; leverage. Down over 99% since its 2020 IPO.</span>
@@ -451,6 +442,7 @@
           <li>
             <span class="rk">02</span>
             <span class="name"><span class="mk" style="--c:#3A6395" aria-hidden="true">AB</span><span class="tkr">ACI</span><span class="co">Albertsons</span></span>
+            <span class="px">$11.02</span>
             <span class="pct neg">&minus;22.0%</span>
             <span class="bar d"><span style="width:24.4%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.42 vs $0.54 est and FY26 guidance cut to $1.75&ndash;1.85 from $2.22&ndash;2.32. Identical sales flipped to a decline. Losing low-income shoppers to Walmart, Amazon and Aldi.</span>
@@ -458,6 +450,7 @@
           <li>
             <span class="rk">03</span>
             <span class="name"><span class="mk" style="--c:#4460A6" aria-hidden="true">PG</span><span class="tkr">PEGA</span><span class="co">Pegasystems</span></span>
+            <span class="px">$26.24</span>
             <span class="pct neg">&minus;16.7%</span>
             <span class="bar d"><span style="width:18.6%"></span></span>
             <span class="why"><b>Wed 22</b> &middot; Q2 miss, slower contract growth, and a warning that AI-driven spending delays are hitting demand. The clearest "AI eats software" print of the week.</span>
@@ -465,6 +458,7 @@
           <li>
             <span class="rk">04</span>
             <span class="name"><span class="mk" style="--c:#96444E" aria-hidden="true">RL</span><span class="tkr">ROL</span><span class="co">Rollins</span></span>
+            <span class="px nil">n/a</span>
             <span class="pct neg">&minus;14.7%</span>
             <span class="bar d"><span style="width:16.3%"></span></span>
             <span class="why"><b>Wed 22</b> &middot; EPS $0.32 on $1.08bn, both light, and the FY organic growth outlook cut on weak residential demand &mdash; despite a 99th straight quarter of revenue growth.</span>
@@ -472,6 +466,7 @@
           <li>
             <span class="rk">05</span>
             <span class="name"><span class="mk" style="--c:#A34640" aria-hidden="true">TS</span><span class="tkr">TSLA</span><span class="co">Tesla</span></span>
+            <span class="px">$313.03</span>
             <span class="pct neg">&minus;14.5%</span>
             <span class="bar d"><span style="width:16.1%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings-reaction day on record. Record $28.2bn revenue and 480,126 deliveries, but operating income fell 57%, margin hit 1.4%, FCF turned negative and capex heads past $25bn. Down ~19% on the week.</span>
@@ -479,6 +474,7 @@
           <li>
             <span class="rk">06</span>
             <span class="name"><span class="mk" style="--c:#A0524A" aria-hidden="true">SD</span><span class="tkr">SNDK</span><span class="co">SanDisk</span></span>
+            <span class="px">$1,436.56</span>
             <span class="pct neg">&minus;11.0%</span>
             <span class="bar d"><span style="width:12.2%"></span></span>
             <span class="why"><b>Fri 24</b> &middot; Memory supply-glut fears as Samsung and SK Hynix add capacity. Still up ~526% YTD &mdash; this reads as profit-taking, not a broken thesis.</span>
@@ -486,6 +482,7 @@
           <li>
             <span class="rk">07</span>
             <span class="name"><span class="mk" style="--c:#3480A3" aria-hidden="true">ML</span><span class="tkr">MOH</span><span class="co">Molina Healthcare</span></span>
+            <span class="px nil">n/a</span>
             <span class="pct neg">&minus;9.2%</span>
             <span class="bar d"><span style="width:10.2%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; Beat on EPS at $1.51 but sold on falling membership and lower premium revenue. Health care is the only S&amp;P sector shrinking this quarter.</span>
@@ -493,6 +490,7 @@
           <li>
             <span class="rk">08</span>
             <span class="name"><span class="mk" style="--c:#33769B" aria-hidden="true">WD</span><span class="tkr">WDC</span><span class="co">Western Digital</span></span>
+            <span class="px">$558.30</span>
             <span class="pct neg">&minus;9.0%</span>
             <span class="bar d"><span style="width:10.0%"></span></span>
             <span class="why"><b>Fri 24</b> &middot; Same memory unwind; SK Hynix and Micron fell 6&ndash;8% alongside. Both ends of the round trip inside four sessions.</span>
@@ -500,6 +498,7 @@
           <li>
             <span class="rk">09</span>
             <span class="name"><span class="mk" style="--c:#2F6BA0" aria-hidden="true">IN</span><span class="tkr">INTC</span><span class="co">Intel</span></span>
+            <span class="px">$92.32</span>
             <span class="pct neg">&minus;8.0%</span>
             <span class="bar d"><span style="width:8.9%"></span></span>
             <span class="why"><b>Fri 24</b> &middot; Revenue $16.1bn (+25%, fastest in 15 years), EPS $0.42 versus $0.21 est, data-centre and AI +59%. Popped 13% after hours, then gave it all back once capex above $20bn landed.</span>
@@ -507,6 +506,7 @@
           <li>
             <span class="rk">10</span>
             <span class="name"><span class="mk" style="--c:#4574B0" aria-hidden="true">GO</span><span class="tkr">GOOGL</span><span class="co">Alphabet</span></span>
+            <span class="px">&asymp; $318</span>
             <span class="pct neg">&minus;7.1%</span>
             <span class="bar d"><span style="width:7.9%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings reaction since Feb 2025. Revenue $119.8bn (+24%), Cloud +82%, 12th straight double-digit quarter &mdash; erased by FY capex guided to $195&ndash;205bn and a warning that 2027 goes higher still.</span>
