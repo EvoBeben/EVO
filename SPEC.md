@@ -40,16 +40,31 @@ Two artefacts, same source file:
 - Headline mover bars share a separate 0–90% scale
 - Colour is never the only encoding — every value keeps its sign and printed number
 
-## Presentation
+## Presentation — app shell
 
-- **Dark** — dark palette in print, theme-aware on the web (print tokens are
-  raised in specificity so they beat the `data-theme` attribute)
-- PDF is **one continuous scrollable page**, 120mm wide, height measured from the
-  rendered output (no pagination, no trailing dead space)
-- Web layout is **phone-first below 700px**: single column, type scales up, no
-  horizontal overflow at 390px
-- Print CSS states its layout explicitly — the print layout viewport is *not* the
-  page box width, so `max-width` media queries do not apply to it
+- **Lead screen** is a hub: masthead, then ten large buttons in a vertical list,
+  one per section. Each button carries an index, name, teaser and a live key
+  figure lifted from its section, so the list reads as a summary in itself.
+  Each section owns one low-chroma hue, shown as a left rail and hover wash;
+  semantic green and red stay reserved for direction.
+- **Clicking enters that section** as a full composition: a hero band in the
+  section hue with eyebrow, oversized display headline and a lead figure, then
+  the existing components unchanged. A bottom bar gives index, prev and next.
+- **Routing is hash-based** (`#crypto`), so deep links and browser back both
+  work. Views are only hidden once JS adds `html.js`, so with JS off the page
+  degrades to the continuous sheet it used to be.
+- **Keyboard**: Esc to the hub, arrows between sections; focus moves to the
+  section heading on navigate.
+- **Dark** in print; theme-aware on screen. Print tokens are raised in
+  specificity so they beat the `data-theme` attribute.
+- **PDF skips the hub and compiles the sections into pages** — A4 portrait,
+  each section starting a fresh page, 12 pages total. Long sections (movers,
+  sources) flow onto a second page, which is expected.
+- **Fluid type** throughout: `--fs-*` clamp tokens interpolate with viewport
+  width so the sheet reflows smoothly rather than jumping at the breakpoint.
+  The phone end of the scale is deliberately raised, not lowered.
+- Print CSS states its layout explicitly — the print layout viewport is *not*
+  the page box width, so `max-width` queries never match there.
 
 ## Status
 

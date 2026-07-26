@@ -16,6 +16,8 @@
     --fs-h2:  clamp(17px,  0.70vw + 15px,  22px);
     --fs-h1:  clamp(27px,  3.10vw + 16px,  50px);
     --sp:     clamp(9px,   0.9vw + 5px,   18px);
+    --fs-hero: clamp(30px, 3.40vw + 17px, 56px);
+    --fs-lead: clamp(14px, 0.60vw + 12px, 19px);
     --serif: "Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
     --sans: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --mono: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
@@ -180,6 +182,89 @@
 
   footer { border-top:1px solid var(--rule); padding-top:11px; font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); line-height:1.7; }
 
+
+  /* ================= app shell ================= */
+  /* Views are only hidden once JS confirms it can drive routing, so with JS
+     off the page degrades to the continuous sheet it used to be. */
+  html.js .view { display:none; }
+  html.js .view.is-on { display:block; }
+  html.js.in-view .hub { display:none; }
+
+  .hub { display:flex; flex-direction:column; gap:clamp(16px,2vw,26px); }
+  .hublist { list-style:none; display:flex; flex-direction:column; gap:clamp(6px,0.8vw,10px); }
+  .hubbtn {
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+    gap:clamp(10px,1.4vw,20px);
+    padding:clamp(13px,1.5vw,20px) clamp(13px,1.6vw,22px);
+    background:var(--surface); color:inherit; text-decoration:none;
+    border:1px solid var(--rule); border-left:3px solid var(--h);
+    transition:background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .hubbtn:hover, .hubbtn:focus-visible {
+    background:color-mix(in srgb, var(--h) 7%, var(--surface));
+    border-color:color-mix(in srgb, var(--h) 40%, var(--rule));
+    border-left-color:var(--h);
+    transform:translateX(2px);
+  }
+  .hb-no { font-family:var(--mono); font-size:var(--fs-xs); color:var(--h); font-variant-numeric:tabular-nums; }
+  .hb-main { display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .hb-name { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; letter-spacing:-.01em; }
+  .hb-teaser { font-size:var(--fs-xs); color:var(--ink-3); }
+  .hb-fig { font-family:var(--mono); font-size:var(--fs-sm); font-variant-numeric:tabular-nums; color:var(--ink-2); text-align:right; white-space:nowrap; }
+  .hb-fig em { font-style:normal; color:var(--h); }
+
+  /* ---- section hero ---- */
+  .hero {
+    background:color-mix(in srgb, var(--h) 12%, var(--surface));
+    border:1px solid color-mix(in srgb, var(--h) 26%, var(--rule));
+    border-top:3px solid var(--h);
+    padding:clamp(18px,2.4vw,34px) clamp(14px,1.8vw,26px) clamp(16px,2vw,28px);
+    display:flex; flex-direction:column; gap:clamp(5px,0.7vw,9px);
+    margin-bottom:clamp(12px,1.6vw,22px);
+  }
+  .hero-eyebrow { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.16em; text-transform:uppercase; color:var(--h); display:flex; gap:9px; align-items:baseline; }
+  .hero-h { font-family:var(--serif); font-size:var(--fs-hero); line-height:1.04; letter-spacing:-.018em; font-weight:600; }
+  .hero-h:focus { outline:none; }
+  .hero-h:focus-visible { outline:2px solid var(--h); outline-offset:4px; }
+  .hero-lead { font-family:var(--mono); font-size:var(--fs-lead); font-variant-numeric:tabular-nums; color:var(--ink-2); letter-spacing:-.01em; }
+  .hero-lead em { font-style:normal; color:var(--ink); }
+
+  /* ---- bottom bar ---- */
+  .viewbar { display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin-top:clamp(14px,1.8vw,24px); padding-top:clamp(9px,1vw,14px);
+    border-top:1px solid var(--rule); font-family:var(--mono); font-size:var(--fs-xs); }
+  .viewbar a { color:var(--ink-2); text-decoration:none; padding:5px 9px; border:1px solid var(--rule); }
+  .viewbar a:hover, .viewbar a:focus-visible { color:var(--ink); border-color:var(--h); background:color-mix(in srgb, var(--h) 8%, transparent); }
+  .vb-mid { margin-left:auto; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .vb-nav { display:flex; gap:6px; }
+  .vb-nav a[aria-disabled="true"] { opacity:.35; pointer-events:none; }
+
+  html.js .view.is-on .hero, html.js .view.is-on .view-body { animation:rise .24s ease both; }
+  html.js .view.is-on .view-body { animation-delay:.04s; }
+  @keyframes rise { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .view.is-on .hero, html.js .view.is-on .view-body { animation:none; }
+    .hubbtn { transition:none; }
+    .hubbtn:hover, .hubbtn:focus-visible { transform:none; }
+  }
+  @media (max-width:700px) {
+    .hubbtn { grid-template-columns:auto 1fr; }
+    .hb-fig { grid-column:2; text-align:left; }
+  }
+
+
+  /* the hero states the section title; drop the inner heading that repeats it,
+     while keeping any note beside it that carries real information */
+  .view-body .sec-head { border-bottom:0; padding-bottom:0; margin-bottom:clamp(5px,0.7vw,9px); }
+  .view-body .sec-head h2 { display:none; }
+  .view-body .sec-head .sec-note { margin-left:0; text-align:left; }
+  .view-body .reddit-head h2 { display:none; }
+  .view-body .callout > h3 { display:none; }
+  .view-body .prov > h3 { display:none; }
+  .view-body details.src > summary { display:none; }
+  .view-body .callout { border-left-color:var(--h); }
+  .view-body .prov { border-left-color:var(--h); }
+
   /* ---------- phone: layout only — the fluid scale above handles type ---------- */
   @media (max-width: 700px) {
     /* single column can carry larger text — density belongs on desktop */
@@ -207,11 +292,11 @@
     .src-group li a { text-decoration:underline; text-underline-offset:2px; }
   }
 
-  /* ---------- print: one continuous scrollable page, dark, phone-width ----------
-     Page box is 120mm wide, so the <=700px phone rules above drive the layout.
-     Height is set to the full content height, so the PDF is a single ribbon
-     with no page breaks anywhere. page height is measured from the content (8756 CSS px at 120mm wide). */
-  @page { size:120mm 3198mm; margin:0; }
+  /* ---------- print: dark, one section per A4 page ----------
+     The PDF skips the hub and compiles the sections into pages. Sizes are
+     stated explicitly because the print layout viewport is not the page box
+     width, so the max-width query above never matches here. Tuned for 210mm. */
+  @page { size:A4 portrait; margin:0; }
   @media print {
     /* dark palette — must outrank the data-theme attribute */
     :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -223,21 +308,30 @@
     }
     * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
     html, body { background:var(--paper) !important; }
-    body { color:var(--ink); }
+    body { color:var(--ink); font-size:11px; line-height:1.5; }
 
-    /* nothing paginates — one ribbon */
-    * { break-before:auto !important; break-after:auto !important; break-inside:auto !important; }
+    /* the PDF skips the menu and compiles the sections into pages */
+    .hub, .viewbar { display:none !important; }
+    .view { display:block !important; }
+    .view + .view { break-before:page !important; }
+    .view-body, .hero { animation:none !important; }
+    .hero { margin-bottom:13px; padding:16px 18px 15px; }
+    .hero-h { font-size:31px; }
+    .hero-lead { font-size:13px; }
+    .hero-eyebrow { font-size:8.4px; }
+    .board, .cboard, .callout, .reddit, .method, .prov, .macro, .stats { break-inside:auto; }
+    ol.rows li, ol.crows li, .mcard, .rcard, .stat, .src-group { break-inside:avoid; }
 
     /* layout is stated explicitly rather than inherited from the phone
        breakpoint, because the print layout viewport is not the page width */
     body { font-size:16px; line-height:1.55; }
-    .sheet { max-width:none; margin:0; padding:22px 14px 30px; gap:26px; }
+    .sheet { max-width:none; margin:0; padding:11mm 11mm 9mm; gap:0; }
     .masthead { padding-bottom:15px; gap:10px; }
     .masthead-top { flex-direction:column; gap:9px; }
     .masthead h1 { font-size:2.15rem; }
     .dateline { font-size:11.5px; }
     .thesis { font-size:1.06rem; line-height:1.5; max-width:none; }
-    .stats { grid-template-columns:1fr 1fr; }
+    .stats { grid-template-columns:repeat(3,1fr); }
     .stat { padding:11px 12px 12px; }
     .stat-k { font-size:10px; letter-spacing:.1em; }
     .stat-v { font-size:1.2rem; }
@@ -245,51 +339,51 @@
     .sec-head { flex-wrap:wrap; gap:3px 12px; margin-bottom:14px; }
     .sec-head h2 { font-size:1.3rem; }
     .sec-note { margin-left:0; text-align:left; width:100%; font-size:10.5px; }
-    .boards { grid-template-columns:1fr; gap:22px; }
+    .boards { grid-template-columns:1fr 1fr; gap:9px; }
     .board-head { padding:13px 14px; }
     .board-head h3 { font-size:1.1rem; }
-    ol.rows li { padding:9px 13px 10px; grid-template-columns:20px 1fr auto auto; gap:2px 7px; }
-    ol.crows li { padding:9px 13px 10px; grid-template-columns:20px 1fr auto auto; gap:2px 7px; }
-    .px { font-size:12.5px; }
-    .cpx { font-size:12.5px; }
-    .cchg { font-size:13.5px; }
-    .cnote { font-size:12.5px; line-height:1.45; }
-    .buzz .btk { font-size:13px; }
-    .buzz .bv { font-size:13px; }
-    .buzz .bs { font-size:11.5px; }
-    .buzz .bco { font-size:11.5px; }
+    ol.rows li { padding:6px 10px 6.5px; grid-template-columns:18px 1fr auto auto; gap:1.5px 6px; }
+    ol.crows li { padding:7px 12px 7.5px; grid-template-columns:20px 1fr auto auto; gap:2px 8px; }
+    .px { font-size:9.6px; }
+    .cpx { font-size:10px; }
+    .cchg { font-size:11px; }
+    .cnote { font-size:9.4px; line-height:1.42; }
+    .buzz .btk { font-size:10px; }
+    .buzz .bv { font-size:10px; }
+    .buzz .bs { font-size:9.2px; }
+    .buzz .bco { font-size:9.2px; }
     .mk { width:21px; height:21px; font-size:9.5px; }
     .rk { font-size:10.5px; }
-    .tkr { font-size:15px; }
+    .tkr { font-size:11px; }
     .mk { width:22px; height:22px; font-size:10px; }
-    .co { font-size:13.5px; }
-    .pct { font-size:16px; }
+    .co { font-size:9.8px; }
+    .pct { font-size:12px; }
     .bar { height:7px; margin:5px 0 3px; }
     .prov { padding:14px 15px; }
-    .prov p, .prov li { font-size:13.5px; }
-    .why { font-size:14px; line-height:1.5; }
+    .prov p, .prov li { font-size:11px; line-height:1.55; }
+    .why { font-size:9.4px; line-height:1.42; }
     .why b { font-size:11px; }
-    .also { padding:12px 14px; font-size:13.5px; line-height:1.5; }
+    .also { padding:8px 11px; font-size:9.4px; line-height:1.45; }
     .also b { font-size:11px; }
     .callout { padding:14px 15px; }
     .callout h3 { font-size:1.05rem; }
-    .callout p { font-size:14px; line-height:1.52; max-width:none; }
-    .macro { grid-template-columns:1fr; }
+    .callout p { font-size:12px; line-height:1.6; max-width:none; }
+    .macro { grid-template-columns:1fr 1fr; }
     .mcard { padding:13px 14px; }
     .mcard h4 { font-size:10px; }
-    .mcard p { font-size:14px; line-height:1.52; }
+    .mcard p { font-size:10px; line-height:1.5; }
     .reddit { padding:18px 14px 20px; gap:14px; }
     .reddit-head h2 { font-size:1.25rem; }
-    .warn { font-size:13.5px; line-height:1.52; max-width:none; }
-    .rgrid { grid-template-columns:1fr; }
+    .warn { font-size:10px; line-height:1.5; max-width:none; }
+    .rgrid { grid-template-columns:1fr 1fr; }
     .rcard { padding:12px 14px; }
     .rcard .tkr { font-size:14px; }
-    .rcard p { font-size:13.5px; line-height:1.5; }
+    .rcard p { font-size:9.6px; line-height:1.45; }
     .sent { font-size:11px; }
-    .method { padding:14px 15px; font-size:13.5px; line-height:1.55; }
+    .method { padding:13px 15px; font-size:11.5px; line-height:1.6; }
     details.src > summary { padding:15px; font-size:12px; }
-    .src-body { padding:0 15px 18px; gap:20px; }
-    .src-group ol { columns:1; font-size:13.5px; }
+    .src-body { padding:0; gap:13px; columns:1; }
+    .src-group ol { columns:2; column-gap:16px; font-size:9.6px; }
     .src-group li { margin-bottom:8px; }
     footer { font-size:11px; line-height:1.75; }
 
@@ -303,6 +397,7 @@
 
 <div class="sheet">
 
+  <nav class="hub" id="hub" aria-label="Sections">
   <header class="masthead">
     <div class="masthead-top">
       <div>
@@ -314,6 +409,72 @@
     <p class="thesis">Three companies beat earnings this week and were sold anyway. Alphabet, Intel and Texas Instruments each cleared the bar on revenue and profit, then raised what they intend to spend &mdash; and the market marked all three down. The buyers went where the spending lands: servers, memory, power. The sellers went where the spending comes from.</p>
   </header>
 
+    <ol class="hublist">
+      <li><a class="hubbtn" href="#snapshot" style="--h:#5B7899">
+        <span class="hb-no">01</span>
+        <span class="hb-main"><span class="hb-name">Market snapshot</span><span class="hb-teaser">Six levels that framed the week</span></span>
+        <span class="hb-fig">7,411.98</span>
+      </a></li>
+      <li><a class="hubbtn" href="#movers" style="--h:#5F6E9E">
+        <span class="hb-no">02</span>
+        <span class="hb-main"><span class="hb-name">Top 10 movers</span><span class="hb-teaser">Every mover with its price and catalyst</span></span>
+        <span class="hb-fig">UTZ <em>+89.2%</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#bothlists" style="--h:#4E8A85">
+        <span class="hb-no">03</span>
+        <span class="hb-main"><span class="hb-name">One name, both lists</span><span class="hb-teaser">How thin the AI-hardware bid really is</span></span>
+        <span class="hb-fig">MU &middot; WDC</span>
+      </a></li>
+      <li><a class="hubbtn" href="#backdrop" style="--h:#8E7A44">
+        <span class="hb-no">04</span>
+        <span class="hb-main"><span class="hb-name">Backdrop</span><span class="hb-teaser">Capex, oil, rates and the week ahead</span></span>
+        <span class="hb-fig"><em>$500bn</em>+</span>
+      </a></li>
+      <li><a class="hubbtn" href="#status" style="--h:#A2704A">
+        <span class="hb-no">05</span>
+        <span class="hb-main"><span class="hb-name">Sunday status</span><span class="hb-teaser">Why the equity prices still read Friday</span></span>
+        <span class="hb-fig">Sun 26 Jul</span>
+      </a></li>
+      <li><a class="hubbtn" href="#crypto" style="--h:#9A7C36">
+        <span class="hb-no">06</span>
+        <span class="hb-main"><span class="hb-name">Crypto, ten largest</span><span class="hb-teaser">Ranked by market cap, updated Sunday</span></span>
+        <span class="hb-fig">BTC <em>$63,800</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#social" style="--h:#92637A">
+        <span class="hb-no">07</span>
+        <span class="hb-main"><span class="hb-name">Retail &amp; social layer</span><span class="hb-teaser">Mention spikes and sentiment, never price</span></span>
+        <span class="hb-fig">CPRT <em>+1,167%</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#method" style="--h:#6B7683">
+        <span class="hb-no">08</span>
+        <span class="hb-main"><span class="hb-name">How to read this</span><span class="hb-teaser">What the percentages actually measure</span></span>
+        <span class="hb-fig">Method</span>
+      </a></li>
+      <li><a class="hubbtn" href="#notes" style="--h:#716C81">
+        <span class="hb-no">09</span>
+        <span class="hb-main"><span class="hb-name">Data notes</span><span class="hb-teaser">Provenance of the softer numbers</span></span>
+        <span class="hb-fig">Merged &amp; marked</span>
+      </a></li>
+      <li><a class="hubbtn" href="#sources" style="--h:#5E7482">
+        <span class="hb-no">10</span>
+        <span class="hb-main"><span class="hb-name">Sources</span><span class="hb-teaser">Every source behind every figure</span></span>
+        <span class="hb-fig"><em>66</em></span>
+      </a></li>
+    </ol>
+
+  <footer>
+    Weekly tape sheet &middot; week ending 24 July 2026 &middot; updated Sunday 26 July 2026<br>
+    Summary of published reporting. Figures are as reported by the sources listed and have not been independently verified against exchange data. Not investment advice.
+  </footer>
+  </nav>
+
+  <section class="view" id="snapshot" style="--h:#5B7899" aria-labelledby="h-snapshot">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>01 / 10</span><span>Where the tape closed</span></div>
+      <h2 class="hero-h" id="h-snapshot">Market snapshot</h2>
+      <div class="hero-lead">S&amp;P <em>7,411.98</em> &middot; &minus;0.6% on the week</div>
+    </div>
+    <div class="view-body">
   <section>
     <div class="stats">
       <div class="stat"><span class="stat-k">S&amp;P 500</span><span class="stat-v">7,411.98</span><span class="stat-d"><span class="pos">+0.05%</span> Fri &middot; <span class="neg">&minus;0.6%</span> wk</span></div>
@@ -324,7 +485,20 @@
       <div class="stat"><span class="stat-k">Bitcoin</span><span class="stat-v">~$63.8k</span><span class="stat-d"><span class="neg">&minus;1.8%</span> since Fri</span></div>
     </div>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#" aria-disabled="true">&larr; Prev</a><a href="#movers">Next &rarr;</a></span>
+      <span class="vb-mid">01 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="movers" style="--h:#5F6E9E" aria-labelledby="h-movers">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>02 / 10</span><span>Ten up, ten down</span></div>
+      <h2 class="hero-h" id="h-movers">Top 10 movers</h2>
+      <div class="hero-lead">UTZ <em>+89.2%</em> &middot; LESL <em>&minus;47.0%</em></div>
+    </div>
+    <div class="view-body">
   <section>
     <div class="sec-head">
       <h2>Top 10 movers, up and down</h2>
@@ -517,12 +691,38 @@
 
     </div>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#snapshot">&larr; Prev</a><a href="#bothlists">Next &rarr;</a></span>
+      <span class="vb-mid">02 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="bothlists" style="--h:#4E8A85" aria-labelledby="h-bothlists">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>03 / 10</span><span>The week&rsquo;s cleanest read</span></div>
+      <h2 class="hero-h" id="h-bothlists">One name, both lists</h2>
+      <div class="hero-lead"><em>MU</em> &middot; <em>WDC</em> &mdash; up 12%, then down 9%</div>
+    </div>
+    <div class="view-body">
   <section class="callout">
     <h3>One name, both lists</h3>
     <p>Micron and Western Digital appear on opposite boards in the same week. Both rose about 12% on Tuesday as memory pricing ran, then fell 6&ndash;9% on Friday when Samsung and SK Hynix capacity additions revived glut fears. That round trip &mdash; not the Tesla headline &mdash; is the week's cleanest read on how thin the AI-hardware bid actually is: it is a positioning trade, and it unwinds in a session.</p>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#movers">&larr; Prev</a><a href="#backdrop">Next &rarr;</a></span>
+      <span class="vb-mid">03 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="backdrop" style="--h:#8E7A44" aria-labelledby="h-backdrop">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>04 / 10</span><span>What set the tone</span></div>
+      <h2 class="hero-h" id="h-backdrop">Backdrop</h2>
+      <div class="hero-lead">Hyperscaler capex above <em>$500bn</em> for 2026</div>
+    </div>
+    <div class="view-body">
   <section>
     <div class="sec-head"><h2>Backdrop</h2><span class="sec-note">what set the tone</span></div>
     <div class="macro">
@@ -552,12 +752,38 @@
       </div>
     </div>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#bothlists">&larr; Prev</a><a href="#status">Next &rarr;</a></span>
+      <span class="vb-mid">04 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="status" style="--h:#A2704A" aria-labelledby="h-status">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>05 / 10</span><span>What has and has not changed</span></div>
+      <h2 class="hero-h" id="h-status">Sunday status</h2>
+      <div class="hero-lead">Equities <em>unchanged</em> &middot; crypto to <em>Sun 26</em></div>
+    </div>
+    <div class="view-body">
   <section class="callout" style="border-left-color:var(--ember)">
     <h3>Sunday status &mdash; what has and has not changed</h3>
     <p><strong>Every equity figure on this sheet is Friday&rsquo;s.</strong> US markets have been shut since the 24 July close, so no price above can have moved; the next print is Monday&rsquo;s open. <strong>Crypto trades through the weekend</strong>, so that board and the Bitcoin tile are updated to Sunday 26 July. Social buzz is continuous and its ranks will have drifted since the Friday snapshot they were taken from.</p>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#backdrop">&larr; Prev</a><a href="#crypto">Next &rarr;</a></span>
+      <span class="vb-mid">05 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="crypto" style="--h:#9A7C36" aria-labelledby="h-crypto">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>06 / 10</span><span>Ranked by market cap</span></div>
+      <h2 class="hero-h" id="h-crypto">Crypto, ten largest</h2>
+      <div class="hero-lead">BTC <em>$63,800</em> &middot; total cap ~$2.2tn</div>
+    </div>
+    <div class="view-body">
   <section>
     <div class="sec-head">
       <h2>Crypto &mdash; ten largest</h2>
@@ -643,7 +869,20 @@
       <div class="also"><b>Where it stands Sunday</b> A quiet, fearful weekend. Total cap around $2.2tn, up 0.65% on the day but down 1.1% from Friday, with Fear &amp; Greed stuck at 27. Bitcoin is range-bound under $64k and Sunday&rsquo;s close is the level traders are watching &mdash; reclaiming $65k opens $68k, losing $62.5k opens $60k. Altcoins shed $8.8bn on the week; the exception was DeXe, up 90% to $88 on Saturday.</div>
     </div>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#status">&larr; Prev</a><a href="#social">Next &rarr;</a></span>
+      <span class="vb-mid">06 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="social" style="--h:#92637A" aria-labelledby="h-social">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>07 / 10</span><span>Chatter volume, held separate</span></div>
+      <h2 class="hero-h" id="h-social">Retail &amp; social layer</h2>
+      <div class="hero-lead">CPRT <em>+1,167%</em> in 24 hours</div>
+    </div>
+    <div class="view-body">
   <section class="reddit">
     <div class="reddit-head">
       <h2>Retail &amp; social layer</h2>
@@ -694,19 +933,58 @@
     </div>
     <p class="warn"><strong>Worth noting:</strong> the four names retail talked about most &mdash; INTC, TSLA, GOOGL, IBM &mdash; include three of the ten biggest decliners. Attention concentrated almost entirely on what was falling, and none of the week's actual top advances (UTZ, SMCI, ACHR, NBIS) registered in the top five by mention volume.</p>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#crypto">&larr; Prev</a><a href="#method">Next &rarr;</a></span>
+      <span class="vb-mid">07 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="method" style="--h:#6B7683" aria-labelledby="h-method">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>08 / 10</span><span>Method</span></div>
+      <h2 class="hero-h" id="h-method">How to read this</h2>
+      <div class="hero-lead">Single-session reactions, not weekly returns</div>
+    </div>
+    <div class="view-body">
   <section class="method">
     <b>How to read this.</b> The headline percentage on each mover row is the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July and updated Sunday 26 July 2026 from the sources below; nothing here is investment advice.
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#social">&larr; Prev</a><a href="#notes">Next &rarr;</a></span>
+      <span class="vb-mid">08 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="notes" style="--h:#716C81" aria-labelledby="h-notes">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>09 / 10</span><span>Crypto and social buzz</span></div>
+      <h2 class="hero-h" id="h-notes">Data notes</h2>
+      <div class="hero-lead">Merged, averaged, and marked where thin</div>
+    </div>
+    <div class="view-body">
   <section class="prov">
     <h3>Data notes &mdash; crypto and social buzz</h3>
     <p><strong>Crypto</strong> figures are snapshots from published market reports, not an exchange feed. The board carries a mix of as-of times and each row states its own: Bitcoin, XRP and Solana are Sunday 26 July, the rest are the Friday 24 July close because no weekend print was published for them. Prices for the same coin varied slightly between outlets and the most widely corroborated value is shown; SOL appears at $75.09 and $75.42 across sources, and its daily fall as both 2.83% and 3.8%. Weekly moves are only shown where a source stated one &mdash; four of the nine carry <code>n/a</code> rather than an inferred figure, and the tenth constituent is left open because no source in reach ranked it.</p>
     <p><strong>Social buzz</strong> is chatter volume, not price or fundamental data, and is never a source for any figure on the equity or crypto boards. Each percentage is the change in mention volume over 24 hours as computed by a third-party scraper. Vendors poll different platforms on 5&ndash;15 minute intervals, so ranks shift intraday and no two agree exactly; the INTC range is two snapshots of the same day. A spike is measured against that name&rsquo;s own recent baseline, so a low-volume ticker can post a very large percentage &mdash; Copart&rsquo;s +1,167% is the clearest example, and it did not move on the tape.</p>
     <p>Equity mover percentages above are single-session reactions to the catalyst named in each row, separately sourced, and unaffected by either of the above.</p>
   </section>
-
-  <details class="src">
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#method">&larr; Prev</a><a href="#sources">Next &rarr;</a></span>
+      <span class="vb-mid">09 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="sources" style="--h:#5E7482" aria-labelledby="h-sources">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>10 / 10</span><span>Reddit and social listed apart</span></div>
+      <h2 class="hero-h" id="h-sources">Sources</h2>
+      <div class="hero-lead"><em>66</em> in total</div>
+    </div>
+    <div class="view-body">
+  <details class="src" open>
     <summary>Sources &mdash; 66 total, Reddit and social listed separately</summary>
     <div class="src-body">
 
@@ -828,10 +1106,52 @@
 
     </div>
   </details>
-
-  <footer>
-    Weekly tape sheet &middot; week ending 24 July 2026 &middot; updated Sunday 26 July 2026<br>
-    Summary of published reporting. Figures are as reported by the sources listed and have not been independently verified against exchange data. Not investment advice.
-  </footer>
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#notes">&larr; Prev</a><a href="#" aria-disabled="true">Next &rarr;</a></span>
+      <span class="vb-mid">10 / 10</span>
+    </nav>
+  </section>
 
 </div>
+
+<script>
+(function () {
+  var doc = document.documentElement;
+  doc.classList.add('js');                 // only now are views safe to hide
+  var views = Array.prototype.slice.call(document.querySelectorAll('.view'));
+  var ids = views.map(function (v) { return v.id; });
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.hubbtn'));
+
+  function current() { return ids.indexOf((location.hash || '').replace('#', '')); }
+
+  function render(focus) {
+    var i = current();
+    views.forEach(function (v, n) { v.classList.toggle('is-on', n === i); });
+    doc.classList.toggle('in-view', i !== -1);
+    btns.forEach(function (a) {
+      a.setAttribute('aria-current', a.getAttribute('href') === location.hash ? 'page' : 'false');
+    });
+    if (i !== -1) {
+      window.scrollTo(0, 0);
+      if (focus) {
+        var h = views[i].querySelector('.hero-h');
+        if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+      }
+    }
+  }
+
+  window.addEventListener('hashchange', function () { render(true); });
+  render(false);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var i = current();
+    if (e.key === 'Escape' && i !== -1) { location.hash = ''; return; }
+    if (i === -1) return;
+    if (e.key === 'ArrowRight' && i < ids.length - 1) location.hash = ids[i + 1];
+    if (e.key === 'ArrowLeft' && i > 0) location.hash = ids[i - 1];
+  });
+})();
+</script>
