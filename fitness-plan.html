@@ -1,0 +1,1829 @@
+<meta charset="utf-8">
+<title>Groundwork — Training &amp; Nutrition Plan</title>
+<style>
+  /* ============================================================
+     GROUNDWORK — tokens
+     Identity: the training log sheet. Mono for structure and data,
+     sans for prose, no serif. Cool green-grey ground, deep teal
+     accent, plus a separate 3-step intensity ramp used only to
+     encode effort (RIR, cardio zones).
+     ============================================================ */
+  :root {
+    --ground:#EFF1F0; --surface:#FAFBFA; --surface-2:#E6EAE8; --inset:#E2E7E4;
+    --ink:#141A18; --ink-2:#4E5A55; --ink-3:#79847F;
+    --rule:#D5DAD7; --rule-2:#BDC5C1;
+    --accent:#0F5F6B; --accent-soft:#DCEBED; --accent-line:#0F5F6B;
+    --i1:#3F7D5C; --i2:#9A6C15; --i3:#AE4735;
+    --i1-bg:#E2EDE6; --i2-bg:#F3EAD8; --i3-bg:#F5E3DF;
+    --mono: ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans: ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --gut:132px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:#101413; --surface:#171C1A; --surface-2:#1F2523; --inset:#141917;
+      --ink:#E4E9E6; --ink-2:#A2AEA9; --ink-3:#78837E;
+      --rule:#262E2B; --rule-2:#36413C;
+      --accent:#5FC9D6; --accent-soft:#122B2E; --accent-line:#2E7F8A;
+      --i1:#6FBF92; --i2:#D9A441; --i3:#E8836F;
+      --i1-bg:#152620; --i2-bg:#262014; --i3-bg:#2A1A17;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#101413; --surface:#171C1A; --surface-2:#1F2523; --inset:#141917;
+    --ink:#E4E9E6; --ink-2:#A2AEA9; --ink-3:#78837E;
+    --rule:#262E2B; --rule-2:#36413C;
+    --accent:#5FC9D6; --accent-soft:#122B2E; --accent-line:#2E7F8A;
+    --i1:#6FBF92; --i2:#D9A441; --i3:#E8836F;
+    --i1-bg:#152620; --i2-bg:#262014; --i3-bg:#2A1A17;
+  }
+  :root[data-theme="light"] {
+    --ground:#EFF1F0; --surface:#FAFBFA; --surface-2:#E6EAE8; --inset:#E2E7E4;
+    --ink:#141A18; --ink-2:#4E5A55; --ink-3:#79847F;
+    --rule:#D5DAD7; --rule-2:#BDC5C1;
+    --accent:#0F5F6B; --accent-soft:#DCEBED; --accent-line:#0F5F6B;
+    --i1:#3F7D5C; --i2:#9A6C15; --i3:#AE4735;
+    --i1-bg:#E2EDE6; --i2-bg:#F3EAD8; --i3-bg:#F5E3DF;
+  }
+
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background:var(--ground); color:var(--ink);
+    font-family:var(--sans); font-size:15.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased; margin:0;
+  }
+  p { text-wrap:pretty; margin:0; }
+  h1,h2,h3,h4 { margin:0; text-wrap:balance; font-weight:600; }
+  ul,ol { margin:0; padding-left:1.15em; }
+  li { margin:.22em 0; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible, summary:focus-visible, button:focus-visible,
+  input:focus-visible, select:focus-visible {
+    outline:2px solid var(--accent); outline-offset:2px; border-radius:3px;
+  }
+  code { font-family:var(--mono); font-size:.9em; background:var(--surface-2); padding:1px 5px; border-radius:3px; }
+
+  /* ---------- nav ---------- */
+  .topbar {
+    position:sticky; top:0; z-index:40;
+    background:var(--ground);
+    background:color-mix(in srgb, var(--ground) 88%, transparent);
+    -webkit-backdrop-filter:saturate(180%) blur(10px); backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--rule);
+  }
+  .topbar-in {
+    max-width:1080px; margin:0 auto; padding:0 clamp(16px,4vw,36px);
+    display:flex; align-items:center; gap:18px; height:50px;
+  }
+  .brand { font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; white-space:nowrap; color:var(--ink); text-decoration:none; }
+  .navlinks { display:flex; gap:2px; margin-left:auto; overflow-x:auto; scrollbar-width:none; }
+  .navlinks::-webkit-scrollbar { display:none; }
+  .navlinks a {
+    font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase;
+    color:var(--ink-3); text-decoration:none; padding:6px 7px; border-radius:4px;
+    white-space:nowrap; transition:color .16s ease, background .16s ease;
+  }
+  .navlinks a:hover { color:var(--ink); background:var(--surface-2); }
+  .navlinks a[aria-current="true"] { color:var(--accent); background:var(--accent-soft); }
+  .tbtn {
+    font-family:var(--mono); font-size:11px; color:var(--ink-3); background:none;
+    border:1px solid var(--rule-2); border-radius:4px; padding:5px 9px; cursor:pointer;
+    transition:color .16s ease, border-color .16s ease;
+  }
+  .tbtn:hover { color:var(--ink); border-color:var(--ink-3); }
+  #prog { height:2px; background:var(--accent); width:0%; transition:width .08s linear; }
+
+  /* ---------- page frame ---------- */
+  .page { max-width:1080px; margin:0 auto; padding:0 clamp(16px,4vw,36px) 96px; }
+  section { scroll-margin-top:66px; padding:clamp(34px,5.5vw,60px) 0 0; }
+
+  /* gutter grid: mono label rail on the left, content on the right */
+  .row { display:grid; grid-template-columns:var(--gut) minmax(0,1fr); gap:0 30px; align-items:start; }
+  .rail { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); padding-top:4px; }
+  .rail b { display:block; color:var(--accent); font-weight:600; }
+  .stack { display:flex; flex-direction:column; gap:18px; min-width:0; }
+  .stack-tight { display:flex; flex-direction:column; gap:10px; min-width:0; }
+  .prose { max-width:66ch; color:var(--ink-2); }
+  .prose strong { color:var(--ink); font-weight:600; }
+
+  .sec-title { font-family:var(--mono); font-size:clamp(1.15rem,2.6vw,1.5rem); letter-spacing:-.01em; font-weight:600; }
+  .sec-rule { border:0; border-top:1px solid var(--rule-2); margin:0 0 20px; }
+  .kicker { font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); }
+  h3.sub { font-family:var(--mono); font-size:12.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); }
+
+  /* ---------- masthead ---------- */
+  .mast { padding-top:clamp(38px,7vw,76px); }
+  .mast h1 {
+    font-family:var(--mono); font-size:clamp(1.9rem,6.2vw,3.3rem); line-height:1.02;
+    letter-spacing:-.035em; font-weight:600; text-transform:uppercase;
+  }
+  .mast .tag { color:var(--accent); }
+  .mast-sub { font-size:clamp(1rem,2.1vw,1.16rem); line-height:1.5; color:var(--ink-2); max-width:60ch; margin-top:14px; }
+  .mast-meta {
+    display:flex; flex-wrap:wrap; gap:6px 20px; margin-top:20px; padding-top:14px; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:11px; color:var(--ink-3);
+  }
+  .mast-meta span b { color:var(--ink-2); font-weight:400; }
+
+  /* ---------- alert ---------- */
+  .alert {
+    background:var(--i3-bg); border:1px solid var(--i3); border-radius:5px;
+    padding:16px 18px; display:flex; flex-direction:column; gap:9px; margin-top:26px;
+  }
+  .alert h2 { font-family:var(--mono); font-size:12.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--i3); }
+  .alert p { font-size:14px; color:var(--ink-2); max-width:74ch; }
+  .alert p strong, .alert li strong { color:var(--ink); font-weight:600; }
+  .alert ul { font-size:14px; color:var(--ink-2); max-width:74ch; }
+  .alert a { color:var(--i3); }
+
+  /* ---------- phase rail ---------- */
+  .phases { display:grid; grid-template-columns:repeat(auto-fit,minmax(212px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
+  .ph { background:var(--surface); padding:14px 16px 16px; display:flex; flex-direction:column; gap:6px; }
+  .ph-n { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+  .ph h4 { font-family:var(--mono); font-size:1rem; letter-spacing:-.01em; }
+  .ph .wk { font-family:var(--mono); font-size:11.5px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .ph p { font-size:13.5px; color:var(--ink-2); }
+
+  /* ---------- cards ---------- */
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
+  .card { background:var(--surface); padding:13px 15px 15px; display:flex; flex-direction:column; gap:5px; }
+  .card h4 { font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); font-weight:500; }
+  .card .big { font-family:var(--mono); font-size:1.3rem; font-variant-numeric:tabular-nums; letter-spacing:-.025em; color:var(--ink); }
+  .card p { font-size:13.2px; color:var(--ink-2); }
+
+  .note { background:var(--surface); border:1px solid var(--rule); border-left:2px solid var(--accent-line); border-radius:4px; padding:13px 16px; }
+  .note p { font-size:13.8px; color:var(--ink-2); max-width:72ch; }
+  .note p + p { margin-top:8px; }
+  .note strong { color:var(--ink); font-weight:600; }
+
+  /* ---------- workouts ---------- */
+  .wk-tabs { display:flex; gap:6px; flex-wrap:wrap; }
+  .wk-tab {
+    font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+    background:var(--surface); color:var(--ink-3); border:1px solid var(--rule-2);
+    border-radius:4px; padding:7px 13px; cursor:pointer; transition:all .16s ease;
+  }
+  .wk-tab:hover { color:var(--ink); }
+  .wk-tab[aria-selected="true"] { background:var(--accent); color:var(--ground); border-color:var(--accent); }
+
+  .day { border:1px solid var(--rule); border-radius:5px; overflow:hidden; background:var(--surface); }
+  .day-head { padding:12px 16px; border-bottom:1px solid var(--rule); background:var(--surface-2); display:flex; flex-wrap:wrap; gap:4px 14px; align-items:baseline; }
+  .day-head h4 { font-family:var(--mono); font-size:13px; letter-spacing:.06em; text-transform:uppercase; }
+  .day-head .m { font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-left:auto; }
+
+  details.ex { border-bottom:1px solid var(--rule); }
+  details.ex:last-child { border-bottom:0; }
+  details.ex > summary {
+    list-style:none; cursor:pointer; padding:11px 16px;
+    display:grid; grid-template-columns:18px minmax(0,1fr) auto; gap:4px 12px;
+    align-items:baseline; transition:background .16s ease;
+  }
+  details.ex > summary::-webkit-details-marker { display:none; }
+  details.ex > summary:hover { background:var(--surface-2); }
+  .ex-i { font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .ex-n { font-size:14.5px; font-weight:600; color:var(--ink); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+  .chev { font-family:var(--mono); font-size:11px; color:var(--ink-3); transition:transform .18s ease; }
+  details.ex[open] .chev { transform:rotate(90deg); }
+  .ex-spec { grid-column:2/4; display:flex; flex-wrap:wrap; gap:5px 14px; font-family:var(--mono); font-size:11.5px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .ex-body { padding:2px 16px 16px 46px; display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; }
+  .ex-body h5 { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; margin:0 0 5px; }
+  .ex-body ul { font-size:13.4px; color:var(--ink-2); padding-left:1.05em; }
+  .ex-body .fault li::marker { color:var(--i3); }
+  .ex-sub { padding:0 16px 14px 46px; font-size:13px; color:var(--ink-3); }
+  .ex-sub strong { color:var(--ink-2); font-weight:600; }
+
+  .pill { font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase; padding:2px 7px; border-radius:20px; white-space:nowrap; }
+  .p1 { background:var(--i1-bg); color:var(--i1); }
+  .p2 { background:var(--i2-bg); color:var(--i2); }
+  .p3 { background:var(--i3-bg); color:var(--i3); }
+  .p0 { background:var(--surface-2); color:var(--ink-3); }
+
+  /* ---------- ladder ---------- */
+  .ladder { display:flex; flex-direction:column; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
+  .rung { background:var(--surface); padding:11px 16px; display:grid; grid-template-columns:26px minmax(0,1fr); gap:2px 12px; align-items:baseline; }
+  .rung .n { font-family:var(--mono); font-size:12px; color:var(--accent); font-variant-numeric:tabular-nums; }
+  .rung .t { font-size:14.2px; font-weight:600; }
+  .rung .d { grid-column:2; font-size:13.3px; color:var(--ink-2); }
+
+  /* ---------- tables ---------- */
+  .tw { overflow-x:auto; border:1px solid var(--rule); border-radius:5px; background:var(--surface); }
+  table { border-collapse:collapse; width:100%; min-width:440px; }
+  caption { text-align:left; font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); padding:11px 14px 0; }
+  th, td { text-align:left; padding:8px 14px; border-bottom:1px solid var(--rule); font-size:13.6px; }
+  thead th { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); font-weight:500; white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:0; }
+  td.num, th.num { font-family:var(--mono); font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; }
+  td.nm { font-weight:500; }
+  tbody tr:hover { background:var(--surface-2); }
+
+  /* ---------- calculator ---------- */
+  .calc { border:1px solid var(--rule-2); border-radius:6px; overflow:hidden; background:var(--surface); }
+  .calc-in { padding:16px; display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:13px; border-bottom:1px solid var(--rule); }
+  .f { display:flex; flex-direction:column; gap:5px; min-width:0; }
+  .f label { font-family:var(--mono); font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); }
+  .f input, .f select {
+    font-family:var(--mono); font-size:14px; color:var(--ink); background:var(--ground);
+    border:1px solid var(--rule-2); border-radius:4px; padding:7px 9px; width:100%;
+    font-variant-numeric:tabular-nums; transition:border-color .16s ease;
+  }
+  .f input:hover, .f select:hover { border-color:var(--ink-3); }
+  .calc-out { padding:16px; display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:14px; }
+  .o { display:flex; flex-direction:column; gap:2px; }
+  .o .k { font-family:var(--mono); font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); }
+  .o .v { font-family:var(--mono); font-size:1.24rem; font-variant-numeric:tabular-nums; letter-spacing:-.025em; color:var(--ink); }
+  .o .u { font-family:var(--mono); font-size:11px; color:var(--ink-3); }
+  .o.hl .v { color:var(--accent); }
+  .calc-foot { padding:11px 16px; border-top:1px solid var(--rule); background:var(--inset); font-size:12.6px; color:var(--ink-3); }
+
+  /* ---------- anomalies ---------- */
+  .an { display:flex; flex-direction:column; gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
+  .an-i { background:var(--surface); padding:13px 16px; display:flex; flex-direction:column; gap:5px; }
+  .an-i .h { display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; }
+  .an-i h4 { font-size:14.2px; }
+  .an-i p { font-size:13.4px; color:var(--ink-2); max-width:76ch; }
+
+  /* ---------- sources ---------- */
+  details.src { border:1px solid var(--rule); border-radius:5px; background:var(--surface); }
+  details.src > summary {
+    cursor:pointer; padding:12px 16px; font-family:var(--mono); font-size:11px;
+    letter-spacing:.11em; text-transform:uppercase; color:var(--ink-2); list-style:none;
+  }
+  details.src > summary::-webkit-details-marker { display:none; }
+  details.src > summary:hover { color:var(--ink); }
+  .src-body { padding:0 16px 16px; display:flex; flex-direction:column; gap:13px; border-top:1px solid var(--rule); padding-top:14px; }
+  .src-g h5 { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; margin:0 0 5px; }
+  .src-g ul { list-style:none; padding:0; font-size:13.2px; color:var(--ink-2); }
+  .src-g li { margin:.3em 0; }
+
+  footer { margin-top:56px; padding-top:18px; border-top:1px solid var(--rule); font-family:var(--mono); font-size:11px; color:var(--ink-3); line-height:1.7; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px) {
+    .row { grid-template-columns:1fr; gap:12px; }
+    .rail { padding-top:0; display:flex; gap:10px; align-items:baseline; }
+    .rail b { display:inline; }
+    .ex-body, .ex-sub { padding-left:16px; }
+    .brand { display:none; }
+    .navlinks { margin-left:0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior:auto; }
+    *, *::before, *::after { transition:none !important; animation:none !important; }
+  }
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#start">Groundwork</a>
+    <nav class="navlinks" id="nav">
+      <a href="#phases">Phases</a>
+      <a href="#principles">Principles</a>
+      <a href="#program">Program</a>
+      <a href="#ladder">Ladder</a>
+      <a href="#cardio">Cardio</a>
+      <a href="#recovery">Recovery</a>
+      <a href="#fuel">Numbers</a>
+      <a href="#food">Food</a>
+      <a href="#supps">Supplements</a>
+      <a href="#anomalies">Open</a>
+      <a href="#sources">Sources</a>
+    </nav>
+    <button class="tbtn" id="themeBtn" type="button" aria-label="Toggle colour theme">Theme</button>
+  </div>
+  <div id="prog"></div>
+</div>
+
+<div class="page">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="mast" id="start">
+    <h1>Ground<span class="tag">work</span></h1>
+    <p class="mast-sub">A twelve-month plan to build a base and then get lean — designed around one
+      bench, one pair of adjustable dumbbells, and three hours a week. Every number on this page
+      traces to a source at the bottom.</p>
+    <div class="mast-meta">
+      <span><b>Equipment</b> &nbsp;bench + adjustable DBs, 5–50 lb/hand</span>
+      <span><b>Schedule</b> &nbsp;3 days/week, ~60 min</span>
+      <span><b>Split</b> &nbsp;full body, A/B/C rotation</span>
+      <span><b>Diet</b> &nbsp;omnivore, unrestricted</span>
+    </div>
+
+    <div class="alert">
+      <h2>Do this before your first session</h2>
+      <p><strong>Your dumbbells are under a safety recall.</strong> On 5 June 2025 the U.S. Consumer
+        Product Safety Commission announced a recall of approximately <strong>3,844,200</strong> BowFlex
+        adjustable dumbbells — models <strong>552</strong> (5–52.5 lb) and <strong>1090</strong> (10–90 lb),
+        sold 2004 through May 2025. The weight plates can dislodge from the handle during use. There
+        were roughly 350 reports of plates coming loose and <strong>111 injuries</strong>, including
+        concussions, broken toes, abrasions and contusions.</p>
+      <p>The remedy is a free refund or replacement. Check your model and register at
+        <a href="https://www.bowflex.com/dumbbell-recalls.html">bowflex.com/dumbbell-recalls.html</a>
+        or call 800-209-3539. A "5–50" set is almost certainly a 552.</p>
+      <p><strong>Until it's resolved</strong>, this program still works — just train around the failure mode:</p>
+      <ul>
+        <li>Confirm the dial has fully seated and the plates are locked <em>every single time</em> you change weight. Lift the bell a few inches and give it a shake before you use it.</li>
+        <li>Don't press anything over your face or head. Substitute the <strong>floor press</strong> for the bench press and do overhead work standing, where a dropped bell lands away from you.</li>
+        <li>Set up over a clear floor, not carpet edges or a rug you can trip on, and keep feet out from under the bells.</li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============ PHASES ============ -->
+  <section id="phases">
+    <div class="row">
+      <div class="rail"><b>01</b> Sequence</div>
+      <div class="stack">
+        <h2 class="sec-title">Base and lean are two different jobs</h2>
+        <hr class="sec-rule">
+        <p class="prose">You asked to get in shape, build a base, then get lean and muscular. Those are
+          three jobs and they want three different sets of instructions — trying to do all of them at
+          once is the single most common reason a first year of training produces nothing. The order
+          below is the plan. It runs about twelve months.</p>
+        <div class="phases">
+          <div class="ph">
+            <span class="ph-n">Phase 1</span>
+            <h4>Base</h4>
+            <span class="wk">Weeks 1–8</span>
+            <p>Learn the eight movement patterns and build the habit. Volume is deliberately below the
+              research optimum — you are training your technique and your tolerance, not your muscles.
+              Eat at maintenance. Do not diet.</p>
+          </div>
+          <div class="ph">
+            <span class="ph-n">Phase 2</span>
+            <h4>Build</h4>
+            <span class="wk">Weeks 9–24</span>
+            <p>Add a set to every main lift, which lifts you into the evidence-backed volume band. Eat
+              at maintenance or slightly above. This is where most of your muscle gets built, and where
+              the dumbbells start running out of weight.</p>
+          </div>
+          <div class="ph">
+            <span class="ph-n">Phase 3</span>
+            <h4>Reveal</h4>
+            <span class="wk">Weeks 25+</span>
+            <p>Hold the training exactly as it is and drop calories 10–20%. You cannot reveal muscle you
+              haven't built, which is why this phase is last. Protein goes up, training volume does not
+              come down.</p>
+          </div>
+        </div>
+        <div class="note">
+          <p><strong>The scale is going to lie to you, and that's expected.</strong> Untrained people are
+            the one group who reliably gain muscle and lose fat at the same time. In a 2026 trial at a
+            500 kcal/day deficit, men lost 8.9 kg of fat while <em>gaining</em> 0.8 kg of lean mass over
+            about five months; women lost 6.4 kg of fat and gained 0.9 kg of lean mass. Beginner men in
+            year one typically add roughly 0.7–1.0 kg of muscle per month.</p>
+          <p>Those two changes cancel out on a bathroom scale. Measure your waist, take photos in the
+            same light every four weeks, and watch your lift numbers. Weigh yourself if you like, but
+            don't let it be the thing that tells you whether this is working.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRINCIPLES ============ -->
+  <section id="principles">
+    <div class="row">
+      <div class="rail"><b>02</b> Fitness</div>
+      <div class="stack">
+        <h2 class="sec-title">Six things that decide whether this works</h2>
+        <hr class="sec-rule">
+        <p class="prose">Almost everything else people argue about is noise. These six carry the result.</p>
+        <div class="cards">
+          <div class="card">
+            <h4>Progressive overload</h4>
+            <span class="big">non-negotiable</span>
+            <p>The one rule with no exceptions: over time, the work has to get harder. More weight, more
+              reps, more sets, better range. If nothing on your log went up this month, nothing on your
+              body will either.</p>
+          </div>
+          <div class="card">
+            <h4>Effort</h4>
+            <span class="big">0–4 RIR</span>
+            <p>RIR = reps in reserve, how many you could still have done. Anywhere from 0 to about 4
+              produces comparable growth; sets stopped more than 5 reps short consistently underperform.
+              You do not need to train to failure.</p>
+          </div>
+          <div class="card">
+            <h4>Volume</h4>
+            <span class="big">10–20 sets</span>
+            <p>Per muscle, per week. Ten or more beats fewer than ten; the productive range runs to about
+              twenty, with clear diminishing returns above that. Adding a set beats grinding an existing
+              set closer to failure.</p>
+          </div>
+          <div class="card">
+            <h4>Frequency</h4>
+            <span class="big">2× per muscle</span>
+            <p>Every muscle, at least twice a week. A 3-day full-body split gives you three exposures
+              automatically — which is the main reason it's the right choice for you rather than a
+              body-part split.</p>
+          </div>
+          <div class="card">
+            <h4>Rest between sets</h4>
+            <span class="big">2–3 min</span>
+            <p>Counter-intuitive but well tested: 3 minutes beat 1 minute for <em>both</em> strength and
+              size over 8 weeks. Long rests aren't wasted time, they're why six exercises fill an hour.
+              Short rests are for the accessory pairs only.</p>
+          </div>
+          <div class="card">
+            <h4>Range of motion</h4>
+            <span class="big">full, stretched</span>
+            <p>Use the whole range, and prioritise the stretched end. Recent work suggests the lengthened
+              position drives a disproportionate share of growth — training partials in the stretch
+              produced adaptations similar to full range.</p>
+          </div>
+        </div>
+        <div class="note">
+          <p><strong>On the guidelines themselves.</strong> The American College of Sports Medicine updated
+            its resistance training position stand in 2026, its first revision in seventeen years, and the
+            headline change was a relaxation: it dropped the old minimum-dose rules. There is no longer a
+            threshold you must clear for training to "count." The largest single improvement available to
+            anyone is going from no resistance training to some. Everything above is about optimising —
+            it is not a gate you have to pass to start.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAM ============ -->
+  <section id="program">
+    <div class="row">
+      <div class="rail"><b>03</b> The program</div>
+      <div class="stack">
+        <h2 class="sec-title">Three sessions, rotated</h2>
+        <hr class="sec-rule">
+        <p class="prose">Run <strong>A, B, C</strong> in order with at least one rest day between sessions —
+          Monday / Wednesday / Friday is the usual answer. They rotate rather than being numbered, because
+          no session depends on the one before it. Miss a Wednesday and you do B on Thursday; you don't
+          restart anything.</p>
+        <p class="prose">Every session is four main lifts at 2–3 minutes rest, then one superset pair at
+          60–75 seconds. Tap any exercise for setup, execution, and the two faults that actually matter.</p>
+
+        <div class="note">
+          <p><strong>Week one: how to pick your starting weights.</strong> Nobody can tell you a number, and
+            you don't need to guess well — you need to guess low. On your first session, pick a weight you
+            think you could lift about 15 times, and stop each set at 10. You should finish every set feeling
+            like you had 3 or 4 more in you. That will feel far too easy. Do it anyway: week one exists to
+            collect data and teach your joints the movements, and starting too heavy is the most common way a
+            first month ends in an injury or a fortnight of soreness.</p>
+          <p><strong>Then use double progression — this is the everyday rule that runs the whole year.</strong>
+            Stay at the same weight until you can hit the <em>top</em> of the rep range on <em>every</em> set.
+            The session after that, go up one increment (2.5–5 lb per hand) and expect to fall back to the
+            bottom of the range. Then climb again. For example on the goblet squat: 3 × 8 at 30 lb → work up
+            to 3 × 12 at 30 lb → next session 3 × 8 at 35 lb → work up to 3 × 12 again. That loop is
+            progressive overload, and it is the only thing you have to remember.</p>
+          <p>Expect the jumps to come quickly for the first couple of months and then slow down. When they
+            stop entirely on a given lift, that lift has hit the ceiling — go to the <a href="#ladder">Load
+            Ladder</a>.</p>
+        </div>
+
+        <div class="wk-tabs" role="tablist" aria-label="Training sessions">
+          <button class="wk-tab" role="tab" aria-selected="true" aria-controls="dayA" id="tabA" type="button">Session A</button>
+          <button class="wk-tab" role="tab" aria-selected="false" aria-controls="dayB" id="tabB" type="button">Session B</button>
+          <button class="wk-tab" role="tab" aria-selected="false" aria-controls="dayC" id="tabC" type="button">Session C</button>
+        </div>
+
+        <!-- ---------- SESSION A ---------- -->
+        <div class="day" id="dayA" role="tabpanel" aria-labelledby="tabA">
+          <div class="day-head">
+            <h4>Session A — squat &amp; flat press</h4>
+            <span class="m">16 working sets · ~55 min</span>
+          </div>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">1</span>
+              <span class="ex-n">Goblet squat <span class="pill p2">RIR 2–3</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 8–12</span><span>rest 2 min</span><span>quads, glutes</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Hold one dumbbell vertically against your chest, cupping the top head with both hands.</li>
+                  <li>Feet a little wider than shoulders, toes turned out 15–30°.</li>
+                  <li>Ribs down, brace as if about to be poked in the stomach.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Sit down between your hips, not back like a hinge. Knees track over your toes.</li>
+                  <li>Go as deep as you can without the lower back rounding — thighs to parallel or below.</li>
+                  <li>Drive up through the whole foot. Elbows stay inside the knees.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Heels lifting. Fix by elevating heels on a 1–2 cm board, or widen the stance.</li>
+                  <li>Chest collapsing forward as the dumbbell pulls you down. Squeeze the bell into your sternum harder.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>When 50 lb gets easy:</strong> hold two dumbbells at your shoulders instead
+              (front rack, up to 100 lb total), then elevate your heels, then move to the split-squat family.
+              This is the first lift you'll outgrow — expect it around month 3.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">2</span>
+              <span class="ex-n">Dumbbell bench press <span class="pill p2">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 8–12</span><span>rest 2–3 min</span><span>chest, triceps, front delts</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Sit on the end of the bench, dumbbells on your thighs. Lie back and kick them up one at a time.</li>
+                  <li>Feet flat and planted. Shoulder blades pulled down and back into the bench.</li>
+                  <li>Slight arch in the lower back is fine; ribcage stays down.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Lower until your upper arms are roughly level with your torso — feel the stretch across the chest.</li>
+                  <li>Elbows at about 45° from your sides, not flared to 90°.</li>
+                  <li>Press up and slightly together. Don't clank the bells at the top.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Shoulders rolling forward off the bench at the bottom — you've gone too deep for your current mobility.</li>
+                  <li>Bouncing out of the bottom. The stretched position is where the growth is; own it.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>Recall substitute:</strong> until your dumbbells are replaced, do this as a
+              <strong>floor press</strong> — same setup lying on the floor, upper arms stop when your triceps touch
+              down. Shorter range, but nothing travels over your face.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">3</span>
+              <span class="ex-n">One-arm dumbbell row <span class="pill p2">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 10–12 / side</span><span>rest 90 s</span><span>lats, mid-back, biceps</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Opposite hand and knee on the bench, back flat and roughly parallel to the floor.</li>
+                  <li>Working arm hanging straight down, shoulder allowed to reach toward the floor.</li>
+                  <li>Neck neutral — look at the floor a foot ahead of the bench, not up.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Start by pulling the shoulder blade down and back, then bend the elbow.</li>
+                  <li>Pull toward your hip, not your armpit. Elbow finishes past your ribs.</li>
+                  <li>Lower all the way until the shoulder reaches again. That stretch is the point.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Twisting the torso to help the weight up. If you're rotating, it's too heavy.</li>
+                  <li>Stopping short at the bottom, turning it into a half-rep. Full reach every time.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">4</span>
+              <span class="ex-n">Dumbbell Romanian deadlift <span class="pill p2">RIR 2–3</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 10–12</span><span>rest 2 min</span><span>hamstrings, glutes</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Dumbbells in front of your thighs, feet hip-width, knees softly bent and <em>kept</em> there.</li>
+                  <li>Shoulders back, spine long from tailbone to skull.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Push your hips backward — the bells slide down your legs, staying in contact.</li>
+                  <li>Stop when you feel a strong hamstring stretch or the back starts to round, usually mid-shin.</li>
+                  <li>Drive the hips forward to stand. Squeeze the glutes at the top; don't lean back.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Turning it into a squat. The knee angle should barely change from start to finish.</li>
+                  <li>Letting the dumbbells drift away from the legs, which loads the lower back instead.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>When 100 lb gets easy:</strong> stand on a low step or plate so you can reach
+              further into the stretch before switching to the single-leg version in Session C.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">5a</span>
+              <span class="ex-n">Dumbbell lateral raise <span class="pill p1">RIR 1–2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>2 × 12–15</span><span>superset</span><span>side delts</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Stand tall, light dumbbells at your sides, tiny bend in the elbows.</li>
+                  <li>Go much lighter than feels dignified. 10–20 lb is a real working weight here.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Raise out to the sides to shoulder height, leading with the elbows.</li>
+                  <li>Lower under control over about two seconds. No swinging.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Shrugging — the traps take over. Keep the shoulders pressed down.</li>
+                  <li>Heaving with the hips. If you're bouncing, drop 5 lb.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">5b</span>
+              <span class="ex-n">Dumbbell curl <span class="pill p1">RIR 1–2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>2 × 10–15</span><span>superset</span><span>biceps</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Standing or seated, arms hanging, palms forward.</li>
+                  <li>Elbows pinned at your sides for the whole set.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Curl up, pause briefly at the top, lower all the way to a straight arm.</li>
+                  <li>Alternate arms or do both together — no meaningful difference.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Elbows drifting forward, turning it into a front raise.</li>
+                  <li>Cutting the bottom short. Full extension between reps.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>Superset:</strong> alternate 5a and 5b back to back with ~60 s between pairs.
+              They don't compete for the same muscles, so this costs nothing and saves about six minutes.</p>
+          </details>
+        </div>
+
+        <!-- ---------- SESSION B ---------- -->
+        <div class="day" id="dayB" role="tabpanel" aria-labelledby="tabB" hidden>
+          <div class="day-head">
+            <h4>Session B — split squat &amp; incline press</h4>
+            <span class="m">16 working sets · ~55 min</span>
+          </div>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">1</span>
+              <span class="ex-n">Bulgarian split squat <span class="pill p2">RIR 2–3</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 8–12 / side</span><span>rest 2 min</span><span>quads, glutes</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Rear foot on the bench, laces down. Front foot far enough forward that the front shin stays near-vertical at the bottom.</li>
+                  <li>Dumbbells hanging at your sides. Start with bodyweight only for the first week.</li>
+                  <li>Get the distance right before you add load — this is the fiddliest setup in the program.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Drop straight down, rear knee toward the floor, torso slightly forward.</li>
+                  <li>Descend until the front thigh is at or below parallel.</li>
+                  <li>Drive through the front heel. The back leg is a kickstand, not an engine.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Stance too short, so the front knee shoots forward and the quad cramps. Step further out.</li>
+                  <li>Pushing off the back foot. Weight stays about 80/20 on the front leg.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>Why this lift matters so much for you:</strong> a 2025 meta-analysis found no
+              significant hypertrophy difference between unilateral and bilateral training. One leg at a time halves
+              the load you need, which is exactly how you keep progressing past a 50 lb dumbbell.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">2</span>
+              <span class="ex-n">Incline dumbbell press <span class="pill p2">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 8–12</span><span>rest 2–3 min</span><span>upper chest, front delts, triceps</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Bench at 30°. Higher than that and it becomes a shoulder press.</li>
+                  <li>Same kick-up entry as the flat press. Blades pinned back.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Lower to the upper chest, elbows around 45°.</li>
+                  <li>Full stretch at the bottom, press to just short of lockout.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Bench angle too steep, which quietly turns your chest day into a delt day.</li>
+                  <li>Butt lifting off the bench to grind a rep.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>If your bench is flat-only:</strong> substitute a <strong>floor press</strong>
+              or a <strong>squeeze press</strong> (dumbbells pressed together hard throughout). You lose a little
+              upper-chest emphasis; the session still works.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">3</span>
+              <span class="ex-n">Chest-supported dumbbell row <span class="pill p2">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 10–12</span><span>rest 90 s</span><span>mid-back, lats, biceps</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Bench at ~30°, lie face down with your chest on the pad, feet on the floor.</li>
+                  <li>Arms hanging straight down, dumbbells off the floor.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Row toward your hips, squeezing the shoulder blades together at the top.</li>
+                  <li>Lower to a full hang each rep.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Lifting the chest off the pad — the whole point is that it can't cheat.</li>
+                  <li>Shrugging instead of retracting.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>If your bench is flat-only:</strong> do a <strong>two-arm bent-over row</strong>
+              — hinge to about 45°, brace hard, row to the hips. Keeps the lower back honest by requiring a tighter brace.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">4</span>
+              <span class="ex-n">Dumbbell hip thrust <span class="pill p2">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 10–15</span><span>rest 90 s</span><span>glutes, hamstrings</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Upper back against the long edge of the bench, feet flat, shins vertical at the top.</li>
+                  <li>One dumbbell across the hip crease, held with both hands. A folded towel under it helps a lot.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Drive the hips up until the torso is parallel to the floor. Ribs stay down.</li>
+                  <li>Hold the top for a beat, then lower under control without resting on the floor.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Hyperextending the lower back at the top instead of finishing with the glutes.</li>
+                  <li>Feet too far out, which turns it into a hamstring exercise.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>When 50 lb gets easy:</strong> a single dumbbell caps out fast here and gets
+              uncomfortable before it gets heavy. Switch to the <strong>single-leg hip thrust</strong> — bodyweight
+              first, then add the dumbbell back.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">5a</span>
+              <span class="ex-n">Overhead triceps extension <span class="pill p1">RIR 1–2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>2 × 10–15</span><span>superset</span><span>triceps</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Seated or standing, one dumbbell held with both hands, arms overhead.</li>
+                  <li>Elbows close to the head and pointed forward.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Lower behind the head until you feel a deep triceps stretch.</li>
+                  <li>Extend without letting the elbows flare out.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Elbows flaring wide, which lets the shoulders take over.</li>
+                  <li>Short range. The overhead position is chosen precisely because it loads the stretch.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">5b</span>
+              <span class="ex-n">Dead bug <span class="pill p1">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>2 × 8–10 / side</span><span>superset</span><span>deep core</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>On your back, arms straight up, hips and knees bent to 90°.</li>
+                  <li>Press the lower back flat into the floor and keep it there. That pressure is the exercise.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Slowly extend the opposite arm and leg toward the floor, breathing out.</li>
+                  <li>Return and switch. Stop the rep the instant your back lifts off the floor.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Letting the lower back arch — you've extended further than you can control.</li>
+                  <li>Rushing. Slow is the whole point here.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- ---------- SESSION C ---------- -->
+        <div class="day" id="dayC" role="tabpanel" aria-labelledby="tabC" hidden>
+          <div class="day-head">
+            <h4>Session C — lunge &amp; overhead press</h4>
+            <span class="m">16 working sets · ~55 min</span>
+          </div>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">1</span>
+              <span class="ex-n">Dumbbell reverse lunge <span class="pill p2">RIR 2–3</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 8–12 / side</span><span>rest 2 min</span><span>quads, glutes</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Dumbbells at your sides, standing tall, feet hip-width.</li>
+                  <li>Reverse rather than forward — it's far kinder to the knees and easier to balance.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Step back and drop the rear knee toward the floor, torso upright.</li>
+                  <li>Drive through the front heel to return. Finish all reps on one side, then switch.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Short step, which jams the front knee forward.</li>
+                  <li>Leaning over the front thigh instead of staying stacked.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>Alternative:</strong> a <strong>step-up</strong> onto the bench works the same
+              pattern with more glute and more balance demand. Rotate between them every 6–8 weeks if you like.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">2</span>
+              <span class="ex-n">Standing overhead press <span class="pill p2">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 6–10</span><span>rest 2–3 min</span><span>delts, triceps, upper chest</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Dumbbells at shoulder height, palms forward, elbows slightly in front of the body.</li>
+                  <li>Feet hip-width, glutes and abs squeezed to stop the lower back arching.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Press up and slightly back so the bells finish over the middle of your head.</li>
+                  <li>Lower to at least chin level, ideally until the upper arms are parallel to the floor.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Leaning back to turn it into an incline press. If your ribs are flaring, it's too heavy.</li>
+                  <li>Pressing around the head instead of up past it.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub">Done standing on purpose: with a recalled dumbbell, a bell that comes apart overhead
+              falls away from you rather than onto you.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">3</span>
+              <span class="ex-n">Dumbbell pullover <span class="pill p2">RIR 2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 10–12</span><span>rest 90 s</span><span>lats, chest</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Lie along the bench, one dumbbell held over your chest, both hands cupping the top head.</li>
+                  <li>Slight bend in the elbows, locked there for the whole set.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Lower the bell back over your head until you feel a strong stretch under the armpits.</li>
+                  <li>Pull back over the chest using the lats, not the arms.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Bending and straightening the elbows, which makes it a triceps exercise.</li>
+                  <li>Letting the ribs flare and the back arch at the bottom.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="ex-sub"><strong>Honest limitation:</strong> this is the closest thing to a vertical pull you can
+              do with a bench and dumbbells, and it is a partial substitute, not an equal. See open item 2.</p>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">4</span>
+              <span class="ex-n">Single-leg Romanian deadlift <span class="pill p2">RIR 2–3</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>3 × 8–10 / side</span><span>rest 90 s</span><span>hamstrings, glutes</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>One dumbbell in the hand opposite the standing leg. Soft knee on the standing leg.</li>
+                  <li>Free hand on the bench for balance while you're learning — that's not cheating.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Hinge at the hip, rear leg extending straight behind you as a counterweight.</li>
+                  <li>Hips stay square to the floor — don't let the rear hip roll open.</li>
+                  <li>Stop at a strong hamstring stretch, then drive the hip forward to stand.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Rotating the hips open, which removes most of the hamstring loading.</li>
+                  <li>Rounding the back to chase depth instead of stopping where control ends.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">5a</span>
+              <span class="ex-n">Rear-delt fly <span class="pill p1">RIR 1–2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>2 × 12–20</span><span>superset</span><span>rear delts, upper back</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Chest on an inclined bench, or hinged over at 45° if the bench is flat-only.</li>
+                  <li>Very light dumbbells hanging down, small elbow bend.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Raise out to the sides in a wide arc, thumbs slightly down.</li>
+                  <li>Think about pulling the elbows apart, not lifting the hands.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Too heavy, so it becomes a row. This is a 5–15 lb exercise for most people.</li>
+                  <li>Shrugging at the top.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-i">5b</span>
+              <span class="ex-n">Hammer curl <span class="pill p1">RIR 1–2</span></span>
+              <span class="chev">›</span>
+              <span class="ex-spec"><span>2 × 10–15</span><span>superset</span><span>biceps, forearms</span></span>
+            </summary>
+            <div class="ex-body">
+              <div>
+                <h5>Setup</h5>
+                <ul>
+                  <li>Arms at your sides, palms facing your thighs, elbows pinned.</li>
+                </ul>
+              </div>
+              <div>
+                <h5>Execution</h5>
+                <ul>
+                  <li>Curl straight up keeping the neutral grip throughout.</li>
+                  <li>Lower to full extension every rep.</li>
+                </ul>
+              </div>
+              <div>
+                <h5 style="color:var(--i3)">Common faults</h5>
+                <ul class="fault">
+                  <li>Swinging from the shoulders.</li>
+                  <li>Elbows travelling forward at the top.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <!-- volume table -->
+        <h3 class="sub">Weekly volume, computed</h3>
+        <p class="prose">Direct sets count as 1.0, strong secondary involvement as 0.5. Phase 1 runs 3 sets on
+          each main lift and 2 on each accessory; Phase 2 adds one set to everything.</p>
+        <div class="tw">
+          <table>
+            <caption>Sets per muscle group per week</caption>
+            <thead>
+              <tr>
+                <th>Muscle</th>
+                <th class="num">Phase 1</th>
+                <th class="num">Phase 2</th>
+                <th>In the 10–20 band?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="nm">Chest</td><td class="num">9.0</td><td class="num">12.0</td><td><span class="pill p2">Phase 2</span></td></tr>
+              <tr><td class="nm">Back / lats</td><td class="num">9.0</td><td class="num">12.0</td><td><span class="pill p2">Phase 2</span></td></tr>
+              <tr><td class="nm">Delts</td><td class="num">10.0</td><td class="num">14.0</td><td><span class="pill p1">Both</span></td></tr>
+              <tr><td class="nm">Biceps</td><td class="num">7.0</td><td class="num">10.0</td><td><span class="pill p2">Phase 2</span></td></tr>
+              <tr><td class="nm">Triceps</td><td class="num">6.5</td><td class="num">9.0</td><td><span class="pill p0">Just under</span></td></tr>
+              <tr><td class="nm">Quads</td><td class="num">9.0</td><td class="num">12.0</td><td><span class="pill p2">Phase 2</span></td></tr>
+              <tr><td class="nm">Hamstrings</td><td class="num">7.5</td><td class="num">10.0</td><td><span class="pill p2">Phase 2</span></td></tr>
+              <tr><td class="nm">Glutes</td><td class="num">10.5</td><td class="num">14.0</td><td><span class="pill p1">Both</span></td></tr>
+              <tr><td class="nm">Core (direct)</td><td class="num">2.0</td><td class="num">3.0</td><td><span class="pill p0">By design</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <p><strong>Phase 1 sits deliberately below the optimum, and that is the point.</strong> The 10–20 set
+            band comes from studies of <em>trained</em> lifters. An untrained beginner grows on far less, and
+            starting at 20 sets a week buys you a fortnight of crippling soreness, not faster progress. Phase 1
+            builds technique and tolerance; Phase 2 walks you into the band by adding a single set per lift.</p>
+          <p><strong>Phase 2 sessions run longer — budget about 65 minutes.</strong> The extra set on every
+            movement takes each session from 16 working sets to 22, and at 2–3 minutes of rest that time has to
+            come from somewhere. If you only have a hard 60 minutes, drop back to 3 sets on the fourth main lift
+            rather than cutting your rest periods; rest is doing real work here.</p>
+          <p>Triceps stay slightly under even in Phase 2. That's a deliberate trade — they get worked hard on
+            three pressing days and are the most common place beginners overcook their elbows. If your arms are
+            a priority later, add a second triceps movement to Session A before you add anything else.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LADDER ============ -->
+  <section id="ladder">
+    <div class="row">
+      <div class="rail"><b>04</b> The ceiling</div>
+      <div class="stack">
+        <h2 class="sec-title">What to do when 50 lb stops being heavy</h2>
+        <hr class="sec-rule">
+        <p class="prose">This will happen, it will happen to your legs first, and it is not a problem with you
+          or with the plan — it's arithmetic. Two 50 lb dumbbells is 100 lb, and a squat pattern outgrows that
+          within a few months. When a lift hits the top of its weight <em>and</em> the top of its rep range for
+          two sessions running, walk down this ladder one rung at a time. Don't skip ahead.</p>
+        <div class="ladder">
+          <div class="rung"><span class="n">1</span><span class="t">Add reps</span><span class="d">Work up to the top of the prescribed range at your current weight. Free, and it's most of your first year.</span></div>
+          <div class="rung"><span class="n">2</span><span class="t">Add a set</span><span class="d">Going from 2 sets to 3 produces more growth than taking an existing set closer to failure. Cheaper than heroics.</span></div>
+          <div class="rung"><span class="n">3</span><span class="t">Go single-limb</span><span class="d">One leg or one arm halves the load requirement instantly. A 2025 meta-analysis found no significant hypertrophy difference between unilateral and bilateral training — this is a lateral move, not a downgrade.</span></div>
+          <div class="rung"><span class="n">4</span><span class="t">Deepen the stretch</span><span class="d">Stand on a plate to lengthen a Romanian deadlift; elevate the front foot in a split squat. Lengthened-range work punches above its weight for growth.</span></div>
+          <div class="rung"><span class="n">5</span><span class="t">Pause at the bottom</span><span class="d">Two seconds in the stretched position kills the bounce and forces the muscle to restart the rep cold.</span></div>
+          <div class="rung"><span class="n">6</span><span class="t">Slow the lowering</span><span class="d">2–4 seconds down. Worth being precise here: rep durations from 0.5 to 8 seconds produce similar growth. A slow eccentric doesn't add growth by itself — it makes a lighter weight reach failure sooner, which is exactly what you need. Don't go past 8 seconds; beyond 10 it's clearly worse.</span></div>
+          <div class="rung"><span class="n">7</span><span class="t">One-and-a-half reps</span><span class="d">Full rep, then a half rep in the bottom half, counted as one. Brutal, and it doubles time in the stretched position.</span></div>
+          <div class="rung"><span class="n">8</span><span class="t">Shorten the rest</span><span class="d">Last resort. It raises difficulty but costs you performance on later sets, so use it to buy time, not growth.</span></div>
+        </div>
+        <div class="note">
+          <p><strong>Expect your legs to live on rungs 3 to 5 for most of the year.</strong> That's the design.
+            Your upper body will keep climbing rungs 1 and 2 for far longer, because a 100 lb bench press and a
+            50 lb row have a long runway for a beginner.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WARM-UP + CARDIO ============ -->
+  <section id="cardio">
+    <div class="row">
+      <div class="rail"><b>05</b> Around the lifting</div>
+      <div class="stack">
+        <h2 class="sec-title">Warm-up, cardio, steps</h2>
+        <hr class="sec-rule">
+
+        <h3 class="sub">Warm-up — 8 minutes, every session</h3>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Block</th><th class="num">Time</th><th>What</th></tr></thead>
+            <tbody>
+              <tr><td class="nm">General</td><td class="num">3–4 min</td><td>Brisk walk, stairs, or easy cycling — enough to break a light sweat.</td></tr>
+              <tr><td class="nm">Dynamic</td><td class="num">2–3 min</td><td>Leg swings front and side, arm circles, bodyweight squats, walking lunges, shoulder dislocates with a towel.</td></tr>
+              <tr><td class="nm">Ramp sets</td><td class="num">2 min</td><td>Two light sets of the first exercise: ~50% and ~75% of your working weight, 5 reps each.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="prose">Skip static stretching before you lift. Holding a stretch doesn't prevent next-day
+          soreness and can blunt force output. Save it for after, or for a separate day, if you enjoy it.</p>
+
+        <h3 class="sub">Cardio</h3>
+        <p class="prose">Lifting is not cardio, and the health returns from cardiovascular fitness are too large
+          to skip. In a study of <strong>122,007</strong> people, cardiorespiratory fitness was inversely
+          associated with mortality <em>with no observed upper limit</em> — the most fit group had roughly
+          <strong>80%</strong> lower all-cause mortality than the least fit. There is no point at which you're
+          fit enough for it to stop paying.</p>
+        <div class="cards">
+          <div class="card">
+            <h4><span class="pill p1">Zone 2</span> Easy</h4>
+            <span class="big">150–180 min</span>
+            <p>Per week, across 3–4 sessions. Brisk walking, easy cycling, slow jogging. The test is
+              conversation: you can talk in full sentences but wouldn't want to sing. Put it on non-lifting
+              days or after lifting, never before.</p>
+          </div>
+          <div class="card">
+            <h4><span class="pill p3">Zone 5</span> Hard — optional</h4>
+            <span class="big">1–2 × week</span>
+            <p>The Norwegian 4×4: four rounds of 4 minutes hard, 3 minutes easy, about 38 minutes with
+              warm-up. Reported to raise VO₂max roughly 7–10% in 8 weeks. Add it from Phase 2, not week 1.</p>
+          </div>
+          <div class="card">
+            <h4>Daily steps</h4>
+            <span class="big">7,000–8,000</span>
+            <p>The biggest lever you have that isn't exercise. Around 7,000 steps is where the mortality
+              curve bends sharply, and step count is the best practical proxy for the calories you burn
+              just living. Free, and it doesn't interfere with recovery.</p>
+          </div>
+        </div>
+        <p class="prose">The floor to aim for, from the WHO: 150–300 minutes of moderate activity a week plus
+          muscle-strengthening on 2 or more days. This program clears both comfortably.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECOVERY ============ -->
+  <section id="recovery">
+    <div class="row">
+      <div class="rail"><b>06</b> Staying in it</div>
+      <div class="stack">
+        <h2 class="sec-title">Recovery, and what to do when life happens</h2>
+        <hr class="sec-rule">
+
+        <div class="note">
+          <p><strong>Sleep is a body-composition variable, not just rest.</strong> In a controlled trial, people
+            on an identical 14-day calorie deficit sleeping 5.5 hours versus 8.5 hours lost a similar amount of
+            total weight — but the short-sleep group lost <strong>60% more lean mass</strong> and
+            <strong>55% less fat</strong>. Same diet. Same deficit. Different body.</p>
+          <p>Aim for 7–9 hours. If you can only fix one thing on this page and you're already training, fix this
+            one — it changes what your deficit is made of.</p>
+        </div>
+
+        <h3 class="sub">Soreness</h3>
+        <p class="prose">Expect real soreness in weeks 1–3, especially in the days after your first two sessions.
+          It fades as you adapt and it is not a scoreboard — a session that leaves you wrecked is not better than
+          one that doesn't. Soreness mostly comes from doing too much too soon, which is exactly why Phase 1
+          starts light. Keep moving on sore days; walking helps more than sitting still.</p>
+
+        <h3 class="sub">Deloads</h3>
+        <p class="prose">Every 6–8 weeks, or any time you fail to hit your numbers two sessions running, take a
+          lighter week: same sessions, same exercises, roughly two-thirds of the weight, stop 4–5 reps short on
+          every set. You will come back stronger than you left.</p>
+
+        <div class="note">
+          <p><strong>A bad month is a maintenance month, not a reset.</strong> When work or travel wrecks your
+            schedule, don't stop — shrink. Training at roughly <strong>one-third</strong> of your normal volume,
+            as long as the intensity stays high, was enough to maintain strength and muscle size for six months.
+            One session a week of two sets per lift will hold nearly everything you've built.</p>
+        </div>
+
+        <div class="note">
+          <p><strong>On missing a session.</strong> In the best real-world study of habit formation, it took a
+            median of <strong>66 days</strong> to make a new behaviour automatic — with an enormous range of 18
+            to 254 days depending on the person and the complexity of the habit. More usefully: the researchers
+            found that <em>missing a single opportunity did not measurably impair the habit forming at all</em>.</p>
+          <p>One missed session costs you one session. What costs you the year is deciding that the missed
+            session means you've failed.</p>
+        </div>
+
+        <h3 class="sub">What to log</h3>
+        <p class="prose">Notebook, notes app, spreadsheet — the format doesn't matter, the existence does. For
+          each set record <strong>exercise, weight, reps, RIR</strong>. That's it. Without it you can't apply
+          progressive overload, because you won't know what you did last time. Separately, every four weeks:
+          waist measurement at the navel, photos in the same spot and light, and your top set on each main lift.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FUEL / CALCULATOR ============ -->
+  <section id="fuel">
+    <div class="row">
+      <div class="rail"><b>07</b> Diet</div>
+      <div class="stack">
+        <h2 class="sec-title">Your numbers</h2>
+        <hr class="sec-rule">
+        <p class="prose">These are computed in your browser and never leave this page — nothing is saved or sent
+          anywhere. Basal rate uses the Mifflin-St Jeor equation, the most accurate of the common predictive
+          formulas. Treat every output as a starting estimate, not a fact: adjust based on what the scale and
+          tape actually do over 3–4 weeks.</p>
+
+        <div class="calc">
+          <div class="calc-in">
+            <div class="f">
+              <label for="units">Units</label>
+              <select id="units">
+                <option value="metric">kg / cm</option>
+                <option value="imperial" selected>lb / in</option>
+              </select>
+            </div>
+            <div class="f">
+              <label for="sex">Sex at birth</label>
+              <select id="sex">
+                <option value="m" selected>Male</option>
+                <option value="f">Female</option>
+              </select>
+            </div>
+            <div class="f">
+              <label for="age">Age</label>
+              <input id="age" type="number" value="30" min="14" max="99" step="1">
+            </div>
+            <div class="f">
+              <label for="ht" id="htL">Height (in)</label>
+              <input id="ht" type="number" value="70" min="40" max="90" step="0.5">
+            </div>
+            <div class="f">
+              <label for="wt" id="wtL">Weight (lb)</label>
+              <input id="wt" type="number" value="180" min="60" max="500" step="1">
+            </div>
+            <div class="f">
+              <label for="act">Daily activity</label>
+              <select id="act">
+                <option value="1.2">Desk job</option>
+                <option value="1.375" selected>Light, 7–8k steps</option>
+                <option value="1.55">On feet a lot</option>
+                <option value="1.725">Manual work</option>
+              </select>
+            </div>
+            <div class="f">
+              <label for="phase">Phase</label>
+              <select id="phase">
+                <option value="base" selected>1 · Base, maintain</option>
+                <option value="build">2 · Build, +10%</option>
+                <option value="reveal">3 · Reveal, −15%</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc-out" id="out">
+            <div class="o"><span class="k">Basal rate</span><span class="v" id="oBmr">—</span><span class="u">kcal/day at rest</span></div>
+            <div class="o"><span class="k">Maintenance</span><span class="v" id="oTdee">—</span><span class="u">kcal/day total burn</span></div>
+            <div class="o hl"><span class="k">Your target</span><span class="v" id="oCal">—</span><span class="u" id="oCalU">kcal/day</span></div>
+            <div class="o hl"><span class="k">Protein</span><span class="v" id="oPro">—</span><span class="u" id="oProU">g/day</span></div>
+            <div class="o"><span class="k">Per meal ×4</span><span class="v" id="oMeal">—</span><span class="u">g protein each</span></div>
+            <div class="o"><span class="k">Fat</span><span class="v" id="oFat">—</span><span class="u">g/day minimum</span></div>
+            <div class="o"><span class="k">Carbs</span><span class="v" id="oCarb">—</span><span class="u">g/day, the remainder</span></div>
+            <div class="o"><span class="k">Fibre</span><span class="v" id="oFib">—</span><span class="u">g/day</span></div>
+            <div class="o"><span class="k">Water</span><span class="v" id="oH2o">—</span><span class="u">litres/day, roughly</span></div>
+          </div>
+          <div class="calc-foot" id="calcNote">—</div>
+        </div>
+
+        <h3 class="sub">Why these numbers</h3>
+        <div class="cards">
+          <div class="card">
+            <h4>Protein</h4>
+            <span class="big">1.6–2.2 g/kg</span>
+            <p>A meta-analysis of 49 studies and 1,863 people found gains kept improving up to about
+              <strong>1.62 g/kg/day</strong> and flattened after, with the confidence interval reaching 2.2.
+              In a deficit, aim at the top of that range — protein is what stops weight loss from becoming
+              muscle loss.</p>
+          </div>
+          <div class="card">
+            <h4>Spread it out</h4>
+            <span class="big">0.4–0.55 g/kg</span>
+            <p>Per meal, across 3–5 meals. The synthesis response to a meal runs about 2–2.5 hours and needs
+              roughly 2.5–3 g of leucine to fire properly. 160 g of protein in two meals does less than the
+              same 160 g in four.</p>
+          </div>
+          <div class="card">
+            <h4>Deficit ceiling</h4>
+            <span class="big">10–20%</span>
+            <p>Below maintenance. Go harder and you start paying in muscle: each extra 100 kcal/day of deficit
+              reduces the lean-mass effect, and around 500 kcal/day is where lean gains are predicted to stop
+              entirely. Patience here is not optional, it's mechanical.</p>
+          </div>
+          <div class="card">
+            <h4>Fibre</h4>
+            <span class="big">28–34 g</span>
+            <p>Roughly 14 g per 1,000 kcal. Fewer than one in ten adults hit this. It's the cheapest satiety
+              you can buy, which matters enormously in Phase 3 — a fed feeling is what makes a deficit
+              survivable.</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <p><strong>Why whole food, without the moralising.</strong> In a tightly controlled inpatient trial,
+            people were given either ultra-processed or unprocessed meals matched for calories presented,
+            macronutrients, sugar, sodium and fibre, and told to eat as much or as little as they wanted. On
+            the ultra-processed diet they ate <strong>508 kcal/day more</strong> and gained weight.</p>
+          <p>No food is forbidden here. The argument for cooking most of your own food is simply that it makes
+            hitting your target easier — you eat less without trying. That's a tool, not a virtue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOD ============ -->
+  <section id="food">
+    <div class="row">
+      <div class="rail"><b>08</b> Eating</div>
+      <div class="stack">
+        <h2 class="sec-title">What that looks like on a plate</h2>
+        <hr class="sec-rule">
+        <p class="prose">Protein is the only macro worth tracking closely. Build each meal around a protein
+          source first, then fill in from there.</p>
+        <div class="tw">
+          <table>
+            <caption>Protein sources — typical values</caption>
+            <thead>
+              <tr><th>Source</th><th class="num">Serving</th><th class="num">Protein</th><th class="num">kcal</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="nm">Chicken breast</td><td class="num">150 g</td><td class="num">46 g</td><td class="num">248</td><td>Cheapest protein-per-calorie in the list. Buy in bulk, cook in batches.</td></tr>
+              <tr><td class="nm">Greek yoghurt, 0%</td><td class="num">200 g</td><td class="num">20 g</td><td class="num">118</td><td>No cooking. Best default breakfast or fourth meal.</td></tr>
+              <tr><td class="nm">Whole eggs</td><td class="num">3 large</td><td class="num">19 g</td><td class="num">234</td><td>Very satiating; brings fat with it, which is fine.</td></tr>
+              <tr><td class="nm">Lean beef mince, 5%</td><td class="num">150 g</td><td class="num">39 g</td><td class="num">250</td><td>Iron and zinc. The 5% and 20% versions differ by ~150 kcal.</td></tr>
+              <tr><td class="nm">Salmon</td><td class="num">150 g</td><td class="num">37 g</td><td class="num">312</td><td>Omega-3s. Twice a week is a reasonable target.</td></tr>
+              <tr><td class="nm">Tinned tuna, in water</td><td class="num">1 tin</td><td class="num">26 g</td><td class="num">120</td><td>Store-cupboard insurance for days you didn't plan.</td></tr>
+              <tr><td class="nm">Cottage cheese</td><td class="num">200 g</td><td class="num">22 g</td><td class="num">180</td><td>Slow-digesting; a good pre-sleep option.</td></tr>
+              <tr><td class="nm">Whey protein</td><td class="num">1 scoop</td><td class="num">24 g</td><td class="num">120</td><td>Convenience only. Not better than food, just faster.</td></tr>
+              <tr><td class="nm">Lentils, cooked</td><td class="num">200 g</td><td class="num">18 g</td><td class="num">232</td><td>Also 15 g of fibre — does two jobs at once.</td></tr>
+              <tr><td class="nm">Tofu, firm</td><td class="num">150 g</td><td class="num">24 g</td><td class="num">220</td><td>Complete protein. Press it and it takes any flavour you want.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sub">A repeatable day</h3>
+        <p class="prose">Four protein anchors, spaced roughly four hours apart. Don't design a new diet every
+          morning — pick a rotation you can shop for on autopilot and vary the vegetables.</p>
+        <div class="tw">
+          <table>
+            <thead><tr><th class="num">Meal</th><th>Anchor</th><th>Around it</th></tr></thead>
+            <tbody>
+              <tr><td class="num">1</td><td class="nm">Greek yoghurt + eggs</td><td>Oats or fruit, a handful of berries. Coffee — see the caffeine note below.</td></tr>
+              <tr><td class="num">2</td><td class="nm">Chicken or tuna</td><td>Rice, potatoes or bread; a big pile of whatever vegetable is cheap this week.</td></tr>
+              <tr><td class="num">3</td><td class="nm">Beef, salmon or tofu</td><td>Starch again, plus a second vegetable. This is the meal to make interesting.</td></tr>
+              <tr><td class="num">4</td><td class="nm">Cottage cheese or casein</td><td>Optional, before bed. ~40 g of slow protein raised overnight muscle protein synthesis by 22–33% in trained subjects.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sub">Eating out</h3>
+        <ul class="prose">
+          <li>Order the protein first and build the rest of the plate around it. Grilled beats fried, but eating out beats skipping the meal.</li>
+          <li>Drinks and sauces are where the unaccounted calories hide, far more than the main dish.</li>
+          <li>One large meal doesn't undo a week. A pattern of them does. Don't compensate by skipping the next day's food — that's how a bad meal becomes a bad fortnight.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SUPPLEMENTS ============ -->
+  <section id="supps">
+    <div class="row">
+      <div class="rail"><b>09</b> Everything else</div>
+      <div class="stack">
+        <h2 class="sec-title">Supplements, and what to ignore</h2>
+        <hr class="sec-rule">
+        <div class="cards">
+          <div class="card">
+            <h4><span class="pill p1">Worth it</span> Creatine monohydrate</h4>
+            <span class="big">3–5 g/day</span>
+            <p>The International Society of Sports Nutrition calls it the most effective legal supplement
+              available for increasing high-intensity capacity and lean mass. Safe up to 30 g/day for five
+              years in healthy people. The cramping and dehydration stories are not supported by evidence.
+              Any time of day; no loading phase needed. Buy the cheapest monohydrate you can find.</p>
+          </div>
+          <div class="card">
+            <h4><span class="pill p0">Optional</span> Protein powder</h4>
+            <span class="big">convenience</span>
+            <p>Useful if you struggle to hit your protein target from food, useless if you don't. It has no
+              special properties. Whey, casein or plant blends all work.</p>
+          </div>
+          <div class="card">
+            <h4><span class="pill p2">Careful</span> Caffeine</h4>
+            <span class="big">stop 8h before bed</span>
+            <p>Genuinely improves training performance. But 400 mg taken <em>six hours</em> before bed still
+              cut objectively measured sleep by more than an hour. Given what sleep does for body composition,
+              an afternoon coffee is a worse trade than it feels like.</p>
+          </div>
+          <div class="card">
+            <h4><span class="pill p3">Costly</span> Alcohol</h4>
+            <span class="big">−24% MPS</span>
+            <p>After training, alcohol cut muscle protein synthesis by 24% even when taken <em>with</em>
+              protein, and 37% with carbohydrate. It doesn't have to be zero. It should not be on training
+              nights.</p>
+          </div>
+        </div>
+
+        <h3 class="sub">Things you can stop thinking about</h3>
+        <ul class="prose">
+          <li><strong>Spot reduction.</strong> A meta-analysis of 13 studies and over 1,100 people found localised muscle training had no effect on localised fat. A 2023 trial did find a modest regional effect from abdominal endurance work, so "largely a myth" is the honest phrase — but either way, you cannot choose where fat comes off, so don't build a plan around it.</li>
+          <li><strong>"Toning" as a separate kind of training.</strong> There is no toning stimulus. What people mean by toned is muscle plus low enough body fat to see it — which is Phase 2 followed by Phase 3. High reps with light weights is not a different mode, just a different point on the same curve.</li>
+          <li><strong>Fasted cardio.</strong> Over a day, it doesn't change fat loss. Do it if you prefer it, skip it if you don't.</li>
+          <li><strong>Detoxes and cleanses.</strong> Your liver and kidneys already do this.</li>
+          <li><strong>Free weights versus machines.</strong> You have dumbbells. The argument is irrelevant to you, and it was always overstated.</li>
+          <li><strong>Muscle confusion.</strong> Your muscles cannot be confused. Adaptation comes from progressive overload, which requires repeating movements long enough to get better at them.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ANOMALIES ============ -->
+  <section id="anomalies">
+    <div class="row">
+      <div class="rail"><b>10</b> Open items</div>
+      <div class="stack">
+        <h2 class="sec-title">Things I flagged, and things I need from you</h2>
+        <hr class="sec-rule">
+        <p class="prose">Everything below is either a limitation of the setup you described or a question whose
+          answer would change part of this plan.</p>
+        <div class="an">
+          <div class="an-i">
+            <div class="h"><span class="pill p3">Action needed</span><h4>1 — Your dumbbells are recalled</h4></div>
+            <p>Covered at the top of this page. Roughly 3.8 million units, 111 injuries, free refund or
+              replacement. Check the model number today; the interim workarounds are listed in the banner.</p>
+          </div>
+          <div class="an-i">
+            <div class="h"><span class="pill p2">Gap</span><h4>2 — You have no vertical pull</h4></div>
+            <p>This is the real hole in a bench-and-dumbbells setup. Nothing you own loads the lats in a
+              vertical pulling pattern, and pullovers only partly cover it. A doorway pull-up bar costs about
+              $25 and closes the gap completely — with a band for assistance you can work toward your first
+              chin-up, which is also a genuinely good goal. It's the single highest-value purchase available
+              to you, and it's the only thing I'd actually ask you to buy.</p>
+          </div>
+          <div class="an-i">
+            <div class="h"><span class="pill p0">By design</span><h4>3 — Your legs will outgrow the weights</h4></div>
+            <p>Expect it around month 3–4. The Load Ladder handles it, and because unilateral training matches
+              bilateral for growth, working around the ceiling costs you nothing. Flagging it so it doesn't
+              read as the plan failing when it happens.</p>
+          </div>
+          <div class="an-i">
+            <div class="h"><span class="pill p2">Question</span><h4>4 — Does your bench adjust to an incline?</h4></div>
+            <p>Session B assumes 30° for the incline press, the chest-supported row and the rear-delt fly. If
+              yours is flat-only, every one of those has a substitute written into its card, so you can run the
+              program either way — but tell me and I'll rewrite Session B properly rather than leaving you on
+              fallbacks.</p>
+          </div>
+          <div class="an-i">
+            <div class="h"><span class="pill p2">Expectation</span><h4>5 — The honest timeline</h4></div>
+            <p>Visible muscle at low body fat is a 9–18 month project, not an 8-week one. You'll feel stronger
+              in 3 weeks, see changes around 8–12 weeks, and look meaningfully different by 6 months. Anyone
+              promising faster is selling something. The good news is that beginners get the fastest results
+              they will ever get, so this is the best year you'll ever have for it.</p>
+          </div>
+          <div class="an-i">
+            <div class="h"><span class="pill p2">Question</span><h4>6 — I don't know your health history</h4></div>
+            <p>I built this for a healthy adult with no injuries. Talk to a clinician before starting if you
+              have cardiac risk factors or chest pain on exertion, uncontrolled blood pressure, a hernia, prior
+              back or shoulder injury, are pregnant or postpartum, or take anything affecting heart rate or
+              blood pressure. Tell me about any injury history and I'll swap the offending movements.</p>
+          </div>
+          <div class="an-i">
+            <div class="h"><span class="pill p0">Assumption</span><h4>7 — I assumed you'd walk</h4></div>
+            <p>You didn't mention cardio equipment, so the cardio section assumes walking and outdoor work. If
+              you have a bike, rower or treadmill, the Zone 2 and 4×4 prescriptions transfer directly — the
+              intensity targets are the same regardless of the machine.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section id="sources">
+    <div class="row">
+      <div class="rail"><b>11</b> Evidence</div>
+      <div class="stack">
+        <h2 class="sec-title">Where every number came from</h2>
+        <hr class="sec-rule">
+        <p class="prose">If a claim on this page has a number attached, it's below. Where the evidence is
+          genuinely mixed — spot reduction, rep tempo — the page says so rather than picking the tidier answer.</p>
+        <details class="src">
+          <summary>Open source list — 22 references</summary>
+          <div class="src-body">
+            <div class="src-g">
+              <h5>Safety</h5>
+              <ul>
+                <li><a href="https://www.cpsc.gov/Recalls/2025/Johnson-Health-Tech-Trading-Recalls-BowFlex-Adjustable-Dumbbells-Due-to-Impact-Hazard-Including-3-7-Million-Sold-by-Nautilus-Inc">CPSC — BowFlex adjustable dumbbell recall, 5 June 2025</a> — unit count, injury count, remedy.</li>
+                <li><a href="https://www.bowflex.com/dumbbell-recalls.html">BowFlex recall registration page</a>.</li>
+              </ul>
+            </div>
+            <div class="src-g">
+              <h5>Training guidelines</h5>
+              <ul>
+                <li><a href="https://acsm.org/resistance-training-guidelines-update-2026/">ACSM resistance training position stand, 2026</a> — first update in 17 years; removal of minimum-dose rules.</li>
+                <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK566046/">WHO guidelines on physical activity and sedentary behaviour, 2020</a> — 150–300 min moderate activity, 2+ strengthening days.</li>
+              </ul>
+            </div>
+            <div class="src-g">
+              <h5>Volume, effort, rest, range of motion</h5>
+              <ul>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/41343037/">Pelland et al. — resistance training dose-response meta-regressions</a> — 67 studies, 2,058 participants; diminishing returns with volume.</li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/38393985/">Refalo et al. 2023 — proximity to failure meta-analysis</a> — 15 studies; 0–4 RIR comparable; adding sets beats added proximity.</li>
+                <li><a href="https://journals.lww.com/nsca-jscr/fulltext/2016/07000/longer_interset_rest_periods_enhance_muscle.3.aspx">Schoenfeld et al. 2016 — interset rest periods</a> — 3 min beat 1 min for strength and hypertrophy over 8 weeks.</li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/25601394/">Schoenfeld et al. 2015 — repetition duration meta-analysis</a> — 0.5–8 s similar; >10 s inferior.</li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/39959841/">Lengthened partial repetitions vs full ROM, 2025</a> — similar adaptations; prioritise the stretched position.</li>
+                <li><a href="https://link.springer.com/article/10.1007/s40279-024-02169-z">Unilateral vs bilateral resistance training meta-analysis, <em>Sports Medicine</em></a> — 9 studies from 703 screened; no significant hypertrophy difference, strength gains follow specificity.</li>
+              </ul>
+            </div>
+            <div class="src-g">
+              <h5>Cardio and activity</h5>
+              <ul>
+                <li><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2707428">Mandsager et al. 2018, JAMA Network Open</a> — 122,007 patients; no upper limit to fitness benefit; ~80% lower mortality in the elite group.</li>
+                <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9289978/">Paluch et al. — daily steps and all-cause mortality, 15 cohorts</a> — benefit plateaus around 6,000–10,000 depending on age.</li>
+                <li><a href="https://www.myworkout.com/en/4x4-intervals">Norwegian 4×4 interval protocol</a> — structure and reported VO₂max response.</li>
+              </ul>
+            </div>
+            <div class="src-g">
+              <h5>Nutrition</h5>
+              <ul>
+                <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/">ISSN position stand: protein and exercise (Jäger et al. 2017)</a>.</li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/28698222/">Morton et al. 2018 — protein supplementation meta-analysis</a> — 49 studies, 1,863 participants; breakpoint ~1.62 g/kg/day, CI to ~2.2.</li>
+                <li><a href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2024.1388986/full">Protein quantity and distribution on body composition, 2024</a> — 0.4–0.55 g/kg per meal across 3–5 meals.</li>
+                <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5188418/">Pre-sleep protein and the muscle adaptive response</a> — ~40 g casein; 22–33% higher overnight synthesis.</li>
+                <li><a href="https://www.cell.com/cell-metabolism/fulltext/S1550-4131(19)30248-7">Hall et al. 2019, Cell Metabolism</a> — inpatient RCT; +508 kcal/day on the ultra-processed arm despite matched macros and fibre.</li>
+                <li><a href="https://www.frontiersin.org/journals/endocrinology/articles/10.3389/fendo.2025.1725500/full">Resistance training and high-quality weight loss</a> — lean-mass retention during deficit; deficit-size effect on lean mass.</li>
+                <li><a href="https://health.gov/our-work/nutrition-physical-activity/dietary-guidelines">Dietary Guidelines for Americans</a> — fibre 22–34 g/day, ~14 g per 1,000 kcal.</li>
+              </ul>
+            </div>
+            <div class="src-g">
+              <h5>Recovery, supplements, habit</h5>
+              <ul>
+                <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8591680/">Sleep restriction and weight-loss composition (Nedeltcheva et al.)</a> — 5.5 h vs 8.5 h; 60% more lean mass lost, 55% less fat.</li>
+                <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5469049/">ISSN position stand: creatine (Kreider et al. 2017)</a> — 3–5 g/day; safety to 30 g/day for 5 years.</li>
+                <li><a href="https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170">Drake et al. 2013, J Clin Sleep Med</a> — 400 mg caffeine 6 h before bed reduced measured sleep by over an hour.</li>
+                <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3922864/">Parr et al. 2014, PLoS One</a> — alcohol reduced myofibrillar protein synthesis 24% with protein, 37% with carbohydrate.</li>
+                <li><a href="https://pubmed.ncbi.nlm.nih.gov/21131862/">Bickel et al. — exercise dosing to retain training adaptations</a> — one-third maintenance volume preserved strength and size for 6 months.</li>
+                <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3505409/">Lally &amp; Gardner — making health habitual</a> — median 66 days to automaticity, range 18–254; a single missed opportunity did not impair formation.</li>
+                <li><a href="https://www.sydney.edu.au/news-opinion/news/2023/11/07/spot-reduction--why-targeting-weight-loss-to-a-specific-area-is-.html">University of Sydney — spot reduction</a>, and the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10680576/">2023 abdominal endurance RCT</a> that complicates it.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Groundwork — built for a bench, a pair of adjustable dumbbells, and three days a week.<br>
+    Educational information, not medical advice. Nothing you type into the calculator leaves your browser.
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- theme ---------- */
+  var root = document.documentElement;
+  var btn = document.getElementById("themeBtn");
+  btn.addEventListener("click", function () {
+    var mqDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var cur = root.getAttribute("data-theme") || (mqDark ? "dark" : "light");
+    root.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  });
+
+  /* ---------- scroll progress ---------- */
+  var prog = document.getElementById("prog");
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? (window.scrollY / h) * 100 : 0;
+    prog.style.width = Math.min(100, Math.max(0, p)).toFixed(2) + "%";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+
+  /* ---------- scroll spy ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll("#nav a"));
+  var targets = links
+    .map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); })
+    .filter(Boolean);
+
+  function setCurrent(id) {
+    links.forEach(function (a) {
+      a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false");
+    });
+  }
+  if ("IntersectionObserver" in window && targets.length) {
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
+      var best = null, bestV = 0;
+      targets.forEach(function (t) {
+        var v = visible[t.id] || 0;
+        if (v > bestV) { bestV = v; best = t.id; }
+      });
+      if (best) setCurrent(best);
+    }, { rootMargin: "-56px 0px -55% 0px", threshold: [0, 0.15, 0.5, 1] });
+    targets.forEach(function (t) { io.observe(t); });
+  }
+
+  /* ---------- session tabs ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".wk-tab"));
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      tabs.forEach(function (t) {
+        var panel = document.getElementById(t.getAttribute("aria-controls"));
+        var on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        if (panel) { panel.hidden = !on; }
+      });
+    });
+  });
+
+  /* ---------- calculator ---------- */
+  var el = {
+    units: document.getElementById("units"), sex: document.getElementById("sex"),
+    age: document.getElementById("age"), ht: document.getElementById("ht"),
+    wt: document.getElementById("wt"), act: document.getElementById("act"),
+    phase: document.getElementById("phase"),
+    htL: document.getElementById("htL"), wtL: document.getElementById("wtL"),
+    bmr: document.getElementById("oBmr"), tdee: document.getElementById("oTdee"),
+    cal: document.getElementById("oCal"), calU: document.getElementById("oCalU"),
+    pro: document.getElementById("oPro"), proU: document.getElementById("oProU"),
+    meal: document.getElementById("oMeal"), fat: document.getElementById("oFat"),
+    carb: document.getElementById("oCarb"), fib: document.getElementById("oFib"),
+    h2o: document.getElementById("oH2o"), note: document.getElementById("calcNote")
+  };
+
+  var LB_KG = 0.45359237, IN_CM = 2.54;
+  var lastUnits = el.units.value;
+
+  function num(v) { var n = parseFloat(v); return isFinite(n) ? n : 0; }
+  function r0(n) { return Math.round(n).toLocaleString("en-US"); }
+
+  function syncUnitLabels() {
+    var imp = el.units.value === "imperial";
+    el.htL.textContent = imp ? "Height (in)" : "Height (cm)";
+    el.wtL.textContent = imp ? "Weight (lb)" : "Weight (kg)";
+  }
+
+  el.units.addEventListener("change", function () {
+    // convert the existing values so the numbers stay meaningful
+    var ht = num(el.ht.value), wt = num(el.wt.value);
+    var r1 = function (n) { return Math.round(n * 10) / 10; };
+    if (lastUnits === "imperial" && el.units.value === "metric") {
+      el.ht.value = r1(ht * IN_CM);
+      el.wt.value = r1(wt * LB_KG);
+    } else if (lastUnits === "metric" && el.units.value === "imperial") {
+      el.ht.value = r1(ht / IN_CM);
+      el.wt.value = r1(wt / LB_KG);
+    }
+    lastUnits = el.units.value;
+    syncUnitLabels();
+    calc();
+  });
+
+  function calc() {
+    var imp = el.units.value === "imperial";
+    var kg = imp ? num(el.wt.value) * LB_KG : num(el.wt.value);
+    var cm = imp ? num(el.ht.value) * IN_CM : num(el.ht.value);
+    var age = num(el.age.value);
+    var phase = el.phase.value;
+
+    if (kg <= 0 || cm <= 0 || age <= 0) { return; }
+
+    // Mifflin-St Jeor
+    var bmr = 10 * kg + 6.25 * cm - 5 * age + (el.sex.value === "m" ? 5 : -161);
+    var tdee = bmr * parseFloat(el.act.value);
+
+    var cal, proPerKg, calNote, calLabel;
+    if (phase === "base") {
+      cal = tdee; proPerKg = 1.8; calLabel = "kcal/day — maintenance";
+      calNote = "Phase 1: eat at maintenance. You are learning to train, not dieting. If your weight is stable over three weeks, this number is right.";
+    } else if (phase === "build") {
+      cal = tdee * 1.10; proPerKg = 1.8; calLabel = "kcal/day — slight surplus";
+      calNote = "Phase 2: about 10% above maintenance. Expect roughly 0.25–0.5% of bodyweight gained per week. Faster than that is mostly fat.";
+    } else {
+      cal = tdee * 0.85; proPerKg = 2.2; calLabel = "kcal/day — 15% deficit";
+      calNote = "Phase 3: a 15% deficit, comfortably inside the 10–20% band. Protein is raised to 2.2 g/kg to protect muscle. Do not go deeper — past roughly 500 kcal/day below maintenance you start trading muscle for speed.";
+    }
+
+    var pro = proPerKg * kg;
+    var fat = Math.max(0.6 * kg, (cal * 0.25) / 9);
+    var carbKcal = cal - pro * 4 - fat * 9;
+    var carb = Math.max(0, carbKcal / 4);
+    var fib = (cal / 1000) * 14;
+    var h2o = kg * 0.035;
+
+    el.bmr.textContent = r0(bmr);
+    el.tdee.textContent = r0(tdee);
+    el.cal.textContent = r0(cal);
+    el.calU.textContent = calLabel;
+    el.pro.textContent = r0(pro);
+    el.proU.textContent = "g/day — " + proPerKg.toFixed(1) + " g/kg";
+    el.meal.textContent = r0(pro / 4);
+    el.fat.textContent = r0(fat);
+    el.carb.textContent = r0(carb);
+    el.fib.textContent = r0(fib);
+    el.h2o.textContent = h2o.toFixed(1);
+    el.note.textContent = calNote;
+  }
+
+  ["sex", "age", "ht", "wt", "act", "phase"].forEach(function (k) {
+    el[k].addEventListener("input", calc);
+    el[k].addEventListener("change", calc);
+  });
+
+  syncUnitLabels();
+  calc();
+})();
+</script>
