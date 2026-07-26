@@ -4,7 +4,7 @@
     --paper:#F2F4F7; --surface:#FFFFFF; --surface-2:#FAFBFC; --inset:#ECEFF3;
     --ink:#0F151D; --ink-2:#414C59; --ink-3:#6B7885;
     --rule:#DDE3EA; --rule-2:#C9D2DC;
-    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D;
+    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D; --gold:#9A6B12;
     --bar-track:#E6EAEF;
     --serif: "Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
     --sans: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -15,7 +15,7 @@
       --paper:#0D1117; --surface:#151B23; --surface-2:#1B222C; --inset:#111820;
       --ink:#E9EDF2; --ink-2:#AEB9C6; --ink-3:#7C8896;
       --rule:#262F3A; --rule-2:#33404E;
-      --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F;
+      --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F; --gold:#E0B44C;
       --bar-track:#222B36;
     }
   }
@@ -23,14 +23,14 @@
     --paper:#0D1117; --surface:#151B23; --surface-2:#1B222C; --inset:#111820;
     --ink:#E9EDF2; --ink-2:#AEB9C6; --ink-3:#7C8896;
     --rule:#262F3A; --rule-2:#33404E;
-    --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F;
+    --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F; --gold:#E0B44C;
     --bar-track:#222B36;
   }
   :root[data-theme="light"] {
     --paper:#F2F4F7; --surface:#FFFFFF; --surface-2:#FAFBFC; --inset:#ECEFF3;
     --ink:#0F151D; --ink-2:#414C59; --ink-3:#6B7885;
     --rule:#DDE3EA; --rule-2:#C9D2DC;
-    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D;
+    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D; --gold:#9A6B12;
     --bar-track:#E6EAEF;
   }
 
@@ -74,7 +74,7 @@
   .dir { font-family:var(--mono); font-size:15px; font-weight:700; }
   .board-sub { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-left:auto; }
   ol.rows { list-style:none; }
-  ol.rows li { padding:11px 18px 12px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk name pct" ". bar bar" ". trail trail" ". why why"; gap:3px 10px; align-items:baseline; }
+  ol.rows li { padding:11px 18px 12px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk name pct" ". bar bar" ". why why"; gap:3px 10px; align-items:baseline; }
   ol.rows li:last-child { border-bottom:0; }
   .rk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
   .name { grid-area:name; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:baseline; min-width:0; }
@@ -90,30 +90,28 @@
   .also b { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:400; display:block; margin-bottom:2px; }
 
 
-  /* ---------- 7d / 30d trail (merged, averaged price data) ---------- */
-  .trail { grid-area:trail; display:grid; grid-template-columns:1fr 1fr; gap:0 12px; margin:4px 0 5px; font-family:var(--mono); font-size:10px; font-variant-numeric:tabular-nums; }
-  .pnl { display:flex; flex-direction:column; gap:2px; min-width:0; }
-  .pnl .hd { display:flex; align-items:baseline; gap:5px; }
-  .pnl .hd b { font-weight:400; letter-spacing:.07em; color:var(--ink-3); opacity:.8; }
-  .pnl .hd em { font-style:normal; color:var(--ink-2); margin-left:auto; white-space:nowrap; }
-  .pnl .hd .pv, .pnl .hd .pvsp { font-style:normal; font-size:8px; line-height:1; width:8px; text-align:right; flex:none; }
-  .pv-a { color:var(--accent); } .pv-s { color:var(--ink-3); } .pv-n { color:var(--ink-3); opacity:.5; }
-  /* net-change slope: flat at period start, ending at the reported return */
-  .ln { width:100%; height:24px; display:block; overflow:visible; }
-  .ln .zl { stroke:var(--ink-3); stroke-width:1; opacity:.45; stroke-dasharray:2 2; }
-  .ln .ar { stroke:none; opacity:.16; }
-  .ln .ar.u { fill:var(--up); }
-  .ln .ar.d { fill:var(--down); }
-  .ln .pl { fill:none; stroke-width:1.6; }
-  .ln .pl.u { stroke:var(--up); }
-  .ln .pl.d { stroke:var(--down); }
-  .ln .pl.na { stroke:var(--ink-3); opacity:.28; stroke-width:1.2; stroke-dasharray:3 3; }
-  .ln .ep { stroke-width:4; }
-  .ln .ep.u { stroke:var(--up); }
-  .ln .ep.d { stroke:var(--down); }
-  .ln .cl { stroke:none; }
-  .ln .cl.u { fill:var(--up); }
-  .ln .cl.d { fill:var(--down); }
+  /* ---------- crypto board ---------- */
+  .cboard { background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--gold); }
+  ol.crows { list-style:none; }
+  ol.crows li { padding:10px 18px 11px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto auto; grid-template-areas:"rk name px chg" ". note note note"; gap:2px 12px; align-items:baseline; }
+  ol.crows li:last-child { border-bottom:0; }
+  ol.crows li.lead { background:var(--surface-2); }
+  .cpx { grid-area:px; font-family:var(--mono); font-size:13.5px; font-variant-numeric:tabular-nums; color:var(--ink); white-space:nowrap; }
+  .cchg { grid-area:chg; font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; min-width:7ch; text-align:right; }
+  .cnote { grid-area:note; font-size:12px; line-height:1.45; color:var(--ink-2); }
+  .cnote b { font-family:var(--mono); font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
+  .nil { color:var(--ink-3); opacity:.7; }
+
+  /* ---------- social buzz ---------- */
+  .buzz { display:flex; flex-direction:column; }
+  .buzz li { display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk nm val" ". sub sub"; gap:3px 10px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--rule-2); list-style:none; }
+  .buzz .brk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .buzz .nm { grid-area:nm; min-width:0; }
+  .buzz li:last-child { border-bottom:0; }
+  .buzz .btk { font-family:var(--mono); font-size:12.5px; font-weight:600; }
+  .buzz .bco { font-size:12px; color:var(--ink-3); margin-left:6px; }
+  .buzz .bv { grid-area:val; font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums; color:var(--ember); white-space:nowrap; }
+  .buzz .bs { grid-area:sub; font-size:11.5px; line-height:1.45; color:var(--ink-3); }
 
   /* ---------- provenance log ---------- */
   .prov { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--ember); padding:16px 20px; display:flex; flex-direction:column; gap:9px; }
@@ -196,9 +194,6 @@
     .co { font-size:13.5px; }
     .pct { font-size:16px; }
     .bar { height:7px; margin:5px 0 3px; }
-    .trail { font-size:11.5px; gap:0 10px; }
-    .ln { height:27px; }
-    .pnl .hd .pv, .pnl .hd .pvsp { font-size:9px; width:9px; }
     .prov { padding:14px 15px; }
     .prov p, .prov li { font-size:13.5px; }
     .why { font-size:14px; line-height:1.5; }
@@ -240,14 +235,14 @@
      Page box is 120mm wide, so the <=700px phone rules above drive the layout.
      Height is set to the full content height, so the PDF is a single ribbon
      with no page breaks anywhere. page height is measured from the content (8756 CSS px at 120mm wide). */
-  @page { size:120mm 2953mm; margin:0; }
+  @page { size:120mm 3071mm; margin:0; }
   @media print {
     /* dark palette — must outrank the data-theme attribute */
     :root, :root[data-theme="dark"], :root[data-theme="light"] {
       --paper:#0D1117; --surface:#161D26; --surface-2:#1B222C; --inset:#111820;
       --ink:#EDF1F6; --ink-2:#B6C1CE; --ink-3:#8492A1;
       --rule:#2A343F; --rule-2:#3A4653;
-      --accent:#8FADF7; --up:#3FCFA3; --down:#FF8168; --ember:#EE9A55;
+      --accent:#8FADF7; --up:#3FCFA3; --down:#FF8168; --ember:#EE9A55; --gold:#E0B44C;
       --bar-track:#242E39;
     }
     * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
@@ -283,9 +278,6 @@
     .co { font-size:13.5px; }
     .pct { font-size:16px; }
     .bar { height:7px; margin:5px 0 3px; }
-    .trail { font-size:11.5px; gap:0 10px; }
-    .ln { height:27px; }
-    .pnl .hd .pv, .pnl .hd .pvsp { font-size:9px; width:9px; }
     .prov { padding:14px 15px; }
     .prov p, .prov li { font-size:13.5px; }
     .why { font-size:14px; line-height:1.5; }
@@ -330,7 +322,7 @@
         <div class="eyebrow">Weekly tape sheet &middot; US equities</div>
         <h1>The Capex Tax</h1>
       </div>
-      <div class="dateline">WEEK ENDING FRI 24 JUL 2026<br>COMPILED SAT 25 JUL &middot; 50 SOURCES</div>
+      <div class="dateline">WEEK ENDING FRI 24 JUL 2026<br>COMPILED SAT 25 JUL &middot; 61 SOURCES</div>
     </div>
     <p class="thesis">Three companies beat earnings this week and were sold anyway. Alphabet, Intel and Texas Instruments each cleared the bar on revenue and profit, then raised what they intend to spend &mdash; and the market marked all three down. The buyers went where the spending lands: servers, memory, power. The sellers went where the spending comes from.</p>
   </header>
@@ -366,7 +358,6 @@
             <span class="name"><span class="tkr">UTZ</span><span class="co">Utz Brands</span></span>
             <span class="pct pos">+89.2%</span>
             <span class="bar u"><span style="width:99.1%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>+89.2%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change +89.2%, beyond scale"><polygon class="ar u" points="0,20 100,3.00 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,3.00" vector-effect="non-scaling-stroke"/><polygon class="cl u" points="94,3.00 100,0.00 106,3.00"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&asymp; +86%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change  +86%, beyond scale"><polygon class="ar u" points="0,20 100,3.00 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,3.00" vector-effect="non-scaling-stroke"/><polygon class="cl u" points="94,3.00 100,0.00 106,3.00"/></svg></span></span>
             <span class="why"><b>Tue 21</b> &middot; Taken private by Intersnack Group in a $2.9bn deal. The week's only true one-off &mdash; a closed-end event, not a trend.</span>
           </li>
           <li>
@@ -374,7 +365,6 @@
             <span class="name"><span class="tkr">SMCI</span><span class="co">Super Micro Computer</span></span>
             <span class="pct pos">+25.0%</span>
             <span class="bar u"><span style="width:27.8%"></span></span>
-            <span class="trail" title="Net change per window &mdash; 2+ sources, averaged. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&asymp; +28%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change  +28%"><polygon class="ar u" points="0,20 100,8.10 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,8.10" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="8.10" x2="100" y2="8.10" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&asymp; &minus;1%</em><i class="pv pv-a">&#9679;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change  1%"><polygon class="ar d" points="0,20 100,20.43 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,20.43" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="20.43" x2="100" y2="20.43" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Tue&ndash;Wed</b> &middot; Over $60bn of new Q4 orders, record backlog, and gross-margin guidance lifted from 8.2&ndash;8.4% to 15&ndash;17%. Plans an AI data centre with SpaceX.</span>
           </li>
           <li>
@@ -382,7 +372,6 @@
             <span class="name"><span class="tkr">ACHR</span><span class="co">Archer Aviation</span></span>
             <span class="pct pos">+22.0%</span>
             <span class="bar u"><span style="width:24.4%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>+22.0%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change +22.0%"><polygon class="ar u" points="0,20 100,10.65 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,10.65" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="10.65" x2="100" y2="10.65" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&minus;13.1%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change 13.1%"><polygon class="ar d" points="0,20 100,25.57 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,25.57" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="25.57" x2="100" y2="25.57" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Mon 20</b> &middot; Defence-tech partnership; the single largest one-day move of Monday's session.</span>
           </li>
           <li>
@@ -390,7 +379,6 @@
             <span class="name"><span class="tkr">NBIS</span><span class="co">Nebius Group</span></span>
             <span class="pct pos">+18.9%</span>
             <span class="bar u"><span style="width:21.0%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&asymp; +19%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change  +19%"><polygon class="ar u" points="0,20 100,11.93 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,11.93" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="11.93" x2="100" y2="11.93" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&minus;24%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change 24%"><polygon class="ar d" points="0,20 100,30.20 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,30.20" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="30.20" x2="100" y2="30.20" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Tue 21</b> &middot; Nvidia disclosed a 9.3% stake in the neocloud &mdash; ~22.3m shares, tracing to a $2bn March investment. Analyst targets followed.</span>
           </li>
           <li>
@@ -398,7 +386,6 @@
             <span class="name"><span class="tkr">MU</span><span class="co">Micron Technology</span></span>
             <span class="pct pos">+12.0%</span>
             <span class="bar u"><span style="width:13.3%"></span></span>
-            <span class="trail" title="Net change per window &mdash; not sourced. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&asymp; +4%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change  +4%"><polygon class="ar u" points="0,20 100,18.30 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,18.30" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="18.30" x2="100" y2="18.30" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>n/a</em><i class="pv pv-n">&#9675;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day: not sourced"><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl na" points="0,20 100,20" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Tue 21</b> &middot; Memory melt-up: WDC and STX each rose about the same, the DRAM ETF +11%. Round-tripped by Friday &mdash; see below.</span>
           </li>
           <li>
@@ -406,7 +393,6 @@
             <span class="name"><span class="tkr">COIN</span><span class="co">Coinbase</span></span>
             <span class="pct pos">+9.6%</span>
             <span class="bar u"><span style="width:10.7%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&asymp; +10%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change  +10%"><polygon class="ar u" points="0,20 100,15.75 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,15.75" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="15.75" x2="100" y2="15.75" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&minus;32%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change 32%"><polygon class="ar d" points="0,20 100,33.60 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,33.60" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="33.60" x2="100" y2="33.60" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Tue 21</b> &middot; Bitcoin hit its highest since 16 June on CLARITY Act optimism and a fifth straight day of spot-ETF inflows.</span>
           </li>
           <li>
@@ -414,7 +400,6 @@
             <span class="name"><span class="tkr">WULF</span><span class="co">TeraWulf</span></span>
             <span class="pct pos">+8.0%</span>
             <span class="bar u"><span style="width:8.9%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>+8.0%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change +8.0%"><polygon class="ar u" points="0,20 100,16.60 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,16.60" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="16.60" x2="100" y2="16.60" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&asymp; &minus;23%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change  23%"><polygon class="ar d" points="0,20 100,29.77 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,29.77" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="29.77" x2="100" y2="29.77" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Tue 21</b> &middot; Carried up in the same crypto-equity bid as COIN and HOOD.</span>
           </li>
           <li>
@@ -422,7 +407,6 @@
             <span class="name"><span class="tkr">NOW</span><span class="co">ServiceNow</span></span>
             <span class="pct pos">+7.3%</span>
             <span class="bar u"><span style="width:8.1%"></span></span>
-            <span class="trail" title="Net change per window &mdash; not sourced. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>+7.3%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change +7.3%"><polygon class="ar u" points="0,20 100,16.90 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,16.90" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="16.90" x2="100" y2="16.90" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>n/a</em><i class="pv pv-n">&#9675;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day: not sourced"><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl na" points="0,20 100,20" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.90 vs $0.85&ndash;0.86 est, subscription revenue +23%, FY guidance raised, AI ACV past $1bn. A rare beat that was actually paid for.</span>
           </li>
           <li>
@@ -430,7 +414,6 @@
             <span class="name"><span class="tkr">HOOD</span><span class="co">Robinhood</span></span>
             <span class="pct pos">+7.1%</span>
             <span class="bar u"><span style="width:7.9%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>+7.1%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change +7.1%"><polygon class="ar u" points="0,20 100,16.98 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,16.98" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="16.98" x2="100" y2="16.98" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>+36.9%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change +36.9%"><polygon class="ar u" points="0,20 100,4.32 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,4.32" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="4.32" x2="100" y2="4.32" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Tue 21</b> &middot; Crypto-linked bid; closed at $106.36.</span>
           </li>
           <li>
@@ -438,7 +421,6 @@
             <span class="name"><span class="tkr">HAS</span><span class="co">Hasbro</span></span>
             <span class="pct pos">+7.0%</span>
             <span class="bar u"><span style="width:7.8%"></span></span>
-            <span class="trail" title="Net change per window &mdash; 2+ sources, averaged. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>+7.0%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change +7.0%"><polygon class="ar u" points="0,20 100,17.02 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl u" points="0,20 100,17.02" vector-effect="non-scaling-stroke"/><line class="ep u" x1="100" y1="17.02" x2="100" y2="17.02" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&minus;5.7%</em><i class="pv pv-a">&#9679;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change 5.7%"><polygon class="ar d" points="0,20 100,22.42 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,22.42" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="22.42" x2="100" y2="22.42" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Tue 21</b> &middot; Q2 beat on both lines, FY adjusted EBITDA guidance raised.</span>
           </li>
         </ol>
@@ -457,7 +439,6 @@
             <span class="name"><span class="tkr">LESL</span><span class="co">Leslie's</span></span>
             <span class="pct neg">&minus;47.0%</span>
             <span class="bar d"><span style="width:52.2%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&asymp; &minus;60%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change  60%, beyond scale"><polygon class="ar d" points="0,20 100,37.00 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,37.00" vector-effect="non-scaling-stroke"/><polygon class="cl d" points="94,37.00 100,40.00 106,37.00"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&asymp; &minus;60%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change  60%, beyond scale"><polygon class="ar d" points="0,20 100,37.00 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,37.00" vector-effect="non-scaling-stroke"/><polygon class="cl d" points="94,37.00 100,40.00 106,37.00"/></svg></span></span>
             <span class="why"><b>Wed 22</b> &middot; Weighing Chapter 11. About $757m of debt against $61m FY25 adjusted EBITDA &mdash; roughly 12.5&times; leverage. Down over 99% since its 2020 IPO.</span>
           </li>
           <li>
@@ -465,7 +446,6 @@
             <span class="name"><span class="tkr">ACI</span><span class="co">Albertsons</span></span>
             <span class="pct neg">&minus;22.0%</span>
             <span class="bar d"><span style="width:24.4%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;22.0%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 22.0%"><polygon class="ar d" points="0,20 100,29.35 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,29.35" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="29.35" x2="100" y2="29.35" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&minus;24.2%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change 24.2%"><polygon class="ar d" points="0,20 100,30.29 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,30.29" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="30.29" x2="100" y2="30.29" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.42 vs $0.54 est and FY26 guidance cut to $1.75&ndash;1.85 from $2.22&ndash;2.32. Identical sales flipped to a decline. Losing low-income shoppers to Walmart, Amazon and Aldi.</span>
           </li>
           <li>
@@ -473,7 +453,6 @@
             <span class="name"><span class="tkr">PEGA</span><span class="co">Pegasystems</span></span>
             <span class="pct neg">&minus;16.7%</span>
             <span class="bar d"><span style="width:18.6%"></span></span>
-            <span class="trail" title="Net change per window &mdash; single source. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;15.2%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 15.2%"><polygon class="ar d" points="0,20 100,26.46 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,26.46" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="26.46" x2="100" y2="26.46" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&minus;12%</em><i class="pv pv-s">&#9682;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change 12%"><polygon class="ar d" points="0,20 100,25.10 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,25.10" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="25.10" x2="100" y2="25.10" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Wed 22</b> &middot; Q2 miss, slower contract growth, and a warning that AI-driven spending delays are hitting demand. The clearest "AI eats software" print of the week.</span>
           </li>
           <li>
@@ -481,7 +460,6 @@
             <span class="name"><span class="tkr">ROL</span><span class="co">Rollins</span></span>
             <span class="pct neg">&minus;14.7%</span>
             <span class="bar d"><span style="width:16.3%"></span></span>
-            <span class="trail" title="Net change per window &mdash; not sourced. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;14.7%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 14.7%"><polygon class="ar d" points="0,20 100,26.25 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,26.25" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="26.25" x2="100" y2="26.25" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>n/a</em><i class="pv pv-n">&#9675;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day: not sourced"><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl na" points="0,20 100,20" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Wed 22</b> &middot; EPS $0.32 on $1.08bn, both light, and the FY organic growth outlook cut on weak residential demand &mdash; despite a 99th straight quarter of revenue growth.</span>
           </li>
           <li>
@@ -489,7 +467,6 @@
             <span class="name"><span class="tkr">TSLA</span><span class="co">Tesla</span></span>
             <span class="pct neg">&minus;14.5%</span>
             <span class="bar d"><span style="width:16.1%"></span></span>
-            <span class="trail" title="Net change per window &mdash; 2+ sources, averaged. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;19%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 19%"><polygon class="ar d" points="0,20 100,28.07 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,28.07" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="28.07" x2="100" y2="28.07" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&asymp; &minus;8.5%</em><i class="pv pv-a">&#9679;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change  8.5%"><polygon class="ar d" points="0,20 100,23.61 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,23.61" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="23.61" x2="100" y2="23.61" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings-reaction day on record. Record $28.2bn revenue and 480,126 deliveries, but operating income fell 57%, margin hit 1.4%, FCF turned negative and capex heads past $25bn. Down ~19% on the week.</span>
           </li>
           <li>
@@ -497,7 +474,6 @@
             <span class="name"><span class="tkr">SNDK</span><span class="co">SanDisk</span></span>
             <span class="pct neg">&minus;11.0%</span>
             <span class="bar d"><span style="width:12.2%"></span></span>
-            <span class="trail" title="Net change per window &mdash; 2+ sources, averaged. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;11.0%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 11.0%"><polygon class="ar d" points="0,20 100,24.68 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,24.68" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="24.68" x2="100" y2="24.68" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&minus;24.0%</em><i class="pv pv-a">&#9679;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change 24.0%"><polygon class="ar d" points="0,20 100,30.20 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,30.20" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="30.20" x2="100" y2="30.20" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Fri 24</b> &middot; Memory supply-glut fears as Samsung and SK Hynix add capacity. Still up ~526% YTD &mdash; this reads as profit-taking, not a broken thesis.</span>
           </li>
           <li>
@@ -505,7 +481,6 @@
             <span class="name"><span class="tkr">MOH</span><span class="co">Molina Healthcare</span></span>
             <span class="pct neg">&minus;9.2%</span>
             <span class="bar d"><span style="width:10.2%"></span></span>
-            <span class="trail" title="Net change per window &mdash; not sourced. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;9.7%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 9.7%"><polygon class="ar d" points="0,20 100,24.12 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,24.12" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="24.12" x2="100" y2="24.12" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>n/a</em><i class="pv pv-n">&#9675;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day: not sourced"><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl na" points="0,20 100,20" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Thu 23</b> &middot; Beat on EPS at $1.51 but sold on falling membership and lower premium revenue. Health care is the only S&amp;P sector shrinking this quarter.</span>
           </li>
           <li>
@@ -513,7 +488,6 @@
             <span class="name"><span class="tkr">WDC</span><span class="co">Western Digital</span></span>
             <span class="pct neg">&minus;9.0%</span>
             <span class="bar d"><span style="width:10.0%"></span></span>
-            <span class="trail" title="Net change per window &mdash; 2+ sources, averaged. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;9.0%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 9.0%"><polygon class="ar d" points="0,20 100,23.82 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,23.82" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="23.82" x2="100" y2="23.82" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&asymp; &minus;33.6%</em><i class="pv pv-a">&#9679;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change  33.6%"><polygon class="ar d" points="0,20 100,34.28 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,34.28" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="34.28" x2="100" y2="34.28" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Fri 24</b> &middot; Same memory unwind; SK Hynix and Micron fell 6&ndash;8% alongside. Both ends of the round trip inside four sessions.</span>
           </li>
           <li>
@@ -521,7 +495,6 @@
             <span class="name"><span class="tkr">INTC</span><span class="co">Intel</span></span>
             <span class="pct neg">&minus;8.0%</span>
             <span class="bar d"><span style="width:8.9%"></span></span>
-            <span class="trail" title="Net change per window &mdash; not sourced. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;8.0%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 8.0%"><polygon class="ar d" points="0,20 100,23.40 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,23.40" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="23.40" x2="100" y2="23.40" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>n/a</em><i class="pv pv-n">&#9675;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day: not sourced"><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl na" points="0,20 100,20" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Fri 24</b> &middot; Revenue $16.1bn (+25%, fastest in 15 years), EPS $0.42 versus $0.21 est, data-centre and AI +59%. Popped 13% after hours, then gave it all back once capex above $20bn landed.</span>
           </li>
           <li>
@@ -529,7 +502,6 @@
             <span class="name"><span class="tkr">GOOGL</span><span class="co">Alphabet</span></span>
             <span class="pct neg">&minus;7.1%</span>
             <span class="bar d"><span style="width:7.9%"></span></span>
-            <span class="trail" title="Net change per window &mdash; 2+ sources, averaged. Shared &plusmn;40% scale; arrow marks a value beyond it."><span class="pnl"><span class="hd"><b>7D</b><em>&minus;7.1%</em><i class="pvsp"></i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="7 day net change 7.1%"><polygon class="ar d" points="0,20 100,23.02 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,23.02" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="23.02" x2="100" y2="23.02" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span><span class="pnl"><span class="hd"><b>30D</b><em>&asymp; &minus;8.3%</em><i class="pv pv-a">&#9679;</i></span><svg class="ln" viewBox="0 0 100 40" preserveAspectRatio="none" role="img" aria-label="30 day net change  8.3%"><polygon class="ar d" points="0,20 100,23.53 100,20"/><line class="zl" x1="0" y1="20" x2="100" y2="20" vector-effect="non-scaling-stroke"/><polyline class="pl d" points="0,20 100,23.53" vector-effect="non-scaling-stroke"/><line class="ep d" x1="100" y1="23.53" x2="100" y2="23.53" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings reaction since Feb 2025. Revenue $119.8bn (+24%), Cloud +82%, 12th straight double-digit quarter &mdash; erased by FY capex guided to $195&ndash;205bn and a warning that 2027 goes higher still.</span>
           </li>
         </ol>
@@ -574,12 +546,98 @@
     </div>
   </section>
 
+  <section>
+    <div class="sec-head">
+      <h2>Crypto &mdash; ten largest</h2>
+      <span class="sec-note">by market cap &middot; separate from equities</span>
+    </div>
+    <div class="cboard">
+      <div class="board-head">
+        <h3>Bitcoin and the majors</h3>
+        <span class="board-sub">24 Jul &middot; total cap ~$2.23tn</span>
+      </div>
+      <ol class="crows">
+          <li class="lead">
+            <span class="rk">01</span>
+            <span class="name"><span class="tkr">BTC</span><span class="co">Bitcoin</span></span>
+            <span class="cpx">$64,985</span>
+            <span class="cchg neg">&minus;1%</span>
+            <span class="cnote"><b>24h</b> &minus;1% &middot; <b>wk</b> +3% &middot; Consolidating near $65k all week. $1.43bn of BTC and ETH options expired Friday, alongside spot-ETF outflows and $280m of liquidations across the market.</span>
+          </li>
+          <li>
+            <span class="rk">02</span>
+            <span class="name"><span class="tkr">ETH</span><span class="co">Ethereum</span></span>
+            <span class="cpx">$1,882</span>
+            <span class="cchg neg">&minus;2.5%</span>
+            <span class="cnote"><b>24h</b> &minus;2.5% &middot; <b>wk</b> +3% &middot; The one major green on the year &mdash; roughly +40% YTD while the rest of the majors sit in the red. Buyers held control through the week.</span>
+          </li>
+          <li>
+            <span class="rk">03</span>
+            <span class="name"><span class="tkr">XRP</span><span class="co">XRP</span></span>
+            <span class="cpx">$1.11</span>
+            <span class="cchg neg">&minus;2.2%</span>
+            <span class="cnote"><b>24h</b> &minus;2.2% &middot; <b>wk</b> ~flat &middot; The most muted weekly move among the majors, holding just above the $1 support level.</span>
+          </li>
+          <li>
+            <span class="rk">04</span>
+            <span class="name"><span class="tkr">BNB</span><span class="co">BNB</span></span>
+            <span class="cpx">$564.57</span>
+            <span class="cchg neg">&minus;0.4%</span>
+            <span class="cnote"><b>24h</b> &minus;0.4% &middot; The steadiest major on the day, barely moved while the rest of the complex sold off.</span>
+          </li>
+          <li>
+            <span class="rk">05</span>
+            <span class="name"><span class="tkr">SOL</span><span class="co">Solana</span></span>
+            <span class="cpx">$75.09</span>
+            <span class="cchg neg">&minus;2.8%</span>
+            <span class="cnote"><b>24h</b> &minus;2.8% &middot; <b>wk</b> +5% &middot; Led the majors on the week trying to reclaim its old range, then gave the most back on Friday &mdash; the largest one-day faller in the top ten.</span>
+          </li>
+          <li>
+            <span class="rk">06</span>
+            <span class="name"><span class="tkr">DOGE</span><span class="co">Dogecoin</span></span>
+            <span class="cpx">~$0.072</span>
+            <span class="cchg neg">&minus;3.5%</span>
+            <span class="cnote"><b>24h</b> &minus;3.5% &middot; Market cap about $12.4bn on 170.9bn coins in circulation. Among the sharpest daily falls in the top ten.</span>
+          </li>
+          <li>
+            <span class="rk">07</span>
+            <span class="name"><span class="tkr">TRX</span><span class="co">TRON</span></span>
+            <span class="cpx">$0.33</span>
+            <span class="cchg pos">+1.0%</span>
+            <span class="cnote"><b>24h</b> +1.0% &middot; The only major up on the day. Steady network usage and stablecoin activity cited.</span>
+          </li>
+          <li>
+            <span class="rk">08</span>
+            <span class="name"><span class="tkr">ADA</span><span class="co">Cardano</span></span>
+            <span class="cpx">$0.16</span>
+            <span class="cchg neg">&minus;3.1%</span>
+            <span class="cnote"><b>24h</b> &minus;3.1% &middot; Sold with the wider altcoin complex as Friday&rsquo;s risk mood soured.</span>
+          </li>
+          <li>
+            <span class="rk">09</span>
+            <span class="name"><span class="tkr">LINK</span><span class="co">Chainlink</span></span>
+            <span class="cpx">$8.32</span>
+            <span class="cchg neg">&minus;2.0%</span>
+            <span class="cnote"><b>24h</b> &minus;2.0% &middot; Moved with the altcoin complex; no separate catalyst in the week&rsquo;s coverage.</span>
+          </li>
+          <li>
+            <span class="rk">10</span>
+            <span class="name"><span class="tkr nil">&mdash;</span><span class="co">tenth constituent not confirmed</span></span>
+            <span class="cpx nil">n/a</span>
+            <span class="cchg nil">n/a</span>
+            <span class="cnote">Nine of the ten largest are listed above with sourced figures. No source in reach ranked the tenth slot for 24 July, so it is left open rather than guessed.</span>
+          </li>
+      </ol>
+      <div class="also"><b>The week in one line</b> A soft tape: Bitcoin held $65k but nine of the ten majors closed Friday red, with $280m of liquidations and BTC ETF outflows against a $1.4bn options expiry. Ethereum is the only major still up on the year.</div>
+    </div>
+  </section>
+
   <section class="reddit">
     <div class="reddit-head">
       <h2>Retail &amp; social layer</h2>
       <span class="tag">Reddit &mdash; held separate</span>
     </div>
-    <p class="warn">This block is deliberately walled off from everything above. It is <strong>chatter volume and vendor-computed sentiment</strong>, not price or fundamental data, and it is not a source for any figure on the boards. Mention counts come from third-party scrapers polling r/wallstreetbets on short intervals, so rankings shift intraday and no two vendors agree exactly. Read it as a crowding indicator only.</p>
+    <p class="warn">This block is deliberately walled off from everything above. It is <strong>chatter volume and vendor-computed sentiment</strong>, not price or fundamental data, and it is not a source for any figure on the boards. Mention counts come from third-party scrapers polling r/wallstreetbets on short intervals, so rankings shift intraday and no two vendors agree exactly. Read it as a crowding indicator only. The percentages below are <strong>change in mention volume over 24 hours</strong>, not share of conversation, and the vendors sample different platforms &mdash; r/wallstreetbets, X, StockTwits, 4chan &mdash; so the two boards are not strictly like for like.</p>
     <div class="rgrid">
       <div class="rcard">
         <span class="rrank">MOST DISCUSSED</span>
@@ -606,29 +664,38 @@
         <span class="sent">earnings-driven</span>
       </div>
     </div>
+    <div class="rgrid" style="grid-template-columns:1fr">
+      <div class="rcard">
+        <span class="rrank">MENTION VOLUME &mdash; SHARPEST 24H SPIKES</span>
+        <ul class="buzz">
+          <li><span class="brk">01</span><span class="nm"><span class="btk">CPRT</span><span class="bco">Copart</span></span><span class="bv">+1,167%</span><span class="bs">Largest single spike on the board &mdash; and not a name that moved on the tape this week.</span></li>
+          <li><span class="brk">02</span><span class="nm"><span class="btk">INTC</span><span class="bco">Intel</span></span><span class="bv">+591% to +751%</span><span class="bs">The week&rsquo;s runaway topic, on the Q2 beat and the capex reversal. The range is two vendor snapshots.</span></li>
+          <li><span class="brk">03</span><span class="nm"><span class="btk">TSLA</span><span class="bco">Tesla</span></span><span class="bv">+425%</span><span class="bs">Measured on 4chan /biz/. Sentiment 28/100 &mdash; heavy volume, firmly bearish.</span></li>
+          <li><span class="brk">04</span><span class="nm"><span class="btk">UBER</span><span class="bco">Uber</span></span><span class="bv">+400%</span><span class="bs">On r/wallstreetbets. Another name absent from both mover boards.</span></li>
+          <li><span class="brk">05</span><span class="nm"><span class="btk">ORCL &middot; NKE &middot; MCD</span></span><span class="bv">sharp</span><span class="bs">Oracle, Nike and McDonald&rsquo;s all flagged as spiking; no percentage published for these three.</span></li>
+        </ul>
+      </div>
+      <div class="rcard">
+        <span class="rrank">HIGHEST ABSOLUTE VOLUME &mdash; A DIFFERENT MEASURE</span>
+        <p><strong>GOOG &middot; NVDA &middot; AMD</strong> were the most-mentioned names outright on 24 July, while <strong>INTC, TSLA, GOOGL, IBM and NOW</strong> were the five most discussed across the full week on r/wallstreetbets and X. Spike rank and volume rank are not the same thing: a name can top the spike list from a very low base, as Copart does here.</p>
+      </div>
+    </div>
     <p class="warn"><strong>Worth noting:</strong> the four names retail talked about most &mdash; INTC, TSLA, GOOGL, IBM &mdash; include three of the ten biggest decliners. Attention concentrated almost entirely on what was falling, and none of the week's actual top advances (UTZ, SMCI, ACHR, NBIS) registered in the top five by mention volume.</p>
   </section>
 
   <section class="method">
-    <b>How to read this.</b> Each row carries a <b>7&nbsp;day</b> and <b>30&nbsp;day</b> price trail; those two figures are merged and averaged from multiple vendors, and the marker beside them states which &mdash; see the source log below before relying on them. The headline percentage is the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July 2026 from the sources below; nothing here is investment advice.
+    <b>How to read this.</b> The headline percentage on each mover row is the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July 2026 from the sources below; nothing here is investment advice.
   </section>
 
   <section class="prov">
-    <h3>Source log &mdash; how the 7&nbsp;day and 30&nbsp;day figures were built</h3>
-    <p><strong>These two columns are merged, averaged data and are not exchange-verified.</strong> No single price feed was available when this sheet was compiled, so the figures were assembled from multiple published vendor snapshots. Where two or more sources reported the same window and disagreed, the values were <strong>averaged</strong> and the result marked accordingly. Treat them as indicative of direction and rough magnitude, not as exact returns. Every figure on the mover boards above &mdash; the headline single-session move &mdash; is separately sourced and is not affected by this.</p>
-    <ul>
-      <li><i class="pv pv-a">&#9679;</i><span><strong>Averaged.</strong> Two or more sources for the same window, mean taken. Spreads were sometimes wide: TSLA 30&nbsp;day came from &minus;10.97% and &minus;6.0%; GOOGL from &minus;5.67% and &minus;11%; WDC from &minus;36% and &minus;31.14%; HAS from &minus;6.7% and &minus;4.79%.</span></li>
-      <li><i class="pv pv-s">&#9682;</i><span><strong>Single source</strong>, or derived arithmetically from two reported closing prices. Not cross-checked. Values shown with <code>&asymp;</code> are derived rather than reported directly.</span></li>
-      <li><i class="pv pv-n">&#9675;</i><span><strong>Not sourced.</strong> No figure for that window survived checking, so the cell reads <code>n/a</code> and shows a bare axis rather than an estimated bar. This applies to the 30&nbsp;day column for MU, NOW, ROL, MOH and INTC.</span></li>
-    </ul>
-    <p><strong>Windows are not aligned.</strong> As-of dates are not uniform &mdash; vendor snapshots range from roughly 14 to 24 July, so a &ldquo;30 day&rdquo; window is not the same 30 days for every row. Several sources were undated. Two are plainly stale relative to the week&rsquo;s events: the HOOD 30&nbsp;day figure covers 5 June to 7 July and predates this week entirely, and the SMCI 30&nbsp;day average combines a mid-July snapshot with a post-earnings derivation, which is why it nets to roughly flat despite a 25% move on the week.</p>
-      <p><strong>The charts are net-change slopes, not price paths.</strong> Each panel runs flat at the period start and ends at the reported return, so its gradient shows the direction and size of the net move &mdash; left panel the 7&nbsp;day window, right panel the 30&nbsp;day. They share one <code>&plusmn;40%</code> vertical scale, so gradients are comparable across every row and both windows; four cells run past it (UTZ and LESL, both windows each) and carry an arrowhead to say so, with the true figure always printed beside the panel.</p>
-      <p><strong>The straight line is deliberate.</strong> No daily closes were reachable when this was compiled, so the shape between the two endpoints is unknown and is not drawn rather than guessed. A name can finish a window flat having moved sharply in between &mdash; MU round-tripped a 12% gain inside this very week &mdash; and that detour is invisible here by design.</p>
-      <p>Percentages are price returns and exclude dividends. LESL is a distressed situation in which the quoted price moved faster than the sources tracking it.</p>
+    <h3>Data notes &mdash; crypto and social buzz</h3>
+    <p><strong>Crypto</strong> figures are close-of-24-July snapshots gathered from published market reports, not from an exchange feed. Prices for the same coin varied slightly between outlets and the most widely corroborated value is shown; SOL appears at $75.09 and $75.42 across sources, and its daily fall as both 2.83% and 3.8%. Weekly moves are only shown where a source stated one &mdash; four of the nine carry <code>n/a</code> rather than an inferred figure, and the tenth constituent is left open because no source in reach ranked it.</p>
+    <p><strong>Social buzz</strong> is chatter volume, not price or fundamental data, and is never a source for any figure on the equity or crypto boards. Each percentage is the change in mention volume over 24 hours as computed by a third-party scraper. Vendors poll different platforms on 5&ndash;15 minute intervals, so ranks shift intraday and no two agree exactly; the INTC range is two snapshots of the same day. A spike is measured against that name&rsquo;s own recent baseline, so a low-volume ticker can post a very large percentage &mdash; Copart&rsquo;s +1,167% is the clearest example, and it did not move on the tape.</p>
+    <p>Equity mover percentages above are single-session reactions to the catalyst named in each row, separately sourced, and unaffected by either of the above.</p>
   </section>
 
   <details class="src">
-    <summary>Sources &mdash; 50 total, Reddit and social listed separately</summary>
+    <summary>Sources &mdash; 61 total, Reddit and social listed separately</summary>
     <div class="src-body">
 
       <div class="src-group">
@@ -705,8 +772,21 @@
         </ol>
       </div>
 
+      <div class="src-group">
+        <h4>Crypto (51&ndash;57)</h4>
+        <ol>
+          <li>51. <a href="https://www.forbes.com/financial-services/top-10-cryptocurrencies-2/">Forbes Advisor &mdash; Top 10 cryptocurrencies, Jul 24</a></li>
+          <li>52. <a href="https://nexo.com/blog/markets-today-july-24">Nexo &mdash; Markets Today, Jul 24</a></li>
+          <li>53. <a href="https://coingape.com/markets/crypto-market-brief-july-24-liquidations-btc-etf-outflows-1-4b-options-an-bankruptcy/">CoinGape &mdash; Market brief, Jul 24</a></li>
+          <li>54. <a href="https://cryptoticker.io/en/crypto-prices-today-bitcoin-holds-64k-ethereum-outperforms/">CryptoTicker &mdash; BTC holds $64k</a></li>
+          <li>55. <a href="https://www.kucoin.com/news/articles/crypto-daily-market-report-july-24-2026">KuCoin &mdash; Daily market report, Jul 24</a></li>
+          <li>56. <a href="https://cryptopotato.com/crypto-price-analysis-july-24-eth-xrp-ada-bnb-and-hype/">CryptoPotato &mdash; ETH, XRP, ADA, BNB analysis</a></li>
+          <li>57. <a href="https://investingnews.com/cryptocurrency-market-recap/">INN &mdash; Crypto market recap</a></li>
+        </ol>
+      </div>
+
       <div class="src-group reddit-src">
-        <h4>Reddit &amp; social &mdash; separate, not used for any price figure (R1&ndash;R8)</h4>
+        <h4>Reddit &amp; social &mdash; separate, not used for any price figure (R1&ndash;R12)</h4>
         <ol>
           <li>R1. <a href="https://www.benzinga.com/markets/equities/26/07/60684194/intel-tesla-ibm-and-more-5-stocks-investors-couldnt-stop-buzzing-about-this-week">Benzinga &mdash; 5 most-discussed, Jul 20&ndash;24</a></li>
           <li>R2. <a href="https://altindex.com/wallstreetbets">AltIndex &mdash; r/wallstreetbets mentions</a></li>
@@ -716,6 +796,10 @@
           <li>R6. <a href="https://www.siriusinvestors.com/reddit-stocks">Sirius Investors &mdash; Reddit sentiment</a></li>
           <li>R7. <a href="https://247wallst.com/investing/2026/03/13/reddit-has-turned-bearish-on-tesla-and-the-crowd-might-actually-be-right-this-time/">24/7 Wall St &mdash; Reddit bearish on Tesla</a></li>
           <li>R8. <a href="https://stocktwits.com/news-articles/markets/equity/smci-stock-jumps-over-6-but-supermicro-s-60-b-backlog-could-require-fresh-capital/cZZnvXYR7U9">Stocktwits &mdash; SMCI backlog chatter</a></li>
+          <li>R9. <a href="https://altindex.com/trending-stocks">AltIndex &mdash; Trending across Reddit, X, StockTwits</a></li>
+          <li>R10. <a href="https://altindex.com/4chan-stocks">AltIndex &mdash; 4chan /biz/ tickers</a></li>
+          <li>R11. <a href="https://altindex.com/stocktwits-stocks">AltIndex &mdash; StockTwits most discussed</a></li>
+          <li>R12. <a href="https://altindex.com/meme-stocks">AltIndex &mdash; Meme ticker activity</a></li>
         </ol>
       </div>
 
