@@ -77,7 +77,12 @@
   ol.rows li { padding:11px 18px 12px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk name pct" ". bar bar" ". why why"; gap:3px 10px; align-items:baseline; }
   ol.rows li:last-child { border-bottom:0; }
   .rk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
-  .name { grid-area:name; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:baseline; min-width:0; }
+  .name { grid-area:name; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:center; min-width:0; }
+  .mk { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:4px; flex:none;
+        font-family:var(--mono); font-size:9px; font-weight:700; line-height:1; letter-spacing:.01em;
+        color:var(--c); background:color-mix(in srgb, var(--c) 16%, transparent);
+        border:1px solid color-mix(in srgb, var(--c) 34%, transparent); }
+
   .tkr { font-family:var(--mono); font-size:13.5px; font-weight:600; letter-spacing:.02em; }
   .co { font-size:12.5px; color:var(--ink-3); }
   .pct { grid-area:pct; font-family:var(--mono); font-size:15px; font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:-.02em; white-space:nowrap; }
@@ -191,6 +196,7 @@
     ol.rows li { padding:13px 14px 14px; grid-template-columns:20px 1fr auto; gap:3px 8px; }
     .rk { font-size:10.5px; }
     .tkr { font-size:15px; }
+    .mk { width:22px; height:22px; font-size:10px; }
     .co { font-size:13.5px; }
     .pct { font-size:16px; }
     .bar { height:7px; margin:5px 0 3px; }
@@ -235,7 +241,7 @@
      Page box is 120mm wide, so the <=700px phone rules above drive the layout.
      Height is set to the full content height, so the PDF is a single ribbon
      with no page breaks anywhere. page height is measured from the content (8756 CSS px at 120mm wide). */
-  @page { size:120mm 3071mm; margin:0; }
+  @page { size:120mm 3075mm; margin:0; }
   @media print {
     /* dark palette — must outrank the data-theme attribute */
     :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -275,6 +281,7 @@
     ol.rows li { padding:13px 14px 14px; grid-template-columns:20px 1fr auto; gap:3px 8px; }
     .rk { font-size:10.5px; }
     .tkr { font-size:15px; }
+    .mk { width:22px; height:22px; font-size:10px; }
     .co { font-size:13.5px; }
     .pct { font-size:16px; }
     .bar { height:7px; margin:5px 0 3px; }
@@ -355,70 +362,70 @@
         <ol class="rows">
           <li>
             <span class="rk">01</span>
-            <span class="name"><span class="tkr">UTZ</span><span class="co">Utz Brands</span></span>
+            <span class="name"><span class="mk" style="--c:#A8434F" aria-hidden="true">UZ</span><span class="tkr">UTZ</span><span class="co">Utz Brands</span></span>
             <span class="pct pos">+89.2%</span>
             <span class="bar u"><span style="width:99.1%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Taken private by Intersnack Group in a $2.9bn deal. The week's only true one-off &mdash; a closed-end event, not a trend.</span>
           </li>
           <li>
             <span class="rk">02</span>
-            <span class="name"><span class="tkr">SMCI</span><span class="co">Super Micro Computer</span></span>
+            <span class="name"><span class="mk" style="--c:#3C6E9B" aria-hidden="true">SM</span><span class="tkr">SMCI</span><span class="co">Super Micro Computer</span></span>
             <span class="pct pos">+25.0%</span>
             <span class="bar u"><span style="width:27.8%"></span></span>
             <span class="why"><b>Tue&ndash;Wed</b> &middot; Over $60bn of new Q4 orders, record backlog, and gross-margin guidance lifted from 8.2&ndash;8.4% to 15&ndash;17%. Plans an AI data centre with SpaceX.</span>
           </li>
           <li>
             <span class="rk">03</span>
-            <span class="name"><span class="tkr">ACHR</span><span class="co">Archer Aviation</span></span>
+            <span class="name"><span class="mk" style="--c:#4A6072" aria-hidden="true">AR</span><span class="tkr">ACHR</span><span class="co">Archer Aviation</span></span>
             <span class="pct pos">+22.0%</span>
             <span class="bar u"><span style="width:24.4%"></span></span>
             <span class="why"><b>Mon 20</b> &middot; Defence-tech partnership; the single largest one-day move of Monday's session.</span>
           </li>
           <li>
             <span class="rk">04</span>
-            <span class="name"><span class="tkr">NBIS</span><span class="co">Nebius Group</span></span>
+            <span class="name"><span class="mk" style="--c:#3E63A8" aria-hidden="true">NB</span><span class="tkr">NBIS</span><span class="co">Nebius Group</span></span>
             <span class="pct pos">+18.9%</span>
             <span class="bar u"><span style="width:21.0%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Nvidia disclosed a 9.3% stake in the neocloud &mdash; ~22.3m shares, tracing to a $2bn March investment. Analyst targets followed.</span>
           </li>
           <li>
             <span class="rk">05</span>
-            <span class="name"><span class="tkr">MU</span><span class="co">Micron Technology</span></span>
+            <span class="name"><span class="mk" style="--c:#2F6193" aria-hidden="true">MU</span><span class="tkr">MU</span><span class="co">Micron Technology</span></span>
             <span class="pct pos">+12.0%</span>
             <span class="bar u"><span style="width:13.3%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Memory melt-up: WDC and STX each rose about the same, the DRAM ETF +11%. Round-tripped by Friday &mdash; see below.</span>
           </li>
           <li>
             <span class="rk">06</span>
-            <span class="name"><span class="tkr">COIN</span><span class="co">Coinbase</span></span>
+            <span class="name"><span class="mk" style="--c:#3660B8" aria-hidden="true">CB</span><span class="tkr">COIN</span><span class="co">Coinbase</span></span>
             <span class="pct pos">+9.6%</span>
             <span class="bar u"><span style="width:10.7%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Bitcoin hit its highest since 16 June on CLARITY Act optimism and a fifth straight day of spot-ETF inflows.</span>
           </li>
           <li>
             <span class="rk">07</span>
-            <span class="name"><span class="tkr">WULF</span><span class="co">TeraWulf</span></span>
+            <span class="name"><span class="mk" style="--c:#2E7F79" aria-hidden="true">TW</span><span class="tkr">WULF</span><span class="co">TeraWulf</span></span>
             <span class="pct pos">+8.0%</span>
             <span class="bar u"><span style="width:8.9%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Carried up in the same crypto-equity bid as COIN and HOOD.</span>
           </li>
           <li>
             <span class="rk">08</span>
-            <span class="name"><span class="tkr">NOW</span><span class="co">ServiceNow</span></span>
+            <span class="name"><span class="mk" style="--c:#3F7A63" aria-hidden="true">SN</span><span class="tkr">NOW</span><span class="co">ServiceNow</span></span>
             <span class="pct pos">+7.3%</span>
             <span class="bar u"><span style="width:8.1%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.90 vs $0.85&ndash;0.86 est, subscription revenue +23%, FY guidance raised, AI ACV past $1bn. A rare beat that was actually paid for.</span>
           </li>
           <li>
             <span class="rk">09</span>
-            <span class="name"><span class="tkr">HOOD</span><span class="co">Robinhood</span></span>
+            <span class="name"><span class="mk" style="--c:#6E8A3C" aria-hidden="true">RH</span><span class="tkr">HOOD</span><span class="co">Robinhood</span></span>
             <span class="pct pos">+7.1%</span>
             <span class="bar u"><span style="width:7.9%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Crypto-linked bid; closed at $106.36.</span>
           </li>
           <li>
             <span class="rk">10</span>
-            <span class="name"><span class="tkr">HAS</span><span class="co">Hasbro</span></span>
+            <span class="name"><span class="mk" style="--c:#356E9E" aria-hidden="true">HB</span><span class="tkr">HAS</span><span class="co">Hasbro</span></span>
             <span class="pct pos">+7.0%</span>
             <span class="bar u"><span style="width:7.8%"></span></span>
             <span class="why"><b>Tue 21</b> &middot; Q2 beat on both lines, FY adjusted EBITDA guidance raised.</span>
@@ -436,70 +443,70 @@
         <ol class="rows">
           <li>
             <span class="rk">01</span>
-            <span class="name"><span class="tkr">LESL</span><span class="co">Leslie's</span></span>
+            <span class="name"><span class="mk" style="--c:#3D6D96" aria-hidden="true">LS</span><span class="tkr">LESL</span><span class="co">Leslie's</span></span>
             <span class="pct neg">&minus;47.0%</span>
             <span class="bar d"><span style="width:52.2%"></span></span>
             <span class="why"><b>Wed 22</b> &middot; Weighing Chapter 11. About $757m of debt against $61m FY25 adjusted EBITDA &mdash; roughly 12.5&times; leverage. Down over 99% since its 2020 IPO.</span>
           </li>
           <li>
             <span class="rk">02</span>
-            <span class="name"><span class="tkr">ACI</span><span class="co">Albertsons</span></span>
+            <span class="name"><span class="mk" style="--c:#3A6395" aria-hidden="true">AB</span><span class="tkr">ACI</span><span class="co">Albertsons</span></span>
             <span class="pct neg">&minus;22.0%</span>
             <span class="bar d"><span style="width:24.4%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; EPS $0.42 vs $0.54 est and FY26 guidance cut to $1.75&ndash;1.85 from $2.22&ndash;2.32. Identical sales flipped to a decline. Losing low-income shoppers to Walmart, Amazon and Aldi.</span>
           </li>
           <li>
             <span class="rk">03</span>
-            <span class="name"><span class="tkr">PEGA</span><span class="co">Pegasystems</span></span>
+            <span class="name"><span class="mk" style="--c:#4460A6" aria-hidden="true">PG</span><span class="tkr">PEGA</span><span class="co">Pegasystems</span></span>
             <span class="pct neg">&minus;16.7%</span>
             <span class="bar d"><span style="width:18.6%"></span></span>
             <span class="why"><b>Wed 22</b> &middot; Q2 miss, slower contract growth, and a warning that AI-driven spending delays are hitting demand. The clearest "AI eats software" print of the week.</span>
           </li>
           <li>
             <span class="rk">04</span>
-            <span class="name"><span class="tkr">ROL</span><span class="co">Rollins</span></span>
+            <span class="name"><span class="mk" style="--c:#96444E" aria-hidden="true">RL</span><span class="tkr">ROL</span><span class="co">Rollins</span></span>
             <span class="pct neg">&minus;14.7%</span>
             <span class="bar d"><span style="width:16.3%"></span></span>
             <span class="why"><b>Wed 22</b> &middot; EPS $0.32 on $1.08bn, both light, and the FY organic growth outlook cut on weak residential demand &mdash; despite a 99th straight quarter of revenue growth.</span>
           </li>
           <li>
             <span class="rk">05</span>
-            <span class="name"><span class="tkr">TSLA</span><span class="co">Tesla</span></span>
+            <span class="name"><span class="mk" style="--c:#A34640" aria-hidden="true">TS</span><span class="tkr">TSLA</span><span class="co">Tesla</span></span>
             <span class="pct neg">&minus;14.5%</span>
             <span class="bar d"><span style="width:16.1%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings-reaction day on record. Record $28.2bn revenue and 480,126 deliveries, but operating income fell 57%, margin hit 1.4%, FCF turned negative and capex heads past $25bn. Down ~19% on the week.</span>
           </li>
           <li>
             <span class="rk">06</span>
-            <span class="name"><span class="tkr">SNDK</span><span class="co">SanDisk</span></span>
+            <span class="name"><span class="mk" style="--c:#A0524A" aria-hidden="true">SD</span><span class="tkr">SNDK</span><span class="co">SanDisk</span></span>
             <span class="pct neg">&minus;11.0%</span>
             <span class="bar d"><span style="width:12.2%"></span></span>
             <span class="why"><b>Fri 24</b> &middot; Memory supply-glut fears as Samsung and SK Hynix add capacity. Still up ~526% YTD &mdash; this reads as profit-taking, not a broken thesis.</span>
           </li>
           <li>
             <span class="rk">07</span>
-            <span class="name"><span class="tkr">MOH</span><span class="co">Molina Healthcare</span></span>
+            <span class="name"><span class="mk" style="--c:#3480A3" aria-hidden="true">ML</span><span class="tkr">MOH</span><span class="co">Molina Healthcare</span></span>
             <span class="pct neg">&minus;9.2%</span>
             <span class="bar d"><span style="width:10.2%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; Beat on EPS at $1.51 but sold on falling membership and lower premium revenue. Health care is the only S&amp;P sector shrinking this quarter.</span>
           </li>
           <li>
             <span class="rk">08</span>
-            <span class="name"><span class="tkr">WDC</span><span class="co">Western Digital</span></span>
+            <span class="name"><span class="mk" style="--c:#33769B" aria-hidden="true">WD</span><span class="tkr">WDC</span><span class="co">Western Digital</span></span>
             <span class="pct neg">&minus;9.0%</span>
             <span class="bar d"><span style="width:10.0%"></span></span>
             <span class="why"><b>Fri 24</b> &middot; Same memory unwind; SK Hynix and Micron fell 6&ndash;8% alongside. Both ends of the round trip inside four sessions.</span>
           </li>
           <li>
             <span class="rk">09</span>
-            <span class="name"><span class="tkr">INTC</span><span class="co">Intel</span></span>
+            <span class="name"><span class="mk" style="--c:#2F6BA0" aria-hidden="true">IN</span><span class="tkr">INTC</span><span class="co">Intel</span></span>
             <span class="pct neg">&minus;8.0%</span>
             <span class="bar d"><span style="width:8.9%"></span></span>
             <span class="why"><b>Fri 24</b> &middot; Revenue $16.1bn (+25%, fastest in 15 years), EPS $0.42 versus $0.21 est, data-centre and AI +59%. Popped 13% after hours, then gave it all back once capex above $20bn landed.</span>
           </li>
           <li>
             <span class="rk">10</span>
-            <span class="name"><span class="tkr">GOOGL</span><span class="co">Alphabet</span></span>
+            <span class="name"><span class="mk" style="--c:#4574B0" aria-hidden="true">GO</span><span class="tkr">GOOGL</span><span class="co">Alphabet</span></span>
             <span class="pct neg">&minus;7.1%</span>
             <span class="bar d"><span style="width:7.9%"></span></span>
             <span class="why"><b>Thu 23</b> &middot; Worst earnings reaction since Feb 2025. Revenue $119.8bn (+24%), Cloud +82%, 12th straight double-digit quarter &mdash; erased by FY capex guided to $195&ndash;205bn and a warning that 2027 goes higher still.</span>
@@ -559,63 +566,63 @@
       <ol class="crows">
           <li class="lead">
             <span class="rk">01</span>
-            <span class="name"><span class="tkr">BTC</span><span class="co">Bitcoin</span></span>
+            <span class="name"><span class="mk" style="--c:#B98430" aria-hidden="true">&#8383;</span><span class="tkr">BTC</span><span class="co">Bitcoin</span></span>
             <span class="cpx">$64,985</span>
             <span class="cchg neg">&minus;1%</span>
             <span class="cnote"><b>24h</b> &minus;1% &middot; <b>wk</b> +3% &middot; Consolidating near $65k all week. $1.43bn of BTC and ETH options expired Friday, alongside spot-ETF outflows and $280m of liquidations across the market.</span>
           </li>
           <li>
             <span class="rk">02</span>
-            <span class="name"><span class="tkr">ETH</span><span class="co">Ethereum</span></span>
+            <span class="name"><span class="mk" style="--c:#5C6B96" aria-hidden="true">&#926;</span><span class="tkr">ETH</span><span class="co">Ethereum</span></span>
             <span class="cpx">$1,882</span>
             <span class="cchg neg">&minus;2.5%</span>
             <span class="cnote"><b>24h</b> &minus;2.5% &middot; <b>wk</b> +3% &middot; The one major green on the year &mdash; roughly +40% YTD while the rest of the majors sit in the red. Buyers held control through the week.</span>
           </li>
           <li>
             <span class="rk">03</span>
-            <span class="name"><span class="tkr">XRP</span><span class="co">XRP</span></span>
+            <span class="name"><span class="mk" style="--c:#4E6A80" aria-hidden="true">XR</span><span class="tkr">XRP</span><span class="co">XRP</span></span>
             <span class="cpx">$1.11</span>
             <span class="cchg neg">&minus;2.2%</span>
             <span class="cnote"><b>24h</b> &minus;2.2% &middot; <b>wk</b> ~flat &middot; The most muted weekly move among the majors, holding just above the $1 support level.</span>
           </li>
           <li>
             <span class="rk">04</span>
-            <span class="name"><span class="tkr">BNB</span><span class="co">BNB</span></span>
+            <span class="name"><span class="mk" style="--c:#A08B3C" aria-hidden="true">BN</span><span class="tkr">BNB</span><span class="co">BNB</span></span>
             <span class="cpx">$564.57</span>
             <span class="cchg neg">&minus;0.4%</span>
             <span class="cnote"><b>24h</b> &minus;0.4% &middot; The steadiest major on the day, barely moved while the rest of the complex sold off.</span>
           </li>
           <li>
             <span class="rk">05</span>
-            <span class="name"><span class="tkr">SOL</span><span class="co">Solana</span></span>
+            <span class="name"><span class="mk" style="--c:#5D6BA8" aria-hidden="true">SO</span><span class="tkr">SOL</span><span class="co">Solana</span></span>
             <span class="cpx">$75.09</span>
             <span class="cchg neg">&minus;2.8%</span>
             <span class="cnote"><b>24h</b> &minus;2.8% &middot; <b>wk</b> +5% &middot; Led the majors on the week trying to reclaim its old range, then gave the most back on Friday &mdash; the largest one-day faller in the top ten.</span>
           </li>
           <li>
             <span class="rk">06</span>
-            <span class="name"><span class="tkr">DOGE</span><span class="co">Dogecoin</span></span>
+            <span class="name"><span class="mk" style="--c:#9A8443" aria-hidden="true">DG</span><span class="tkr">DOGE</span><span class="co">Dogecoin</span></span>
             <span class="cpx">~$0.072</span>
             <span class="cchg neg">&minus;3.5%</span>
             <span class="cnote"><b>24h</b> &minus;3.5% &middot; Market cap about $12.4bn on 170.9bn coins in circulation. Among the sharpest daily falls in the top ten.</span>
           </li>
           <li>
             <span class="rk">07</span>
-            <span class="name"><span class="tkr">TRX</span><span class="co">TRON</span></span>
+            <span class="name"><span class="mk" style="--c:#9B4A4A" aria-hidden="true">TX</span><span class="tkr">TRX</span><span class="co">TRON</span></span>
             <span class="cpx">$0.33</span>
             <span class="cchg pos">+1.0%</span>
             <span class="cnote"><b>24h</b> +1.0% &middot; The only major up on the day. Steady network usage and stablecoin activity cited.</span>
           </li>
           <li>
             <span class="rk">08</span>
-            <span class="name"><span class="tkr">ADA</span><span class="co">Cardano</span></span>
+            <span class="name"><span class="mk" style="--c:#3D6597" aria-hidden="true">AD</span><span class="tkr">ADA</span><span class="co">Cardano</span></span>
             <span class="cpx">$0.16</span>
             <span class="cchg neg">&minus;3.1%</span>
             <span class="cnote"><b>24h</b> &minus;3.1% &middot; Sold with the wider altcoin complex as Friday&rsquo;s risk mood soured.</span>
           </li>
           <li>
             <span class="rk">09</span>
-            <span class="name"><span class="tkr">LINK</span><span class="co">Chainlink</span></span>
+            <span class="name"><span class="mk" style="--c:#3B63A6" aria-hidden="true">LK</span><span class="tkr">LINK</span><span class="co">Chainlink</span></span>
             <span class="cpx">$8.32</span>
             <span class="cchg neg">&minus;2.0%</span>
             <span class="cnote"><b>24h</b> &minus;2.0% &middot; Moved with the altcoin complex; no separate catalyst in the week&rsquo;s coverage.</span>
