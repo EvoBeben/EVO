@@ -211,7 +211,7 @@
      Page box is 120mm wide, so the <=700px phone rules above drive the layout.
      Height is set to the full content height, so the PDF is a single ribbon
      with no page breaks anywhere. page height is measured from the content (8756 CSS px at 120mm wide). */
-  @page { size:120mm 3040mm; margin:0; }
+  @page { size:120mm 3198mm; margin:0; }
   @media print {
     /* dark palette — must outrank the data-theme attribute */
     :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -309,7 +309,7 @@
         <div class="eyebrow">Weekly tape sheet &middot; US equities</div>
         <h1>The Capex Tax</h1>
       </div>
-      <div class="dateline">WEEK ENDING FRI 24 JUL 2026<br>COMPILED SAT 25 JUL &middot; 61 SOURCES</div>
+      <div class="dateline">WEEK ENDING FRI 24 JUL 2026 &middot; UPDATED SUN 26 JUL<br>COMPILED SUN 26 JUL &middot; 66 SOURCES</div>
     </div>
     <p class="thesis">Three companies beat earnings this week and were sold anyway. Alphabet, Intel and Texas Instruments each cleared the bar on revenue and profit, then raised what they intend to spend &mdash; and the market marked all three down. The buyers went where the spending lands: servers, memory, power. The sellers went where the spending comes from.</p>
   </header>
@@ -321,7 +321,7 @@
       <div class="stat"><span class="stat-k">Dow Jones</span><span class="stat-v">51,947.25</span><span class="stat-d"><span class="pos">+0.46%</span> Fri &middot; <span class="pos">only index up</span></span></div>
       <div class="stat"><span class="stat-k">WTI crude</span><span class="stat-v">$89.31</span><span class="stat-d"><span class="neg">&minus;3.1%</span> Fri &middot; <span class="pos">+30%</span> MTD</span></div>
       <div class="stat"><span class="stat-k">US 10-year</span><span class="stat-v">4.67%</span><span class="stat-d">high since Jan 2025</span></div>
-      <div class="stat"><span class="stat-k">Bitcoin</span><span class="stat-v">~$63.9k</span><span class="stat-d"><span class="pos">+9%</span> in July</span></div>
+      <div class="stat"><span class="stat-k">Bitcoin</span><span class="stat-v">~$63.8k</span><span class="stat-d"><span class="neg">&minus;1.8%</span> since Fri</span></div>
     </div>
   </section>
 
@@ -532,7 +532,7 @@
       </div>
       <div class="mcard">
         <h4>Oil and the Gulf</h4>
-        <p>Brent settled above <strong>$100</strong> Thursday, +7% to $100.69 and the highest since 22 May, after Houthi drone and missile strikes on two Saudi tankers. It slid to about <strong>$95</strong> Friday on US&ndash;Iran talk hopes. Crude is up ~30% this month.</p>
+        <p>Brent settled above <strong>$100</strong> Thursday, +7% and the highest since 22 May, after Houthi strikes on two Saudi tankers, then slid to about <strong>$95</strong> Friday on talk hopes. Those hopes faded over the weekend: Iran rejected ceasefire talks and Trump signalled further strikes. Crude is up ~30% this month and reopens as the week&rsquo;s live risk.</p>
       </div>
       <div class="mcard">
         <h4>Rates are the other tax</h4>
@@ -547,10 +547,15 @@
         <p>Tech fell <strong>2.37%</strong> Friday while real estate, financials, materials, health care and staples rose &mdash; 17 S&amp;P names hit 52-week highs, led by JPMorgan. Communication services and consumer discretionary each shed roughly 6% on the week.</p>
       </div>
       <div class="mcard">
-        <h4>Next week decides it</h4>
-        <p><strong>FOMC 28&ndash;29 Jul</strong>, no dot plot, Chair Warsh at 2:30pm ET &mdash; a hold is expected but markets price roughly <strong>35%</strong> odds of a hike. Then Microsoft, Meta, Amazon, Apple and Qualcomm all report into the same capex question.</p>
+        <h4>This week decides it</h4>
+        <p>Two days out: <strong>FOMC Tue&ndash;Wed 28&ndash;29 Jul</strong>, no dot plot, Chair Warsh at 2:30pm ET &mdash; a hold is expected but markets price roughly <strong>35%</strong> odds of a hike. Then Microsoft, Meta, Amazon, Apple and Qualcomm all report into the same capex question that sank Alphabet.</p>
       </div>
     </div>
+  </section>
+
+  <section class="callout" style="border-left-color:var(--ember)">
+    <h3>Sunday status &mdash; what has and has not changed</h3>
+    <p><strong>Every equity figure on this sheet is Friday&rsquo;s.</strong> US markets have been shut since the 24 July close, so no price above can have moved; the next print is Monday&rsquo;s open. <strong>Crypto trades through the weekend</strong>, so that board and the Bitcoin tile are updated to Sunday 26 July. Social buzz is continuous and its ranks will have drifted since the Friday snapshot they were taken from.</p>
   </section>
 
   <section>
@@ -561,71 +566,71 @@
     <div class="cboard">
       <div class="board-head">
         <h3>Bitcoin and the majors</h3>
-        <span class="board-sub">24 Jul &middot; total cap ~$2.23tn</span>
+        <span class="board-sub">26 Jul &middot; total cap ~$2.2tn</span>
       </div>
       <ol class="crows">
           <li class="lead">
             <span class="rk">01</span>
             <span class="name"><span class="mk" style="--c:#B98430" aria-hidden="true">&#8383;</span><span class="tkr">BTC</span><span class="co">Bitcoin</span></span>
-            <span class="cpx">$64,985</span>
-            <span class="cchg neg">&minus;1%</span>
-            <span class="cnote"><b>24h</b> &minus;1% &middot; <b>wk</b> +3% &middot; Consolidating near $65k all week. $1.43bn of BTC and ETH options expired Friday, alongside spot-ETF outflows and $280m of liquidations across the market.</span>
+            <span class="cpx">$63,800</span>
+            <span class="cchg neg">&minus;1.8%</span>
+            <span class="cnote"><b>sun 26</b> &middot; <b>vs fri</b> &minus;1.8% &middot; Bounced between $63,700 and $65,406 on Saturday and slipped under $64k. Spot ETFs bled $225m on Thursday, ending a run of roughly $999m of net inflows. Dominance 56.4%; Fear &amp; Greed at 27, firmly in fear.</span>
           </li>
           <li>
             <span class="rk">02</span>
             <span class="name"><span class="mk" style="--c:#5C6B96" aria-hidden="true">&#926;</span><span class="tkr">ETH</span><span class="co">Ethereum</span></span>
             <span class="cpx">$1,882</span>
             <span class="cchg neg">&minus;2.5%</span>
-            <span class="cnote"><b>24h</b> &minus;2.5% &middot; <b>wk</b> +3% &middot; The one major green on the year &mdash; roughly +40% YTD while the rest of the majors sit in the red. Buyers held control through the week.</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; Held $1,800 through the weekend with $1,900 the level to reclaim. Still the one major green on the year at roughly +40% YTD.</span>
           </li>
           <li>
             <span class="rk">03</span>
             <span class="name"><span class="mk" style="--c:#4E6A80" aria-hidden="true">XR</span><span class="tkr">XRP</span><span class="co">XRP</span></span>
             <span class="cpx">$1.11</span>
             <span class="cchg neg">&minus;2.2%</span>
-            <span class="cnote"><b>24h</b> &minus;2.2% &middot; <b>wk</b> ~flat &middot; The most muted weekly move among the majors, holding just above the $1 support level.</span>
+            <span class="cnote"><b>sun 26</b> &middot; Trading a $1.09&ndash;$1.12 band through Sunday, the most muted major on the week and still above $1 support.</span>
           </li>
           <li>
             <span class="rk">04</span>
             <span class="name"><span class="mk" style="--c:#A08B3C" aria-hidden="true">BN</span><span class="tkr">BNB</span><span class="co">BNB</span></span>
             <span class="cpx">$564.57</span>
             <span class="cchg neg">&minus;0.4%</span>
-            <span class="cnote"><b>24h</b> &minus;0.4% &middot; The steadiest major on the day, barely moved while the rest of the complex sold off.</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; The steadiest major into the weekend; no weekend print published.</span>
           </li>
           <li>
             <span class="rk">05</span>
             <span class="name"><span class="mk" style="--c:#5D6BA8" aria-hidden="true">SO</span><span class="tkr">SOL</span><span class="co">Solana</span></span>
-            <span class="cpx">$75.09</span>
-            <span class="cchg neg">&minus;2.8%</span>
-            <span class="cnote"><b>24h</b> &minus;2.8% &middot; <b>wk</b> +5% &middot; Led the majors on the week trying to reclaim its old range, then gave the most back on Friday &mdash; the largest one-day faller in the top ten.</span>
+            <span class="cpx">$74.77</span>
+            <span class="cchg pos">+0.4%</span>
+            <span class="cnote"><b>sun 26</b> &middot; <b>24h</b> +0.4% &middot; Fell to $73.47 on Saturday as the worst of the top ten, then stabilised Sunday. Led the majors earlier in the week before giving it back.</span>
           </li>
           <li>
             <span class="rk">06</span>
             <span class="name"><span class="mk" style="--c:#9A8443" aria-hidden="true">DG</span><span class="tkr">DOGE</span><span class="co">Dogecoin</span></span>
             <span class="cpx">~$0.072</span>
             <span class="cchg neg">&minus;3.5%</span>
-            <span class="cnote"><b>24h</b> &minus;3.5% &middot; Market cap about $12.4bn on 170.9bn coins in circulation. Among the sharpest daily falls in the top ten.</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; Market cap about $12.4bn on 170.9bn coins. Among the sharpest Friday falls; no weekend print published.</span>
           </li>
           <li>
             <span class="rk">07</span>
             <span class="name"><span class="mk" style="--c:#9B4A4A" aria-hidden="true">TX</span><span class="tkr">TRX</span><span class="co">TRON</span></span>
             <span class="cpx">$0.33</span>
             <span class="cchg pos">+1.0%</span>
-            <span class="cnote"><b>24h</b> +1.0% &middot; The only major up on the day. Steady network usage and stablecoin activity cited.</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; The only major up on Friday. Steady network usage and stablecoin activity cited.</span>
           </li>
           <li>
             <span class="rk">08</span>
             <span class="name"><span class="mk" style="--c:#3D6597" aria-hidden="true">AD</span><span class="tkr">ADA</span><span class="co">Cardano</span></span>
             <span class="cpx">$0.16</span>
             <span class="cchg neg">&minus;3.1%</span>
-            <span class="cnote"><b>24h</b> &minus;3.1% &middot; Sold with the wider altcoin complex as Friday&rsquo;s risk mood soured.</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; Sold with the wider altcoin complex as Friday&rsquo;s risk mood soured.</span>
           </li>
           <li>
             <span class="rk">09</span>
             <span class="name"><span class="mk" style="--c:#3B63A6" aria-hidden="true">LK</span><span class="tkr">LINK</span><span class="co">Chainlink</span></span>
             <span class="cpx">$8.32</span>
             <span class="cchg neg">&minus;2.0%</span>
-            <span class="cnote"><b>24h</b> &minus;2.0% &middot; Moved with the altcoin complex; no separate catalyst in the week&rsquo;s coverage.</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; Moved with the altcoin complex; no separate catalyst in coverage.</span>
           </li>
           <li>
             <span class="rk">10</span>
@@ -635,7 +640,7 @@
             <span class="cnote">Nine of the ten largest are listed above with sourced figures. No source in reach ranked the tenth slot for 24 July, so it is left open rather than guessed.</span>
           </li>
       </ol>
-      <div class="also"><b>The week in one line</b> A soft tape: Bitcoin held $65k but nine of the ten majors closed Friday red, with $280m of liquidations and BTC ETF outflows against a $1.4bn options expiry. Ethereum is the only major still up on the year.</div>
+      <div class="also"><b>Where it stands Sunday</b> A quiet, fearful weekend. Total cap around $2.2tn, up 0.65% on the day but down 1.1% from Friday, with Fear &amp; Greed stuck at 27. Bitcoin is range-bound under $64k and Sunday&rsquo;s close is the level traders are watching &mdash; reclaiming $65k opens $68k, losing $62.5k opens $60k. Altcoins shed $8.8bn on the week; the exception was DeXe, up 90% to $88 on Saturday.</div>
     </div>
   </section>
 
@@ -691,18 +696,18 @@
   </section>
 
   <section class="method">
-    <b>How to read this.</b> The headline percentage on each mover row is the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July 2026 from the sources below; nothing here is investment advice.
+    <b>How to read this.</b> The headline percentage on each mover row is the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July and updated Sunday 26 July 2026 from the sources below; nothing here is investment advice.
   </section>
 
   <section class="prov">
     <h3>Data notes &mdash; crypto and social buzz</h3>
-    <p><strong>Crypto</strong> figures are close-of-24-July snapshots gathered from published market reports, not from an exchange feed. Prices for the same coin varied slightly between outlets and the most widely corroborated value is shown; SOL appears at $75.09 and $75.42 across sources, and its daily fall as both 2.83% and 3.8%. Weekly moves are only shown where a source stated one &mdash; four of the nine carry <code>n/a</code> rather than an inferred figure, and the tenth constituent is left open because no source in reach ranked it.</p>
+    <p><strong>Crypto</strong> figures are snapshots from published market reports, not an exchange feed. The board carries a mix of as-of times and each row states its own: Bitcoin, XRP and Solana are Sunday 26 July, the rest are the Friday 24 July close because no weekend print was published for them. Prices for the same coin varied slightly between outlets and the most widely corroborated value is shown; SOL appears at $75.09 and $75.42 across sources, and its daily fall as both 2.83% and 3.8%. Weekly moves are only shown where a source stated one &mdash; four of the nine carry <code>n/a</code> rather than an inferred figure, and the tenth constituent is left open because no source in reach ranked it.</p>
     <p><strong>Social buzz</strong> is chatter volume, not price or fundamental data, and is never a source for any figure on the equity or crypto boards. Each percentage is the change in mention volume over 24 hours as computed by a third-party scraper. Vendors poll different platforms on 5&ndash;15 minute intervals, so ranks shift intraday and no two agree exactly; the INTC range is two snapshots of the same day. A spike is measured against that name&rsquo;s own recent baseline, so a low-volume ticker can post a very large percentage &mdash; Copart&rsquo;s +1,167% is the clearest example, and it did not move on the tape.</p>
     <p>Equity mover percentages above are single-session reactions to the catalyst named in each row, separately sourced, and unaffected by either of the above.</p>
   </section>
 
   <details class="src">
-    <summary>Sources &mdash; 61 total, Reddit and social listed separately</summary>
+    <summary>Sources &mdash; 66 total, Reddit and social listed separately</summary>
     <div class="src-body">
 
       <div class="src-group">
@@ -780,7 +785,7 @@
       </div>
 
       <div class="src-group">
-        <h4>Crypto (51&ndash;57)</h4>
+        <h4>Crypto, week to 24 Jul (51&ndash;57)</h4>
         <ol>
           <li>51. <a href="https://www.forbes.com/financial-services/top-10-cryptocurrencies-2/">Forbes Advisor &mdash; Top 10 cryptocurrencies, Jul 24</a></li>
           <li>52. <a href="https://nexo.com/blog/markets-today-july-24">Nexo &mdash; Markets Today, Jul 24</a></li>
@@ -789,6 +794,17 @@
           <li>55. <a href="https://www.kucoin.com/news/articles/crypto-daily-market-report-july-24-2026">KuCoin &mdash; Daily market report, Jul 24</a></li>
           <li>56. <a href="https://cryptopotato.com/crypto-price-analysis-july-24-eth-xrp-ada-bnb-and-hype/">CryptoPotato &mdash; ETH, XRP, ADA, BNB analysis</a></li>
           <li>57. <a href="https://investingnews.com/cryptocurrency-market-recap/">INN &mdash; Crypto market recap</a></li>
+        </ol>
+      </div>
+
+      <div class="src-group">
+        <h4>Weekend update, 25&ndash;26 Jul (58&ndash;62)</h4>
+        <ol>
+          <li>58. <a href="https://coingape.com/markets/crypto-market-brief-july-25/">CoinGape &mdash; Market brief, Jul 25</a></li>
+          <li>59. <a href="https://news.bitcoin.com/bitcoin-price-64000-reclaim-july-25-2026/">Bitcoin.com &mdash; BTC after $225m ETF outflow</a></li>
+          <li>60. <a href="https://cryptoslate.com/bitcoin-must-defend-62500-as-altcoins-lose-8-8-billion-in-a-week/">CryptoSlate &mdash; Altcoins shed $8.8bn</a></li>
+          <li>61. <a href="https://cryptoslate.com/bitcoin-traders-face-a-65000-reclaim-or-62500-breakdown/">CryptoSlate &mdash; Sunday close, $68k or $60k</a></li>
+          <li>62. <a href="https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-friday-july-24-2026-crypto-prices-retreat-on-higher-us-treasury-yields-152200068.html">Yahoo Finance &mdash; BTC and ETH, Jul 24</a></li>
         </ol>
       </div>
 
@@ -814,7 +830,7 @@
   </details>
 
   <footer>
-    Weekly tape sheet &middot; week ending 24 July 2026 &middot; compiled 25 July 2026<br>
+    Weekly tape sheet &middot; week ending 24 July 2026 &middot; updated Sunday 26 July 2026<br>
     Summary of published reporting. Figures are as reported by the sources listed and have not been independently verified against exchange data. Not investment advice.
   </footer>
 
