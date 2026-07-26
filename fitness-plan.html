@@ -146,8 +146,9 @@
   .ph p { font-size:13.5px; color:var(--ink-2); }
 
   /* ---------- cards ---------- */
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
-  .card { background:var(--surface); padding:13px 15px 15px; display:flex; flex-direction:column; gap:5px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:10px; }
+  .card { background:var(--surface); border:1px solid var(--rule); border-radius:5px;
+          padding:14px 16px 16px; display:flex; flex-direction:column; gap:5px; }
   .card h4 { font-family:var(--mono); font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); font-weight:500; }
   .card .big { font-family:var(--mono); font-size:1.3rem; font-variant-numeric:tabular-nums; letter-spacing:-.025em; color:var(--ink); }
   .card p { font-size:13.2px; color:var(--ink-2); }
@@ -271,23 +272,73 @@
     html { scroll-behavior:auto; }
     *, *::before, *::after { transition:none !important; animation:none !important; }
   }
+
+  /* ---------- views / router ---------- */
+  [hidden] { display:none !important; }
+  .view { animation:fade .18s ease; }
+  @keyframes fade { from { opacity:0; transform:translateY(3px); } to { opacity:1; transform:none; } }
+  body.showall .view { display:block !important; }
+  body.showall .subnav { display:none; }
+  body.showall .view + .view { border-top:1px solid var(--rule-2); margin-top:40px; }
+
+  .view-head { padding:clamp(30px,5vw,52px) 0 0; }
+  .view-head .row { align-items:baseline; }
+  .view-title { font-family:var(--mono); font-size:clamp(1.5rem,4vw,2.1rem); letter-spacing:-.03em;
+                font-weight:600; text-transform:uppercase; }
+  .view-sub { color:var(--ink-2); max-width:62ch; margin-top:8px; font-size:1rem; }
+  .back { font-family:var(--mono); font-size:10.5px; letter-spacing:.11em; text-transform:uppercase;
+          color:var(--ink-3); text-decoration:none; display:inline-block; margin-bottom:12px; }
+  .back:hover { color:var(--accent); }
+
+  .subnav { position:sticky; top:50px; z-index:30; display:flex; gap:2px; flex-wrap:nowrap; overflow-x:auto;
+            scrollbar-width:none; padding:8px 0; margin-top:18px;
+            background:var(--ground); border-bottom:1px solid var(--rule); }
+  .subnav::-webkit-scrollbar { display:none; }
+  .subnav a { font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+              color:var(--ink-3); text-decoration:none; padding:5px 8px; border-radius:4px; white-space:nowrap;
+              transition:color .16s ease, background .16s ease; }
+  .subnav a:hover { color:var(--ink); background:var(--surface-2); }
+  .subnav a[aria-current="true"] { color:var(--accent); background:var(--accent-soft); }
+
+  /* ---------- home hub ---------- */
+  .hub { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:4px; }
+  .hub-card { display:flex; flex-direction:column; gap:9px; text-decoration:none; color:inherit;
+              background:var(--surface); border:1px solid var(--rule-2); border-radius:6px;
+              padding:18px 18px 20px; transition:border-color .18s ease, transform .18s ease, background .18s ease; }
+  .hub-card:hover { border-color:var(--accent); transform:translateY(-2px); background:var(--surface-2); }
+  .hub-card .n { font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+  .hub-card h3 { font-family:var(--mono); font-size:1.32rem; letter-spacing:-.02em; text-transform:uppercase; }
+  .hub-card p { font-size:13.8px; color:var(--ink-2); }
+  .hub-card ul { list-style:none; padding:0; margin-top:2px; display:flex; flex-direction:column; gap:3px; }
+  .hub-card li { font-family:var(--mono); font-size:11px; color:var(--ink-3); }
+  .hub-card li::before { content:"› "; color:var(--accent); }
+  .hub-card .go { font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+                  color:var(--accent); margin-top:auto; padding-top:8px; }
+
+  /* ---------- glossary ---------- */
+  .gloss { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:1px;
+           background:var(--rule); border:1px solid var(--rule); border-radius:5px; overflow:hidden; }
+  .gl { background:var(--surface); padding:12px 15px 14px; display:flex; flex-direction:column; gap:3px; }
+  .gl dt { font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--ink); font-weight:600; }
+  .gl dd { margin:0; font-size:13.2px; color:var(--ink-2); }
+
+  .toggle-all { display:flex; align-items:center; gap:9px; font-family:var(--mono); font-size:11px;
+                color:var(--ink-3); background:var(--surface); border:1px solid var(--rule);
+                border-radius:5px; padding:11px 15px; }
+  .toggle-all button { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+                       background:var(--accent); color:var(--ground); border:0; border-radius:4px;
+                       padding:6px 11px; cursor:pointer; }
+
+  @media (max-width:860px) { .subnav { top:50px; } }
 </style>
 
 <div class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="#start">Groundwork</a>
+    <a class="brand" href="#/">Groundwork</a>
     <nav class="navlinks" id="nav">
-      <a href="#phases">Phases</a>
-      <a href="#principles">Principles</a>
-      <a href="#program">Program</a>
-      <a href="#ladder">Ladder</a>
-      <a href="#cardio">Cardio</a>
-      <a href="#recovery">Recovery</a>
-      <a href="#fuel">Numbers</a>
-      <a href="#food">Food</a>
-      <a href="#supps">Supplements</a>
-      <a href="#anomalies">Open</a>
-      <a href="#sources">Sources</a>
+      <a href="#train">Train</a>
+      <a href="#eat">Eat</a>
+      <a href="#help">Help</a>
     </nav>
     <button class="tbtn" id="themeBtn" type="button" aria-label="Toggle colour theme">Theme</button>
   </div>
@@ -296,8 +347,8 @@
 
 <div class="page">
 
-  <!-- ============ MASTHEAD ============ -->
-  <header class="mast" id="start">
+  <div class="view" id="view-home">
+<header class="mast" id="start">
     <h1>Ground<span class="tag">work</span></h1>
     <p class="mast-sub">A twelve-month plan to build a base and then get lean — designed around one
       adjustable bench, one loadable backpack, and three hours a week. No dumbbells required. Every
@@ -309,31 +360,66 @@
       <span><b>Diet</b> &nbsp;omnivore, unrestricted</span>
     </div>
 
-    <div class="alert">
-      <h2>Why there are no dumbbells in this plan</h2>
-      <p><strong>Yours went back under the recall, and that was the right call.</strong> On 5 June 2025 the
-        U.S. Consumer Product Safety Commission announced a recall of approximately
-        <strong>3,844,200</strong> BowFlex adjustable dumbbells — models <strong>552</strong> (5–52.5 lb) and
-        <strong>1090</strong> (10–90 lb), sold 2004 through May 2025. The weight plates can dislodge from the
-        handle during use: roughly 350 reports, <strong>111 injuries</strong>, including concussions, broken
-        toes, abrasions and contusions. If you haven't filed yet, do it at
-        <a href="https://www.bowflex.com/dumbbell-recalls.html">bowflex.com/dumbbell-recalls.html</a> or on
-        800-209-3539.</p>
-      <p><strong>So this plan assumes you have none, and it is not a holding pattern.</strong> Two findings
-        make that a real claim rather than a consolation. First: light loads taken close to failure build
-        muscle just as well as heavy loads — only maximal one-rep strength clearly favours heavy weight.
-        Second: when push-ups were matched to a bench press for load over 8 weeks, chest growth was
-        <strong>18.3% versus 19.4%</strong> and triceps <strong>9.5% versus 10.3%</strong> — differences too
-        small to be statistically meaningful.</p>
-      <p>What you actually give up is maximal strength progress and a degree of comfort, because a fixed load
-        means every set has to go closer to failure. What you keep is the muscle. When replacements arrive,
-        the dumbbell version of this program is archived at the end of the
-        <a href="#program">program section</a> — nothing has been thrown away.</p>
-    </div>
-  </header>
+</header>
 
   <!-- ============ PHASES ============ -->
-  <section id="phases">
+
+  <section id="hub">
+    <div class="row">
+      <div class="rail"><b>00</b> Sections</div>
+      <div class="stack">
+        <h2 class="sec-title">Where do you want to go?</h2>
+        <hr class="sec-rule">
+        <div class="hub">
+          <a class="hub-card" href="#train">
+            <span class="n">01</span>
+            <h3>Train</h3>
+            <p>The program itself, the six principles behind it, and how to keep getting stronger when you
+              can't add weight.</p>
+            <ul>
+              <li>3 sessions, 18 movements</li>
+              <li>Setup and execution cues</li>
+              <li>The Load Ladder</li>
+              <li>Cardio, warm-up, recovery</li>
+            </ul>
+            <span class="go">Open →</span>
+          </a>
+          <a class="hub-card" href="#eat">
+            <span class="n">02</span>
+            <h3>Eat</h3>
+            <p>Your own calorie and protein numbers, what that looks like on a plate, and the short list of
+              supplements worth any money.</p>
+            <ul>
+              <li>Live calculator</li>
+              <li>Protein and energy targets</li>
+              <li>Food tables and a repeatable day</li>
+              <li>Supplements, and what to ignore</li>
+            </ul>
+            <span class="go">Open →</span>
+          </a>
+          <a class="hub-card" href="#help">
+            <span class="n">03</span>
+            <h3>Help</h3>
+            <p>What I still need from you, every piece of jargon on this site decoded, and the source behind
+              every number.</p>
+            <ul>
+              <li>Open items and questions</li>
+              <li>Glossary</li>
+              <li>30 linked sources</li>
+            </ul>
+            <span class="go">Open →</span>
+          </a>
+        </div>
+        <div class="note">
+          <p><strong>Never done this before? Go to Train, read the seven principles, then open Session A.</strong>
+            Do the first session at the easiest version of every movement — you should finish each set with 3 or
+            4 reps left. Everything else on this site can wait until after you've trained once.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section id="phases">
     <div class="row">
       <div class="rail"><b>01</b> Sequence</div>
       <div class="stack">
@@ -384,13 +470,64 @@
   </section>
 
   <!-- ============ PRINCIPLES ============ -->
-  <section id="principles">
+
+  <section id="why">
+    <div class="row">
+      <div class="rail"><b>04</b> Context</div>
+      <div class="stack">
+    <div class="alert">
+      <h2>Why there are no dumbbells in this plan</h2>
+      <p><strong>Yours went back under the recall, and that was the right call.</strong> On 5 June 2025 the
+        U.S. Consumer Product Safety Commission announced a recall of approximately
+        <strong>3,844,200</strong> BowFlex adjustable dumbbells — models <strong>552</strong> (5–52.5 lb) and
+        <strong>1090</strong> (10–90 lb), sold 2004 through May 2025. The weight plates can dislodge from the
+        handle during use: roughly 350 reports, <strong>111 injuries</strong>, including concussions, broken
+        toes, abrasions and contusions. If you haven't filed yet, do it at
+        <a href="https://www.bowflex.com/dumbbell-recalls.html">bowflex.com/dumbbell-recalls.html</a> or on
+        800-209-3539.</p>
+      <p><strong>So this plan assumes you have none, and it is not a holding pattern.</strong> Two findings
+        make that a real claim rather than a consolation. First: light loads taken close to failure build
+        muscle just as well as heavy loads — only maximal one-rep strength clearly favours heavy weight.
+        Second: when push-ups were matched to a bench press for load over 8 weeks, chest growth was
+        <strong>18.3% versus 19.4%</strong> and triceps <strong>9.5% versus 10.3%</strong> — differences too
+        small to be statistically meaningful.</p>
+      <p>What you actually give up is maximal strength progress and a degree of comfort, because a fixed load
+        means every set has to go closer to failure. What you keep is the muscle. When replacements arrive,
+        the dumbbell version of this program is archived at the end of the
+        <a href="#program">program section</a> — nothing has been thrown away.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <div class="view" id="view-train" hidden>
+  <div class="view-head">
+    <div class="row">
+      <div class="rail"></div>
+      <div class="stack-tight">
+        <a class="back" href="#/">← All sections</a>
+        <h1 class="view-title">Train</h1>
+        <p class="view-sub">Seven principles, three sessions, and a ladder for when bodyweight stops being heavy.</p>
+      </div>
+    </div>
+    <nav class="subnav">
+      <a href="#principles">Principles</a>
+      <a href="#program">Program</a>
+      <a href="#ladder">Ladder</a>
+      <a href="#cardio">Cardio</a>
+      <a href="#recovery">Recovery</a>
+    </nav>
+  </div>
+
+<section id="principles">
     <div class="row">
       <div class="rail"><b>02</b> Fitness</div>
       <div class="stack">
-        <h2 class="sec-title">Six things that decide whether this works</h2>
+        <h2 class="sec-title">Seven things that decide whether this works</h2>
         <hr class="sec-rule">
-        <p class="prose">Almost everything else people argue about is noise. These six carry the result.</p>
+        <p class="prose">Almost everything else people argue about is noise. These seven carry the result.</p>
         <div class="cards">
           <div class="card">
             <h4>Progressive overload</h4>
@@ -455,7 +592,7 @@
   </section>
 
   <!-- ============ PROGRAM ============ -->
-  <section id="program">
+<section id="program">
     <div class="row">
       <div class="rail"><b>03</b> The program</div>
       <div class="stack">
@@ -1884,7 +2021,7 @@
   </section>
 
   <!-- ============ LADDER ============ -->
-  <section id="ladder">
+<section id="ladder">
     <div class="row">
       <div class="rail"><b>04</b> The ceiling</div>
       <div class="stack">
@@ -1914,7 +2051,7 @@
   </section>
 
   <!-- ============ WARM-UP + CARDIO ============ -->
-  <section id="cardio">
+<section id="cardio">
     <div class="row">
       <div class="rail"><b>05</b> Around the lifting</div>
       <div class="stack">
@@ -1970,7 +2107,7 @@
   </section>
 
   <!-- ============ RECOVERY ============ -->
-  <section id="recovery">
+<section id="recovery">
     <div class="row">
       <div class="rail"><b>06</b> Staying in it</div>
       <div class="stack">
@@ -2025,7 +2162,26 @@
   </section>
 
   <!-- ============ FUEL / CALCULATOR ============ -->
-  <section id="fuel">
+  </div>
+
+  <div class="view" id="view-eat" hidden>
+  <div class="view-head">
+    <div class="row">
+      <div class="rail"></div>
+      <div class="stack-tight">
+        <a class="back" href="#/">← All sections</a>
+        <h1 class="view-title">Eat</h1>
+        <p class="view-sub">Your numbers, what to put on the plate, and the short list of supplements worth buying.</p>
+      </div>
+    </div>
+    <nav class="subnav">
+      <a href="#fuel">Your numbers</a>
+      <a href="#food">Food</a>
+      <a href="#supps">Supplements</a>
+    </nav>
+  </div>
+
+<section id="fuel">
     <div class="row">
       <div class="rail"><b>07</b> Diet</div>
       <div class="stack">
@@ -2142,7 +2298,7 @@
   </section>
 
   <!-- ============ FOOD ============ -->
-  <section id="food">
+<section id="food">
     <div class="row">
       <div class="rail"><b>08</b> Eating</div>
       <div class="stack">
@@ -2197,7 +2353,7 @@
   </section>
 
   <!-- ============ SUPPLEMENTS ============ -->
-  <section id="supps">
+<section id="supps">
     <div class="row">
       <div class="rail"><b>09</b> Everything else</div>
       <div class="stack">
@@ -2248,7 +2404,27 @@
   </section>
 
   <!-- ============ ANOMALIES ============ -->
-  <section id="anomalies">
+  </div>
+
+  <div class="view" id="view-help" hidden>
+  <div class="view-head">
+    <div class="row">
+      <div class="rail"></div>
+      <div class="stack-tight">
+        <a class="back" href="#/">← All sections</a>
+        <h1 class="view-title">Help</h1>
+        <p class="view-sub">What I still need from you, the jargon decoded, and every source behind every number.</p>
+      </div>
+    </div>
+    <nav class="subnav">
+      <a href="#anomalies">Open items</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#sources">Sources</a>
+      <a href="#everything">One page</a>
+    </nav>
+  </div>
+
+<section id="anomalies">
     <div class="row">
       <div class="rail"><b>10</b> Open items</div>
       <div class="stack">
@@ -2315,7 +2491,44 @@
   </section>
 
   <!-- ============ SOURCES ============ -->
-  <section id="sources">
+<section id="glossary">
+    <div class="row">
+      <div class="rail"><b>12</b> Jargon</div>
+      <div class="stack">
+        <h2 class="sec-title">Every term on this site, in one place</h2>
+        <hr class="sec-rule">
+        <p class="prose">Training writing is full of shorthand that nobody ever defines. Here is all of it.</p>
+        <dl class="gloss">
+          <div class="gl"><dt>RIR — reps in reserve</dt><dd>How many more reps you could have done when you stopped. "2 RIR" means you stopped with 2 left in the tank. It's a way to describe effort without needing to know your one-rep max.</dd></div>
+          <div class="gl"><dt>Progressive overload</dt><dd>The work has to get harder over time. It's the one rule with no exceptions, and everything else on this site is a method for achieving it.</dd></div>
+          <div class="gl"><dt>Double progression</dt><dd>Two things advance in turn: first reps, then difficulty. Climb to the top of the rep range, then make it harder and fall back to the bottom. Repeat forever.</dd></div>
+          <div class="gl"><dt>Volume</dt><dd>Total hard sets per muscle per week. The main dial for how much muscle you build. 10–20 is the productive range for a trained lifter.</dd></div>
+          <div class="gl"><dt>Unilateral</dt><dd>One limb at a time — a split squat rather than a squat. Halves the load you need for the same effect, which is why it matters so much without heavy weights.</dd></div>
+          <div class="gl"><dt>Eccentric / concentric</dt><dd>The lowering half of a rep and the lifting half. The eccentric is where most soreness comes from, and controlling it is most of good technique.</dd></div>
+          <div class="gl"><dt>Lengthened position</dt><dd>The point in a rep where the working muscle is most stretched — the bottom of a push-up, the bottom of a curl. Evidence suggests it drives a disproportionate share of growth.</dd></div>
+          <div class="gl"><dt>Deficit (range)</dt><dd>Elevating your hands or foot so you can travel further than the floor normally allows. Confusingly unrelated to a calorie deficit.</dd></div>
+          <div class="gl"><dt>Deload</dt><dd>A deliberately easy week — same sessions, about two-thirds the effort — taken every 6–8 weeks or when progress stalls. You come back stronger than you left.</dd></div>
+          <div class="gl"><dt>Superset</dt><dd>Two exercises done back to back with little rest. Used here only for muscles that don't compete, so it saves time without costing performance.</dd></div>
+          <div class="gl"><dt>Failure</dt><dd>The point where you cannot complete another rep with good form. You rarely need to go there — 0–2 reps short is enough, and much easier to recover from.</dd></div>
+          <div class="gl"><dt>DOMS</dt><dd>Delayed-onset muscle soreness, the ache that peaks a day or two after training. Normal early on. Not a measure of whether a session worked.</dd></div>
+          <div class="gl"><dt>BMR</dt><dd>Basal metabolic rate — the calories you'd burn doing nothing at all. The floor your daily total is built on.</dd></div>
+          <div class="gl"><dt>TDEE</dt><dd>Total daily energy expenditure — everything you burn in a day, including moving around. Your maintenance number.</dd></div>
+          <div class="gl"><dt>Deficit / surplus</dt><dd>Eating below or above maintenance. A deficit loses fat, a surplus builds tissue faster. This plan uses small versions of both, in sequence.</dd></div>
+          <div class="gl"><dt>Recomp</dt><dd>Losing fat and gaining muscle at the same time. Unusual for trained lifters, reliable for beginners — which is why your scale weight will barely move at first.</dd></div>
+          <div class="gl"><dt>MPS</dt><dd>Muscle protein synthesis — the process that turns protein you've eaten into muscle. It runs for roughly 2–2.5 hours after a meal, which is why protein gets spread across the day.</dd></div>
+          <div class="gl"><dt>Leucine</dt><dd>The specific amino acid that switches muscle protein synthesis on. Roughly 2.5–3 g per meal is the practical target, and any decent protein serving clears it.</dd></div>
+          <div class="gl"><dt>NEAT</dt><dd>All the energy you burn that isn't exercise — walking, fidgeting, standing. Usually a bigger lever on fat loss than training itself, and steps are the easiest way to track it.</dd></div>
+          <div class="gl"><dt>Zone 2</dt><dd>Easy aerobic effort — you can hold a conversation but wouldn't want to sing. Most of your cardio should live here.</dd></div>
+          <div class="gl"><dt>VO₂max</dt><dd>The maximum oxygen your body can use during hard exercise. The single best-evidenced predictor of how long you'll live.</dd></div>
+          <div class="gl"><dt>1RM</dt><dd>One-rep max — the heaviest you could lift once. Used to describe training intensity. You never need to actually test it.</dd></div>
+          <div class="gl"><dt>Hypertrophy</dt><dd>Muscle growth. Distinct from strength, which is partly a skill — you can gain one without much of the other.</dd></div>
+          <div class="gl"><dt>EMG</dt><dd>A measurement of electrical activity in a muscle. Useful for comparing exercises, but a weaker form of evidence than actually measuring growth over months.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+<section id="sources">
     <div class="row">
       <div class="rail"><b>11</b> Evidence</div>
       <div class="stack">
@@ -2391,6 +2604,24 @@
       </div>
     </div>
   </section>
+<section id="everything">
+    <div class="row">
+      <div class="rail"><b>14</b> One page</div>
+      <div class="stack">
+        <h2 class="sec-title">Prefer it all on one page?</h2>
+        <hr class="sec-rule">
+        <p class="prose">Splitting this into sections keeps each one readable, but it does mean your browser's
+          find-on-page only searches the section you're in. If you'd rather have everything at once — to search
+          it, to print it, or just to scroll — turn it on here.</p>
+        <div class="toggle-all">
+          <button id="allBtn" type="button">Show every section</button>
+          <span id="allState">Currently showing one section at a time.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
 
   <footer>
     Groundwork — built for a bench, a pair of adjustable dumbbells, and three days a week.<br>
@@ -2404,12 +2635,100 @@
 
   /* ---------- theme ---------- */
   var root = document.documentElement;
-  var btn = document.getElementById("themeBtn");
-  btn.addEventListener("click", function () {
+  document.getElementById("themeBtn").addEventListener("click", function () {
     var mqDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     var cur = root.getAttribute("data-theme") || (mqDark ? "dark" : "light");
     root.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
   });
+
+  /* ---------- routing ----------
+     Views are containers; sections live inside them. The hash may name a
+     view ("#train") or any section ("#ladder") — a section resolves to the
+     view holding it, so every in-page link keeps working. */
+  var VIEWS = ["home", "train", "eat", "help"];
+  var views = {}, sectionView = {}, viewSections = {};
+
+  VIEWS.forEach(function (v) {
+    var el = document.getElementById("view-" + v);
+    views[v] = el;
+    viewSections[v] = [];
+    if (!el) { return; }
+    Array.prototype.forEach.call(el.querySelectorAll("section[id], header[id]"), function (s) {
+      sectionView[s.id] = v;
+      viewSections[v].push(s);
+    });
+  });
+
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll("#nav a"));
+  var current = null;
+
+  function parseHash() {
+    var h = (location.hash || "").replace(/^#\/?/, "");
+    if (!h) { return { view: "home", section: null }; }
+    if (VIEWS.indexOf(h) !== -1) { return { view: h, section: null }; }
+    if (sectionView[h]) { return { view: sectionView[h], section: h }; }
+    return { view: "home", section: null };
+  }
+
+  function render(opts) {
+    var t = parseHash();
+    var changed = t.view !== current;
+    current = t.view;
+
+    VIEWS.forEach(function (v) {
+      if (views[v]) { views[v].hidden = (v !== t.view); }
+    });
+    navLinks.forEach(function (a) {
+      a.setAttribute("aria-current", a.getAttribute("href") === "#" + t.view ? "true" : "false");
+    });
+
+    if (t.section) {
+      var el = document.getElementById(t.section);
+      if (el) {
+        // The view was hidden a frame ago, so its layout is only settled after a
+        // paint — and late-loading fonts can shift it again. Land once, then
+        // re-measure and correct rather than trusting the first reading.
+        // NB: behavior "auto" defers to CSS scroll-behavior, which is smooth
+        // here — so the correction pass must say "instant" explicitly or it
+        // measures mid-animation and re-targets itself in a loop.
+        var land = function (how) {
+          var top = el.getBoundingClientRect().top + window.scrollY - 96;
+          window.scrollTo({ top: Math.max(0, top), behavior: how });
+        };
+        var smooth = !(opts && opts.initial) && !changed;
+        var tries = 0;
+        var settle = function () {
+          var off = el.getBoundingClientRect().top - 96;
+          var maxY = document.documentElement.scrollHeight - window.innerHeight;
+          // A section near the end of a view can sit below the fold with the
+          // page already at its scroll limit. That is as close as it gets.
+          var pinned = (off > 0 && window.scrollY >= maxY - 1) || (off < 0 && window.scrollY <= 0);
+          if (!pinned && Math.abs(off) > 4 && tries < 8) {
+            tries++;
+            land("instant");
+            setTimeout(settle, 70);
+          } else {
+            spy();
+          }
+        };
+        var go = function () {
+          requestAnimationFrame(function () {
+            land(smooth ? "smooth" : "instant");
+            setTimeout(settle, smooth ? 420 : 80);
+          });
+        };
+        // fonts can reflow the page after first paint and move the target
+        if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+          document.fonts.ready.then(go);
+        } else { go(); }
+      }
+    } else if (changed && !(opts && opts.initial)) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+    spy();
+  }
+
+  window.addEventListener("hashchange", function () { render({}); });
 
   /* ---------- scroll progress ---------- */
   var prog = document.getElementById("prog");
@@ -2417,34 +2736,40 @@
     var h = document.documentElement.scrollHeight - window.innerHeight;
     var p = h > 0 ? (window.scrollY / h) * 100 : 0;
     prog.style.width = Math.min(100, Math.max(0, p)).toFixed(2) + "%";
+    spy();
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
-  onScroll();
 
-  /* ---------- scroll spy ---------- */
-  var links = Array.prototype.slice.call(document.querySelectorAll("#nav a"));
-  var targets = links
-    .map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); })
-    .filter(Boolean);
-
-  function setCurrent(id) {
-    links.forEach(function (a) {
-      a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false");
+  /* ---------- sub-nav highlighting ---------- */
+  function spy() {
+    if (!current) { return; }
+    var secs = viewSections[current] || [];
+    var best = null, bestTop = -Infinity;
+    secs.forEach(function (s) {
+      var top = s.getBoundingClientRect().top - 120;
+      if (top <= 0 && top > bestTop) { bestTop = top; best = s.id; }
+    });
+    if (!best && secs.length) { best = secs[0].id; }
+    var wrap = views[current];
+    if (!wrap) { return; }
+    Array.prototype.forEach.call(wrap.querySelectorAll(".subnav a"), function (a) {
+      a.setAttribute("aria-current", a.getAttribute("href") === "#" + best ? "true" : "false");
     });
   }
-  if ("IntersectionObserver" in window && targets.length) {
-    var visible = {};
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting ? e.intersectionRatio : 0; });
-      var best = null, bestV = 0;
-      targets.forEach(function (t) {
-        var v = visible[t.id] || 0;
-        if (v > bestV) { bestV = v; best = t.id; }
-      });
-      if (best) setCurrent(best);
-    }, { rootMargin: "-56px 0px -55% 0px", threshold: [0, 0.15, 0.5, 1] });
-    targets.forEach(function (t) { io.observe(t); });
+
+  /* ---------- show-everything toggle ---------- */
+  var allBtn = document.getElementById("allBtn");
+  var allState = document.getElementById("allState");
+  if (allBtn) {
+    allBtn.addEventListener("click", function () {
+      var on = document.body.classList.toggle("showall");
+      allBtn.textContent = on ? "Back to sections" : "Show every section";
+      allState.textContent = on
+        ? "Showing everything. Find-on-page now searches the whole plan."
+        : "Currently showing one section at a time.";
+      if (!on) { render({}); }
+    });
   }
 
   /* ---------- session tabs ---------- */
@@ -2488,7 +2813,6 @@
   }
 
   el.units.addEventListener("change", function () {
-    // convert the existing values so the numbers stay meaningful
     var ht = num(el.ht.value), wt = num(el.wt.value);
     var r1 = function (n) { return Math.round(n * 10) / 10; };
     if (lastUnits === "imperial" && el.units.value === "metric") {
@@ -2512,7 +2836,6 @@
 
     if (kg <= 0 || cm <= 0 || age <= 0) { return; }
 
-    // Mifflin-St Jeor
     var bmr = 10 * kg + 6.25 * cm - 5 * age + (el.sex.value === "m" ? 5 : -161);
     var tdee = bmr * parseFloat(el.act.value);
 
@@ -2530,8 +2853,7 @@
 
     var pro = proPerKg * kg;
     var fat = Math.max(0.6 * kg, (cal * 0.25) / 9);
-    var carbKcal = cal - pro * 4 - fat * 9;
-    var carb = Math.max(0, carbKcal / 4);
+    var carb = Math.max(0, (cal - pro * 4 - fat * 9) / 4);
     var fib = (cal / 1000) * 14;
     var h2o = kg * 0.035;
 
@@ -2556,5 +2878,7 @@
 
   syncUnitLabels();
   calc();
+  render({ initial: true });
+  onScroll();
 })();
 </script>
