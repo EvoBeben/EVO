@@ -12,13 +12,17 @@ Two artefacts, same source file:
 
 ## Content
 
-- Week ending **Friday 24 July 2026**, US equities, summary format
-- **50 sources**, numbered and grouped, listed on the sheet itself
-- **Reddit and social held strictly separate** — its own panel, its own source
-  group (R1–R8), and never a source for any price figure
-- **Top 10 advances and top 10 declines**, ranked, each with ticker, company,
-  headline single-session move, magnitude bar, catalyst date and a one-line driver
-- Macro backdrop cards, a "same week, both lists" callout, methodology note
+- **Week of 27–31 July 2026, in progress** — Monday has closed, four sessions have
+  not. Compiled after the Monday 27 July close.
+- **56 sources**, numbered and grouped, listed on the sheet itself
+- **Reddit and social held strictly separate** — its own view, its own source
+  group (R1–R6), never a source for any price figure
+- **Monday's movers**, ten advances and ten declines, each with price where
+  published, single-session percentage, catalyst and date chip. Bars share one
+  0–40% scale
+- **Ten to watch** — the Fed and the week's reports as a forward-looking board,
+  carrying no prices, plus the week day by day
+- Macro backdrop, status view, crypto top ten, social layer, method, data notes
 
 ## Price trails
 
