@@ -24,25 +24,12 @@ Two artefacts, same source file:
   carrying no prices, plus the week day by day
 - Macro backdrop, status view, crypto top ten, social layer, method, data notes
 
-## Price trails
+## Removed
 
-- Every mover row carries a **7 day** and **30 day** figure
-- Data is **merged from multiple vendor snapshots and averaged** where sources
-  reported the same window and disagreed — this was an explicit instruction
-- Every cell marked with provenance: `●` averaged across 2+ sources,
-  `◐` single source or derived, `○` not sourced (left as `n/a`, never estimated)
-- A **source log** before the reference list states the merge/average method and
-  its limitations (non-uniform as-of dates, two stale windows)
-
-## Charts
-
-- Trail area **split left/right**: 7 day on the left, 30 day on the right
-- Currently **net-change slopes** — flat at period start, ending at the reported
-  return, with area fill and emphasised endpoint
-- Shared **±40%** vertical scale; four cells exceed it (UTZ both windows, LESL
-  both) and carry an arrowhead, with the true figure printed alongside
-- Headline mover bars share a separate 0–90% scale
-- Colour is never the only encoding — every value keeps its sign and printed number
+The 7-day / 30-day price trails and their split slope charts were removed at the
+user's request and the sheet consolidated. The provenance-marking convention they
+introduced (`●` averaged, `◐` single source or derived, `○` not sourced) survives
+and is still applied to every soft figure.
 
 ## Presentation — app shell
 
@@ -74,31 +61,17 @@ Two artefacts, same source file:
 
 **Complete.** Built from the data reachable in this environment.
 
-## Documented limitation — per-day series
+## Documented limitation — daily price series
 
-Real per-day lines (7 and 30 points, each day averaged across sources) were
-requested and could not be built. No daily closes were reachable:
+No daily close series is reachable from this environment: direct HTTP to Yahoo,
+Stooq, Nasdaq, Alpha Vantage, FMP and Twelve Data is refused by the egress policy
+(`CONNECT` 403), WebFetch returns 403 on every finance host, and WebSearch yields
+roughly one approximate figure per query. Every price on the sheet is therefore a
+published figure with its own as-of stamp, and anything unsourced reads `n/a`.
 
-- Direct HTTP to Yahoo, Stooq, Nasdaq, Alpha Vantage, FMP and Twelve Data was
-  refused by the egress policy at the proxy (`CONNECT` 403)
-- WebFetch returned 403 on every finance host tried (stockanalysis, macrotrends,
-  slickcharts, WSJ, financecharts, stockinvest, nasdaq.com, companiesmarketcap)
-- WebSearch returns roughly one approximate figure per query — often intraday
-  rather than a settled close — against a 460-point requirement
-
-Interpolating between the two known endpoints was rejected deliberately: evenly
-spaced points on a straight line carry no information the slope does not already
-carry, while looking like a real price history. The panels therefore draw only
-what is known, and the source log says so on the sheet itself.
-
-If a future session can reach `query1.finance.yahoo.com` or `stooq.com`, all 460
-closes come down in about 20 requests. Verify first with:
+If a future session can reach `query1.finance.yahoo.com` or `stooq.com`, verify
+with:
 
 ```
 curl -sS "https://query1.finance.yahoo.com/v8/finance/chart/TSLA?range=1mo&interval=1d"
 ```
-
-Then pull 23 trading days (24 Jun – 24 Jul 2026) for all 20 tickers, average
-where sources disagree, and redraw both panels. Note a 30-point line in a ~90px
-panel is ~3px per point — daily detail pays off on the 7 day side; weekly points
-may read better on the 30 day side.
