@@ -12,16 +12,16 @@ Two artefacts, same source file:
 
 ## Content
 
-- **Week of 27–31 July 2026, in progress** — Monday has closed, four sessions have
-  not. Compiled after the Monday 27 July close.
-- **56 sources**, numbered and grouped, listed on the sheet itself
-- **Reddit and social held strictly separate** — its own view, its own source
-  group (R1–R6), never a source for any price figure
-- **Monday's movers**, ten advances and ten declines, each with price where
-  published, single-session percentage, catalyst and date chip. Bars share one
-  0–40% scale
-- **Ten to watch** — the Fed and the week's reports as a forward-looking board,
-  carrying no prices, plus the week day by day
+- **Week of 27–31 July 2026, complete** — all five sessions traded, the Fed has
+  decided and all four megacap prints are in. Compiled Saturday 1 August.
+- **59 sources**, numbered and grouped, listed on the sheet itself
+- **Reddit and social held strictly separate** — own view, own source group
+  (R1–R6), never a source for any price figure
+- **The week's movers**, ten up and ten down. Figures mix full-week and
+  single-session moves because only Microsoft and Amazon had full-week numbers
+  published; every row states its own basis and the board says so
+- **How the ten resolved** — the forward board this sheet ran on the Monday,
+  marked against what actually happened, plus a 3–7 August look-ahead
 - Macro backdrop, status view, crypto top ten, social layer, method, data notes
 
 ## Removed
