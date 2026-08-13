@@ -1,6 +1,6 @@
 # Finance Thoughts
 
-A portable, static weekly market dashboard with an automatically refreshed quote snapshot.
+A portable weekly market dashboard with an on-demand quote snapshot.
 
 ## Run locally
 
@@ -14,7 +14,6 @@ Refresh the committed market snapshot manually with Node.js 22 or newer:
 
 The repository has no framework or host lock-in. Point GitHub Pages, Cloudflare Pages, Vercel, Netlify, or any static host at the repository root. index.html is the entry point.
 
-The GitHub Actions workflow refreshes data/market.json during US-market hours on weekdays and can also be run manually. Scheduled workflows run from the repository's default branch, so merge the portability branch before relying on the schedule.
+The hosted app's Refresh button requests current data on demand. On a fully static host, the site reads data/market.json; a repository owner can update that snapshot manually from the Actions tab by running the Refresh market data workflow, or by running the Node.js command above. There is no hourly schedule.
 
 Quotes come from Yahoo Finance's public chart endpoint, may be delayed, and are shown for context only. The archived weekly analysis is unchanged and is not investment advice.
-EVO Ai
