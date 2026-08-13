@@ -2,8 +2,6 @@ name: Refresh market data
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "15 13-22 * * 1-5"
 
 permissions:
   contents: write
