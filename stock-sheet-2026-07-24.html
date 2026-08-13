@@ -182,6 +182,30 @@
 
   footer { border-top:1px solid var(--rule); padding-top:11px; font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); line-height:1.7; }
 
+  /* ---------- live market pulse ---------- */
+  .live-pulse { background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent); }
+  .live-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; padding:12px 14px 10px; border-bottom:1px solid var(--rule); }
+  .live-title { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .live-meta { font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); text-align:right; }
+  .live-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); }
+  .live-quote { min-width:0; padding:11px 13px 12px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+  .live-quote:nth-last-child(-n+4) { border-bottom:0; }
+  .live-symbol { display:flex; align-items:baseline; justify-content:space-between; gap:8px; font-family:var(--mono); font-size:var(--fs-xs); font-weight:700; }
+  .live-name { margin-top:2px; overflow:hidden; color:var(--ink-3); font-size:var(--fs-2xs); text-overflow:ellipsis; white-space:nowrap; }
+  .live-price { margin-top:8px; font-family:var(--mono); font-size:var(--fs-xl); font-variant-numeric:tabular-nums; }
+  .live-change { font-size:var(--fs-xs); font-variant-numeric:tabular-nums; }
+  .live-loading, .live-error { grid-column:1 / -1; padding:16px; color:var(--ink-3); font-family:var(--mono); font-size:var(--fs-xs); }
+  .live-error { color:var(--down); }
+  .live-note { padding:9px 14px; background:var(--surface-2); color:var(--ink-3); font-family:var(--mono); font-size:var(--fs-2xs); }
+
+  @media (max-width:700px) {
+    .live-head { align-items:flex-start; flex-direction:column; }
+    .live-meta { text-align:left; }
+    .live-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .live-quote:nth-last-child(-n+4) { border-bottom:1px solid var(--rule); }
+    .live-quote:nth-last-child(-n+2) { border-bottom:0; }
+  }
+
 
   /* ================= app shell ================= */
   /* Views are only hidden once JS confirms it can drive routing, so with JS
@@ -408,6 +432,20 @@
     </div>
     <p class="thesis">The capex question got its answer, and the answer was a split. Microsoft and Amazon both raised what they intend to spend and were rewarded for it &mdash; Microsoft with its best week since 2000, Amazon its best since 2015 &mdash; because the revenue showed up alongside the spending. Meta and Apple guided softly and were taken apart. Spending is no longer the thing being judged; proof that it is already working is.</p>
   </header>
+
+    <section class="live-pulse" aria-labelledby="live-title">
+      <div class="live-head">
+        <div>
+          <div class="eyebrow">Delayed market data</div>
+          <h2 class="live-title" id="live-title">Live market pulse</h2>
+        </div>
+        <div class="live-meta" id="live-meta">Loading latest available quotes&hellip;</div>
+      </div>
+      <div class="live-grid" id="live-grid" aria-live="polite">
+        <div class="live-loading">Fetching the latest available market snapshot&hellip;</div>
+      </div>
+      <div class="live-note">Quotes may be delayed and are provided for context only. Historical weekly analysis below remains unchanged. Not investment advice.</div>
+    </section>
 
     <ol class="hublist">
       <li><a class="hubbtn" href="#snapshot" style="--h:#5B7899">
@@ -1232,6 +1270,10 @@
 <script>
 (function () {
   var doc = document.documentElement;
+  Array.prototype.slice.call(document.querySelectorAll('a[href^="http"]')).forEach(function (a) {
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener noreferrer');
+  });
   doc.classList.add('js');                 // only now are views safe to hide
   var views = Array.prototype.slice.call(document.querySelectorAll('.view'));
   var ids = views.map(function (v) { return v.id; });
@@ -1266,5 +1308,64 @@
     if (e.key === 'ArrowRight' && i < ids.length - 1) location.hash = ids[i + 1];
     if (e.key === 'ArrowLeft' && i > 0) location.hash = ids[i - 1];
   });
+})();
+</script>
+<script>
+(function () {
+  var grid = document.getElementById('live-grid');
+  var meta = document.getElementById('live-meta');
+  if (!grid || !meta) return;
+
+  function money(value, currency) {
+    if (!Number.isFinite(value)) return 'n/a';
+    try {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency', currency: currency || 'USD',
+        maximumFractionDigits: value < 10 ? 2 : 2
+      }).format(value);
+    } catch (_) { return '$' + value.toFixed(2); }
+  }
+
+  function render(data) {
+    var quotes = Array.isArray(data.quotes) ? data.quotes : [];
+    if (!quotes.length) throw new Error('No quotes returned');
+    grid.innerHTML = quotes.map(function (quote) {
+      var pct = Number(quote.changePercent);
+      var direction = pct > 0 ? 'pos' : pct < 0 ? 'neg' : '';
+      var sign = pct > 0 ? '+' : '';
+      return '<article class="live-quote">' +
+        '<div class="live-symbol"><span>' + quote.symbol + '</span>' +
+        '<span class="live-change ' + direction + '">' +
+        (Number.isFinite(pct) ? sign + pct.toFixed(2) + '%' : 'n/a') + '</span></div>' +
+        '<div class="live-name">' + (quote.name || quote.symbol) + '</div>' +
+        '<div class="live-price">' + money(Number(quote.price), quote.currency) + '</div>' +
+        '</article>';
+    }).join('');
+
+    var asOf = data.asOf ? new Date(data.asOf) : null;
+    meta.textContent = asOf && !isNaN(asOf.getTime())
+      ? 'Updated ' + asOf.toLocaleString([], { dateStyle:'medium', timeStyle:'short' })
+      : 'Latest available snapshot';
+  }
+
+  async function load() {
+    var stamp = Date.now();
+    var sources = ['/api/market?refresh=' + stamp, './data/market.json?refresh=' + stamp];
+    var lastError;
+    for (var i = 0; i < sources.length; i += 1) {
+      try {
+        var response = await fetch(sources[i], { cache:'no-store' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        var data = await response.json();
+        render(data);
+        return;
+      } catch (error) { lastError = error; }
+    }
+    grid.innerHTML = '<div class="live-error">Latest quotes are temporarily unavailable. The archived weekly report is still available below.</div>';
+    meta.textContent = 'Data unavailable';
+    console.warn('Market data refresh failed', lastError);
+  }
+
+  load();
 })();
 </script>
