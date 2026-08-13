@@ -1346,6 +1346,9 @@
     meta.textContent = asOf && !isNaN(asOf.getTime())
       ? 'Updated ' + asOf.toLocaleString([], { dateStyle:'medium', timeStyle:'short' })
       : 'Latest available snapshot';
+    if (window.parent !== window) {
+      window.parent.postMessage({ type:'market-data-ready', asOf:data.asOf || null }, location.origin);
+    }
   }
 
   async function load() {
@@ -1364,6 +1367,9 @@
     grid.innerHTML = '<div class="live-error">Latest quotes are temporarily unavailable. The archived weekly report is still available below.</div>';
     meta.textContent = 'Data unavailable';
     console.warn('Market data refresh failed', lastError);
+    if (window.parent !== window) {
+      window.parent.postMessage({ type:'market-data-error' }, location.origin);
+    }
   }
 
   load();
