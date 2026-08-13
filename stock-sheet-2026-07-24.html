@@ -1,11 +1,23 @@
-<title>Weekly Stock Sheet — Week Ending July 24, 2026</title>
+<title>Finance Thoughts — Week of 27–31 July 2026</title>
 <style>
   :root {
     --paper:#F2F4F7; --surface:#FFFFFF; --surface-2:#FAFBFC; --inset:#ECEFF3;
     --ink:#0F151D; --ink-2:#414C59; --ink-3:#6B7885;
     --rule:#DDE3EA; --rule-2:#C9D2DC;
-    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D;
+    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D; --gold:#9A6B12;
     --bar-track:#E6EAEF;
+    --fs-2xs: clamp(9px,  0.14vw + 8.6px, 10.5px);
+    --fs-xs:  clamp(10px, 0.18vw + 9.5px, 11.5px);
+    --fs-sm:  clamp(11.4px,0.22vw + 10.7px, 12.8px);
+    --fs-md:  clamp(12.6px,0.30vw + 11.7px, 14.2px);
+    --fs-lg:  clamp(13.2px,0.34vw + 12.2px, 15.2px);
+    --fs-xl:  clamp(14.4px,0.40vw + 13.2px, 16.8px);
+    --fs-h3:  clamp(15px,  0.48vw + 13.6px, 18.5px);
+    --fs-h2:  clamp(17px,  0.70vw + 15px,  22px);
+    --fs-h1:  clamp(27px,  3.10vw + 16px,  50px);
+    --sp:     clamp(9px,   0.9vw + 5px,   18px);
+    --fs-hero: clamp(30px, 3.40vw + 17px, 56px);
+    --fs-lead: clamp(14px, 0.60vw + 12px, 19px);
     --serif: "Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
     --sans: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --mono: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
@@ -15,7 +27,7 @@
       --paper:#0D1117; --surface:#151B23; --surface-2:#1B222C; --inset:#111820;
       --ink:#E9EDF2; --ink-2:#AEB9C6; --ink-3:#7C8896;
       --rule:#262F3A; --rule-2:#33404E;
-      --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F;
+      --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F; --gold:#E0B44C;
       --bar-track:#222B36;
     }
   }
@@ -23,346 +35,1034 @@
     --paper:#0D1117; --surface:#151B23; --surface-2:#1B222C; --inset:#111820;
     --ink:#E9EDF2; --ink-2:#AEB9C6; --ink-3:#7C8896;
     --rule:#262F3A; --rule-2:#33404E;
-    --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F;
+    --accent:#7FA1F5; --up:#3FCFA3; --down:#FF7E63; --ember:#E8934F; --gold:#E0B44C;
     --bar-track:#222B36;
   }
   :root[data-theme="light"] {
     --paper:#F2F4F7; --surface:#FFFFFF; --surface-2:#FAFBFC; --inset:#ECEFF3;
     --ink:#0F151D; --ink-2:#414C59; --ink-3:#6B7885;
     --rule:#DDE3EA; --rule-2:#C9D2DC;
-    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D;
+    --accent:#23407F; --up:#0B7A5F; --down:#C33C25; --ember:#B4541D; --gold:#9A6B12;
     --bar-track:#E6EAEF;
   }
 
   body {
     background:var(--paper); color:var(--ink);
-    font-family:var(--sans); font-size:15px; line-height:1.55;
+    font-family:var(--sans); font-size:var(--fs-md); line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
-  .sheet { max-width:1180px; margin:0 auto; padding:clamp(20px,4vw,52px) clamp(16px,4vw,40px) 64px; display:flex; flex-direction:column; gap:34px; }
+  .sheet { max-width:1180px; margin:0 auto; padding:clamp(18px,3vw,44px) clamp(14px,3vw,36px) 52px; display:flex; flex-direction:column; gap:clamp(18px,2.2vw,30px); }
   h1,h2,h3 { text-wrap:balance; }
   a { color:var(--accent); }
   a:focus-visible, summary:focus-visible { outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
 
-  .eyebrow { font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); }
+  .eyebrow { font-family:var(--mono); font-size:var(--fs-xs); letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); }
 
   /* ---------- masthead ---------- */
-  .masthead { border-bottom:2px solid var(--ink); padding-bottom:20px; display:flex; flex-direction:column; gap:12px; }
+  .masthead { border-bottom:2px solid var(--ink); padding-bottom:clamp(11px,1.2vw,18px); display:flex; flex-direction:column; gap:12px; }
   .masthead-top { display:flex; flex-wrap:wrap; gap:12px 24px; justify-content:space-between; align-items:baseline; }
-  .masthead h1 { font-family:var(--serif); font-size:clamp(2rem,5.4vw,3.15rem); line-height:1.03; letter-spacing:-.015em; font-weight:600; }
-  .dateline { font-family:var(--mono); font-size:12px; color:var(--ink-2); letter-spacing:.04em; }
-  .thesis { font-family:var(--serif); font-size:clamp(1.02rem,2vw,1.24rem); line-height:1.5; color:var(--ink-2); max-width:66ch; }
+  .masthead h1 { font-family:var(--serif); font-size:var(--fs-h1); line-height:1.03; letter-spacing:-.015em; font-weight:600; }
+  .dateline { font-family:var(--mono); font-size:var(--fs-xs); color:var(--ink-2); letter-spacing:.04em; }
+  .thesis { font-family:var(--serif); font-size:var(--fs-h3); line-height:1.5; color:var(--ink-2); max-width:66ch; }
 
   /* ---------- stat row ---------- */
   .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:2px; background:var(--rule); border:1px solid var(--rule); }
-  .stat { background:var(--surface); padding:13px 15px 15px; display:flex; flex-direction:column; gap:3px; }
-  .stat-k { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
-  .stat-v { font-family:var(--mono); font-size:1.32rem; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
-  .stat-d { font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--ink-2); }
+  .stat { background:var(--surface); padding:clamp(8px,0.8vw,12px) clamp(10px,1vw,14px) clamp(9px,0.9vw,13px); display:flex; flex-direction:column; gap:3px; }
+  .stat-k { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); }
+  .stat-v { font-family:var(--mono); font-size:var(--fs-h2); font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
+  .stat-d { font-family:var(--mono); font-size:var(--fs-xs); font-variant-numeric:tabular-nums; color:var(--ink-2); }
   .pos { color:var(--up); } .neg { color:var(--down); }
 
   /* ---------- section frame ---------- */
-  .sec-head { display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--rule-2); padding-bottom:7px; margin-bottom:16px; }
-  .sec-head h2 { font-family:var(--serif); font-size:1.35rem; font-weight:600; letter-spacing:-.01em; }
-  .sec-note { font-family:var(--mono); font-size:11px; color:var(--ink-3); margin-left:auto; text-align:right; }
+  .sec-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 14px; border-bottom:1px solid var(--rule-2); padding-bottom:6px; margin-bottom:clamp(8px,1vw,14px); }
+  .sec-head h2 { font-family:var(--serif); font-size:var(--fs-h2); font-weight:600; letter-spacing:-.01em; }
+  .sec-note { font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); margin-left:auto; text-align:right; }
 
   /* ---------- movers ---------- */
-  .boards { display:grid; grid-template-columns:repeat(auto-fit,minmax(430px,1fr)); gap:30px; }
+  .boards { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:clamp(14px,1.6vw,24px); }
   .board { background:var(--surface); border:1px solid var(--rule); }
-  .board-head { padding:14px 18px; border-bottom:1px solid var(--rule); display:flex; align-items:baseline; gap:10px; }
-  .board-head h3 { font-family:var(--serif); font-size:1.14rem; font-weight:600; }
-  .dir { font-family:var(--mono); font-size:15px; font-weight:700; }
-  .board-sub { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-left:auto; }
+  .board-head { padding:clamp(8px,0.9vw,13px) clamp(11px,1.1vw,16px); border-bottom:1px solid var(--rule); display:flex; align-items:baseline; gap:10px; }
+  .board-head h3 { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .dir { font-family:var(--mono); font-size:var(--fs-lg); font-weight:700; }
+  .board-sub { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); margin-left:auto; }
   ol.rows { list-style:none; }
-  ol.rows li { padding:11px 18px 12px; border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk name pct" ". bar bar" ". why why"; gap:3px 10px; align-items:baseline; }
+  ol.rows li { padding:clamp(7px,0.75vw,10px) clamp(11px,1.1vw,16px) clamp(8px,0.8vw,11px); border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto auto; grid-template-areas:"rk name px pct" ". bar bar bar" ". why why why"; gap:3px 10px; align-items:baseline; }
   ol.rows li:last-child { border-bottom:0; }
-  .rk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
-  .name { grid-area:name; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:baseline; min-width:0; }
-  .tkr { font-family:var(--mono); font-size:13.5px; font-weight:600; letter-spacing:.02em; }
-  .co { font-size:12.5px; color:var(--ink-3); }
-  .pct { grid-area:pct; font-family:var(--mono); font-size:15px; font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:-.02em; white-space:nowrap; }
+  .rk { grid-area:rk; font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .name { grid-area:name; display:flex; flex-wrap:wrap; gap:4px 8px; align-items:center; min-width:0; }
+  .mk { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:4px; flex:none;
+        font-family:var(--mono); font-size:9px; font-weight:700; line-height:1; letter-spacing:.01em;
+        color:var(--c); background:color-mix(in srgb, var(--c) 16%, transparent);
+        border:1px solid color-mix(in srgb, var(--c) 34%, transparent); }
+
+  .tkr { font-family:var(--mono); font-size:var(--fs-lg); font-weight:600; letter-spacing:.02em; }
+  .co { font-size:var(--fs-sm); color:var(--ink-3); }
+  .px { grid-area:px; font-family:var(--mono); font-size:var(--fs-sm); font-variant-numeric:tabular-nums; color:var(--ink-2); white-space:nowrap; }
+  .px.nil { color:var(--ink-3); opacity:.6; }
+  .pct { grid-area:pct; font-family:var(--mono); font-size:var(--fs-xl); font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:-.02em; white-space:nowrap; }
   .bar { grid-area:bar; height:6px; background:var(--bar-track); margin:4px 0 2px; }
   .bar span { display:block; height:100%; border-radius:0 3px 3px 0; }
   .bar.u span { background:var(--up); } .bar.d span { background:var(--down); }
-  .why { grid-area:why; font-size:12.5px; line-height:1.45; color:var(--ink-2); }
-  .why b { font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
-  .also { padding:11px 18px; background:var(--surface-2); font-size:12.5px; color:var(--ink-2); border-top:1px solid var(--rule); }
-  .also b { font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:400; display:block; margin-bottom:2px; }
+  .why { grid-area:why; font-size:var(--fs-sm); line-height:1.45; color:var(--ink-2); }
+  .why b { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
+  .also { padding:clamp(7px,0.8vw,11px) clamp(11px,1.1vw,16px); background:var(--surface-2); font-size:var(--fs-sm); color:var(--ink-2); border-top:1px solid var(--rule); }
+  .also b { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3); font-weight:400; display:block; margin-bottom:2px; }
+
+
+  /* ---------- crypto board ---------- */
+  .cboard { background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--gold); }
+  ol.crows { list-style:none; }
+  ol.crows li { padding:clamp(7px,0.75vw,10px) clamp(11px,1.1vw,16px) clamp(8px,0.8vw,11px); border-bottom:1px solid var(--rule); display:grid; grid-template-columns:22px 1fr auto auto; grid-template-areas:"rk name px chg" ". note note note"; gap:2px 12px; align-items:baseline; }
+  ol.crows li:last-child { border-bottom:0; }
+  ol.crows li.lead { background:var(--surface-2); }
+  .cpx { grid-area:px; font-family:var(--mono); font-size:var(--fs-sm); font-variant-numeric:tabular-nums; color:var(--ink); white-space:nowrap; }
+  .cchg { grid-area:chg; font-family:var(--mono); font-size:var(--fs-lg); font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap; min-width:7ch; text-align:right; }
+  .cnote { grid-area:note; font-size:var(--fs-sm); line-height:1.45; color:var(--ink-2); }
+  .cnote b { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
+  .nil { color:var(--ink-3); opacity:.7; }
+
+  /* ---------- social buzz ---------- */
+  .buzz { display:flex; flex-direction:column; }
+  .buzz li { display:grid; grid-template-columns:22px 1fr auto; grid-template-areas:"rk nm val" ". sub sub"; gap:3px 10px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--rule-2); list-style:none; }
+  .buzz .brk { grid-area:rk; font-family:var(--mono); font-size:11px; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .buzz .nm { grid-area:nm; min-width:0; }
+  .buzz li:last-child { border-bottom:0; }
+  .buzz .btk { font-family:var(--mono); font-size:var(--fs-sm); font-weight:600; }
+  .buzz .bco { font-size:var(--fs-xs); color:var(--ink-3); margin-left:6px; }
+  .buzz .bv { grid-area:val; font-family:var(--mono); font-size:var(--fs-sm); font-weight:600; font-variant-numeric:tabular-nums; color:var(--ember); white-space:nowrap; }
+  .buzz .bs { grid-area:sub; font-size:var(--fs-xs); line-height:1.45; color:var(--ink-3); }
+
+  /* ---------- provenance log ---------- */
+  .prov { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--ember); padding:clamp(10px,1.1vw,15px) clamp(12px,1.3vw,18px); display:flex; flex-direction:column; gap:9px; }
+  .prov h3 { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .prov p { font-size:var(--fs-sm); color:var(--ink-2); max-width:82ch; }
+  .prov ul { list-style:none; display:flex; flex-direction:column; gap:5px; }
+  .prov li { font-size:var(--fs-sm); color:var(--ink-2); display:flex; gap:8px; align-items:baseline; }
+  .prov li i { font-style:normal; font-size:9px; line-height:1.6; }
+  .prov code { font-family:var(--mono); font-size:11.5px; color:var(--ink); }
 
   /* ---------- callout ---------- */
-  .callout { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent); padding:16px 20px; display:flex; flex-direction:column; gap:6px; }
-  .callout h3 { font-family:var(--serif); font-size:1.08rem; font-weight:600; }
-  .callout p { font-size:13.5px; color:var(--ink-2); max-width:74ch; }
+  .callout { background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent); padding:clamp(10px,1.1vw,15px) clamp(12px,1.3vw,18px); display:flex; flex-direction:column; gap:6px; }
+  .callout h3 { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .callout p { font-size:var(--fs-sm); color:var(--ink-2); max-width:74ch; }
 
   /* ---------- macro ---------- */
-  .macro { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2px; background:var(--rule); border:1px solid var(--rule); }
-  .mcard { background:var(--surface); padding:15px 18px; display:flex; flex-direction:column; gap:5px; }
-  .mcard h4 { font-family:var(--mono); font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
-  .mcard p { font-size:13px; color:var(--ink-2); }
+  .macro { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:2px; background:var(--rule); border:1px solid var(--rule); }
+  .mcard { background:var(--surface); padding:clamp(9px,1vw,14px) clamp(11px,1.1vw,16px); display:flex; flex-direction:column; gap:5px; }
+  .mcard h4 { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); font-weight:400; }
+  .mcard p { font-size:var(--fs-sm); color:var(--ink-2); }
   .mcard strong { color:var(--ink); font-weight:600; }
 
   /* ---------- reddit ---------- */
-  .reddit { background:var(--inset); border:1px solid var(--rule-2); border-top:3px solid var(--ember); padding:22px clamp(16px,3vw,26px) 24px; display:flex; flex-direction:column; gap:16px; }
+  .reddit { background:var(--inset); border:1px solid var(--rule-2); border-top:3px solid var(--ember); padding:clamp(12px,1.4vw,20px) clamp(12px,1.6vw,22px) clamp(13px,1.5vw,21px); display:flex; flex-direction:column; gap:clamp(9px,1vw,14px); }
   .reddit-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 14px; }
-  .reddit-head h2 { font-family:var(--serif); font-size:1.32rem; font-weight:600; }
-  .tag { font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ember); border:1px solid var(--ember); padding:2px 7px; }
-  .warn { font-size:12.5px; color:var(--ink-2); max-width:80ch; }
+  .reddit-head h2 { font-family:var(--serif); font-size:var(--fs-h2); font-weight:600; }
+  .tag { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.12em; text-transform:uppercase; color:var(--ember); border:1px solid var(--ember); padding:2px 7px; }
+  .warn { font-size:var(--fs-sm); color:var(--ink-2); max-width:80ch; }
   .rgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:2px; background:var(--rule-2); border:1px solid var(--rule-2); }
-  .rcard { background:var(--surface); padding:13px 15px; display:flex; flex-direction:column; gap:4px; }
+  .rcard { background:var(--surface); padding:clamp(9px,1vw,13px) clamp(10px,1.1vw,15px); display:flex; flex-direction:column; gap:4px; }
   .rcard .tkr { font-size:13px; }
-  .rrank { font-family:var(--mono); font-size:10px; letter-spacing:.1em; color:var(--ember); }
-  .rcard p { font-size:12.5px; color:var(--ink-2); }
-  .sent { font-family:var(--mono); font-size:11px; font-variant-numeric:tabular-nums; color:var(--ink-3); }
+  .rrank { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.1em; color:var(--ember); }
+  .rcard p { font-size:var(--fs-sm); color:var(--ink-2); }
+  .sent { font-family:var(--mono); font-size:var(--fs-xs); font-variant-numeric:tabular-nums; color:var(--ink-3); }
 
   /* ---------- method + sources ---------- */
-  .method { font-size:12.5px; color:var(--ink-2); background:var(--surface); border:1px solid var(--rule); padding:15px 18px; }
+  .method { font-size:var(--fs-sm); color:var(--ink-2); background:var(--surface); border:1px solid var(--rule); padding:clamp(9px,1vw,14px) clamp(11px,1.1vw,16px); }
   .method b { color:var(--ink); }
   details.src { background:var(--surface); border:1px solid var(--rule); }
-  details.src > summary { cursor:pointer; padding:13px 18px; font-family:var(--mono); font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2); }
+  details.src > summary { cursor:pointer; padding:clamp(9px,1vw,13px) clamp(11px,1.1vw,16px); font-family:var(--mono); font-size:var(--fs-xs); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-2); }
   .src-body { padding:0 18px 18px; display:flex; flex-direction:column; gap:16px; }
-  .src-group h4 { font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:400; margin-bottom:7px; padding-bottom:5px; border-bottom:1px solid var(--rule); }
+  .src-group h4 { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:400; margin-bottom:7px; padding-bottom:5px; border-bottom:1px solid var(--rule); }
   .src-group.reddit-src h4 { color:var(--ember); border-bottom-color:var(--ember); }
-  .src-group ol { list-style:none; columns:2; column-gap:26px; font-size:12px; }
+  .src-group ol { list-style:none; columns:2; column-gap:24px; font-size:var(--fs-xs); }
   .src-group li { break-inside:avoid; margin-bottom:4px; color:var(--ink-3); }
   .src-group li a { text-decoration:none; }
   .src-group li a:hover { text-decoration:underline; }
   @media (max-width:640px) { .src-group ol { columns:1; } }
 
-  footer { border-top:1px solid var(--rule); padding-top:14px; font-family:var(--mono); font-size:11px; color:var(--ink-3); line-height:1.7; }
+  footer { border-top:1px solid var(--rule); padding-top:11px; font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); line-height:1.7; }
+
+  /* ---------- live market pulse ---------- */
+  .live-pulse { background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent); }
+  .live-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; padding:12px 14px 10px; border-bottom:1px solid var(--rule); }
+  .live-title { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; }
+  .live-meta { font-family:var(--mono); font-size:var(--fs-2xs); color:var(--ink-3); text-align:right; }
+  .live-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); }
+  .live-quote { min-width:0; padding:11px 13px 12px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+  .live-quote:nth-last-child(-n+4) { border-bottom:0; }
+  .live-symbol { display:flex; align-items:baseline; justify-content:space-between; gap:8px; font-family:var(--mono); font-size:var(--fs-xs); font-weight:700; }
+  .live-name { margin-top:2px; overflow:hidden; color:var(--ink-3); font-size:var(--fs-2xs); text-overflow:ellipsis; white-space:nowrap; }
+  .live-price { margin-top:8px; font-family:var(--mono); font-size:var(--fs-xl); font-variant-numeric:tabular-nums; }
+  .live-change { font-size:var(--fs-xs); font-variant-numeric:tabular-nums; }
+  .live-loading, .live-error { grid-column:1 / -1; padding:16px; color:var(--ink-3); font-family:var(--mono); font-size:var(--fs-xs); }
+  .live-error { color:var(--down); }
+  .live-note { padding:9px 14px; background:var(--surface-2); color:var(--ink-3); font-family:var(--mono); font-size:var(--fs-2xs); }
+
+  @media (max-width:700px) {
+    .live-head { align-items:flex-start; flex-direction:column; }
+    .live-meta { text-align:left; }
+    .live-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .live-quote:nth-last-child(-n+4) { border-bottom:1px solid var(--rule); }
+    .live-quote:nth-last-child(-n+2) { border-bottom:0; }
+  }
+
+
+  /* ================= app shell ================= */
+  /* Views are only hidden once JS confirms it can drive routing, so with JS
+     off the page degrades to the continuous sheet it used to be. */
+  html.js .view { display:none; }
+  html.js .view.is-on { display:block; }
+  html.js.in-view .hub { display:none; }
+
+  .hub { display:flex; flex-direction:column; gap:clamp(16px,2vw,26px); }
+  .hublist { list-style:none; display:flex; flex-direction:column; gap:clamp(6px,0.8vw,10px); }
+  .hubbtn {
+    display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+    gap:clamp(10px,1.4vw,20px);
+    padding:clamp(13px,1.5vw,20px) clamp(13px,1.6vw,22px);
+    background:var(--surface); color:inherit; text-decoration:none;
+    border:1px solid var(--rule); border-left:3px solid var(--h);
+    transition:background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .hubbtn:hover, .hubbtn:focus-visible {
+    background:color-mix(in srgb, var(--h) 7%, var(--surface));
+    border-color:color-mix(in srgb, var(--h) 40%, var(--rule));
+    border-left-color:var(--h);
+    transform:translateX(2px);
+  }
+  .hb-no { font-family:var(--mono); font-size:var(--fs-xs); color:var(--h); font-variant-numeric:tabular-nums; }
+  .hb-main { display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .hb-name { font-family:var(--serif); font-size:var(--fs-h3); font-weight:600; letter-spacing:-.01em; }
+  .hb-teaser { font-size:var(--fs-xs); color:var(--ink-3); }
+  .hb-fig { font-family:var(--mono); font-size:var(--fs-sm); font-variant-numeric:tabular-nums; color:var(--ink-2); text-align:right; white-space:nowrap; }
+  .hb-fig em { font-style:normal; color:var(--h); }
+
+  /* ---- section hero ---- */
+  .hero {
+    background:color-mix(in srgb, var(--h) 12%, var(--surface));
+    border:1px solid color-mix(in srgb, var(--h) 26%, var(--rule));
+    border-top:3px solid var(--h);
+    padding:clamp(18px,2.4vw,34px) clamp(14px,1.8vw,26px) clamp(16px,2vw,28px);
+    display:flex; flex-direction:column; gap:clamp(5px,0.7vw,9px);
+    margin-bottom:clamp(12px,1.6vw,22px);
+  }
+  .hero-eyebrow { font-family:var(--mono); font-size:var(--fs-2xs); letter-spacing:.16em; text-transform:uppercase; color:var(--h); display:flex; gap:9px; align-items:baseline; }
+  .hero-h { font-family:var(--serif); font-size:var(--fs-hero); line-height:1.04; letter-spacing:-.018em; font-weight:600; }
+  .hero-h:focus { outline:none; }
+  .hero-h:focus-visible { outline:2px solid var(--h); outline-offset:4px; }
+  .hero-lead { font-family:var(--mono); font-size:var(--fs-lead); font-variant-numeric:tabular-nums; color:var(--ink-2); letter-spacing:-.01em; }
+  .hero-lead em { font-style:normal; color:var(--ink); }
+
+  /* ---- bottom bar ---- */
+  .viewbar { display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+    margin-top:clamp(14px,1.8vw,24px); padding-top:clamp(9px,1vw,14px);
+    border-top:1px solid var(--rule); font-family:var(--mono); font-size:var(--fs-xs); }
+  .viewbar a { color:var(--ink-2); text-decoration:none; padding:5px 9px; border:1px solid var(--rule); }
+  .viewbar a:hover, .viewbar a:focus-visible { color:var(--ink); border-color:var(--h); background:color-mix(in srgb, var(--h) 8%, transparent); }
+  .vb-mid { margin-left:auto; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .vb-nav { display:flex; gap:6px; }
+  .vb-nav a[aria-disabled="true"] { opacity:.35; pointer-events:none; }
+
+  html.js .view.is-on .hero, html.js .view.is-on .view-body { animation:rise .24s ease both; }
+  html.js .view.is-on .view-body { animation-delay:.04s; }
+  @keyframes rise { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .view.is-on .hero, html.js .view.is-on .view-body { animation:none; }
+    .hubbtn { transition:none; }
+    .hubbtn:hover, .hubbtn:focus-visible { transform:none; }
+  }
+  @media (max-width:700px) {
+    .hubbtn { grid-template-columns:auto 1fr; }
+    .hb-fig { grid-column:2; text-align:left; }
+  }
+
+
+  /* the hero states the section title; drop the inner heading that repeats it,
+     while keeping any note beside it that carries real information */
+  .view-body .sec-head { border-bottom:0; padding-bottom:0; margin-bottom:clamp(5px,0.7vw,9px); }
+  .view-body .sec-head h2 { display:none; }
+  .view-body .sec-head .sec-note { margin-left:0; text-align:left; }
+  .view-body .reddit-head h2 { display:none; }
+  .view-body .callout > h3 { display:none; }
+  .view-body .prov > h3 { display:none; }
+  .view-body details.src > summary { display:none; }
+  .view-body .callout { border-left-color:var(--h); }
+  .view-body .prov { border-left-color:var(--h); }
+
+  /* ---------- phone: layout only — the fluid scale above handles type ---------- */
+  @media (max-width: 700px) {
+    /* single column can carry larger text — density belongs on desktop */
+    :root {
+      --fs-2xs: clamp(10px,  0.40vw + 8.90px, 11.5px);
+      --fs-xs:  clamp(11.2px,0.50vw + 9.85px, 12.6px);
+      --fs-sm:  clamp(12.8px,0.60vw + 11.06px,14px);
+      --fs-md:  clamp(14px,  0.90vw + 11.30px,15.5px);
+      --fs-lg:  clamp(14.4px,0.80vw + 12.10px,16px);
+      --fs-xl:  clamp(15.5px,0.90vw + 12.90px,17.5px);
+      --fs-h3:  clamp(16px,  1.00vw + 13.10px,19px);
+      --fs-h2:  clamp(18px,  1.40vw + 14.04px,22px);
+      --fs-h1:  clamp(30px,  6.00vw + 10.60px,44px);
+    }
+    .masthead-top { flex-direction:column; gap:8px; }
+    .stats { grid-template-columns:1fr 1fr; }
+    .sec-note { margin-left:0; text-align:left; width:100%; }
+    .boards { grid-template-columns:1fr; }
+    .macro, .rgrid { grid-template-columns:1fr; }
+    ol.rows li { grid-template-columns:19px 1fr auto auto; gap:2px 7px; }
+    ol.crows li { grid-template-columns:19px 1fr auto auto; gap:2px 8px; }
+    .mk { width:22px; height:22px; font-size:10px; }
+    .src-group ol { columns:1; }
+    .src-group li { margin-bottom:7px; }
+    .src-group li a { text-decoration:underline; text-underline-offset:2px; }
+  }
+
+  /* ---------- print: dark, one section per A4 page ----------
+     The PDF skips the hub and compiles the sections into pages. Sizes are
+     stated explicitly because the print layout viewport is not the page box
+     width, so the max-width query above never matches here. Tuned for 210mm. */
+  @page { size:A4 portrait; margin:0; }
+  @media print {
+    /* dark palette — must outrank the data-theme attribute */
+    :root, :root[data-theme="dark"], :root[data-theme="light"] {
+      --paper:#0D1117; --surface:#161D26; --surface-2:#1B222C; --inset:#111820;
+      --ink:#EDF1F6; --ink-2:#B6C1CE; --ink-3:#8492A1;
+      --rule:#2A343F; --rule-2:#3A4653;
+      --accent:#8FADF7; --up:#3FCFA3; --down:#FF8168; --ember:#EE9A55; --gold:#E0B44C;
+      --bar-track:#242E39;
+    }
+    * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+    html, body { background:var(--paper) !important; }
+    body { color:var(--ink); font-size:11px; line-height:1.5; }
+
+    /* the PDF skips the menu and compiles the sections into pages */
+    .hub, .viewbar { display:none !important; }
+    .view { display:block !important; }
+    .view + .view { break-before:page !important; }
+    .view-body, .hero { animation:none !important; }
+    .hero { margin-bottom:13px; padding:16px 18px 15px; }
+    .hero-h { font-size:31px; }
+    .hero-lead { font-size:13px; }
+    .hero-eyebrow { font-size:8.4px; }
+    .board, .cboard, .callout, .reddit, .method, .prov, .macro, .stats { break-inside:auto; }
+    ol.rows li, ol.crows li, .mcard, .rcard, .stat, .src-group { break-inside:avoid; }
+
+    /* layout is stated explicitly rather than inherited from the phone
+       breakpoint, because the print layout viewport is not the page width */
+    body { font-size:16px; line-height:1.55; }
+    .sheet { max-width:none; margin:0; padding:11mm 11mm 9mm; gap:0; }
+    .masthead { padding-bottom:15px; gap:10px; }
+    .masthead-top { flex-direction:column; gap:9px; }
+    .masthead h1 { font-size:2.15rem; }
+    .dateline { font-size:11.5px; }
+    .thesis { font-size:1.06rem; line-height:1.5; max-width:none; }
+    .stats { grid-template-columns:repeat(3,1fr); }
+    .stat { padding:11px 12px 12px; }
+    .stat-k { font-size:10px; letter-spacing:.1em; }
+    .stat-v { font-size:1.2rem; }
+    .stat-d { font-size:11px; }
+    .sec-head { flex-wrap:wrap; gap:3px 12px; margin-bottom:14px; }
+    .sec-head h2 { font-size:1.3rem; }
+    .sec-note { margin-left:0; text-align:left; width:100%; font-size:10.5px; }
+    .boards { grid-template-columns:1fr 1fr; gap:9px; }
+    .board-head { padding:13px 14px; }
+    .board-head h3 { font-size:1.1rem; }
+    ol.rows li { padding:6px 10px 6.5px; grid-template-columns:18px 1fr auto auto; gap:1.5px 6px; }
+    ol.crows li { padding:7px 12px 7.5px; grid-template-columns:20px 1fr auto auto; gap:2px 8px; }
+    .px { font-size:9.6px; }
+    .cpx { font-size:10px; }
+    .cchg { font-size:11px; }
+    .cnote { font-size:9.4px; line-height:1.42; }
+    .buzz .btk { font-size:10px; }
+    .buzz .bv { font-size:10px; }
+    .buzz .bs { font-size:9.2px; }
+    .buzz .bco { font-size:9.2px; }
+    .mk { width:21px; height:21px; font-size:9.5px; }
+    .rk { font-size:10.5px; }
+    .tkr { font-size:11px; }
+    .mk { width:22px; height:22px; font-size:10px; }
+    .co { font-size:9.8px; }
+    .pct { font-size:12px; }
+    .bar { height:7px; margin:5px 0 3px; }
+    .prov { padding:14px 15px; }
+    .prov p, .prov li { font-size:11px; line-height:1.55; }
+    .why { font-size:9.4px; line-height:1.42; }
+    .why b { font-size:11px; }
+    .also { padding:8px 11px; font-size:9.4px; line-height:1.45; }
+    .also b { font-size:11px; }
+    .callout { padding:14px 15px; }
+    .callout h3 { font-size:1.05rem; }
+    .callout p { font-size:12px; line-height:1.6; max-width:none; }
+    .macro { grid-template-columns:1fr 1fr; }
+    .mcard { padding:13px 14px; }
+    .mcard h4 { font-size:10px; }
+    .mcard p { font-size:10px; line-height:1.5; }
+    .reddit { padding:18px 14px 20px; gap:14px; }
+    .reddit-head h2 { font-size:1.25rem; }
+    .warn { font-size:10px; line-height:1.5; max-width:none; }
+    .rgrid { grid-template-columns:1fr 1fr; }
+    .rcard { padding:12px 14px; }
+    .rcard .tkr { font-size:14px; }
+    .rcard p { font-size:9.6px; line-height:1.45; }
+    .sent { font-size:11px; }
+    .method { padding:13px 15px; font-size:11.5px; line-height:1.6; }
+    details.src > summary { padding:15px; font-size:12px; }
+    .src-body { padding:0; gap:13px; columns:1; }
+    .src-group ol { columns:2; column-gap:16px; font-size:9.6px; }
+    .src-group li { margin-bottom:8px; }
+    footer { font-size:11px; line-height:1.75; }
+
+    /* sources always expanded in the PDF */
+    details.src > summary { list-style:none; }
+    details.src > summary::-webkit-details-marker { display:none; }
+    .src-body { display:block !important; }
+    a { text-decoration:none; color:var(--ink-2); }
+  }
 </style>
 
 <div class="sheet">
 
+  <nav class="hub" id="hub" aria-label="Sections">
   <header class="masthead">
     <div class="masthead-top">
       <div>
         <div class="eyebrow">Weekly tape sheet &middot; US equities</div>
-        <h1>The Capex Tax</h1>
+        <h1>Finance Thoughts</h1>
       </div>
-      <div class="dateline">WEEK ENDING FRI 24 JUL 2026<br>COMPILED SAT 25 JUL &middot; 50 SOURCES</div>
+      <div class="dateline">WEEK OF MON 27 &ndash; FRI 31 JUL 2026 &middot; COMPLETE<br>COMPILED SAT 1 AUG &middot; 59 SOURCES</div>
     </div>
-    <p class="thesis">Three companies beat earnings this week and were sold anyway. Alphabet, Intel and Texas Instruments each cleared the bar on revenue and profit, then raised what they intend to spend &mdash; and the market marked all three down. The buyers went where the spending lands: servers, memory, power. The sellers went where the spending comes from.</p>
+    <p class="thesis">The capex question got its answer, and the answer was a split. Microsoft and Amazon both raised what they intend to spend and were rewarded for it &mdash; Microsoft with its best week since 2000, Amazon its best since 2015 &mdash; because the revenue showed up alongside the spending. Meta and Apple guided softly and were taken apart. Spending is no longer the thing being judged; proof that it is already working is.</p>
   </header>
 
+    <section class="live-pulse" aria-labelledby="live-title">
+      <div class="live-head">
+        <div>
+          <div class="eyebrow">Delayed market data</div>
+          <h2 class="live-title" id="live-title">Live market pulse</h2>
+        </div>
+        <div class="live-meta" id="live-meta">Loading latest available quotes&hellip;</div>
+      </div>
+      <div class="live-grid" id="live-grid" aria-live="polite">
+        <div class="live-loading">Fetching the latest available market snapshot&hellip;</div>
+      </div>
+      <div class="live-note">Quotes may be delayed and are provided for context only. Historical weekly analysis below remains unchanged. Not investment advice.</div>
+    </section>
+
+    <ol class="hublist">
+      <li><a class="hubbtn" href="#snapshot" style="--h:#5B7899">
+        <span class="hb-no">01</span>
+        <span class="hb-main"><span class="hb-name">Market snapshot</span><span class="hb-teaser">Where the week finished</span></span>
+        <span class="hb-fig">7,489.72</span>
+      </a></li>
+      <li><a class="hubbtn" href="#movers" style="--h:#5F6E9E">
+        <span class="hb-no">02</span>
+        <span class="hb-main"><span class="hb-name">The week&rsquo;s movers</span><span class="hb-teaser">Five sessions, up and down</span></span>
+        <span class="hb-fig">MSFT <em>+21.4%</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#bothlists" style="--h:#4E8A85">
+        <span class="hb-no">03</span>
+        <span class="hb-main"><span class="hb-name">How the ten resolved</span><span class="hb-teaser">Every name we flagged, and what happened</span></span>
+        <span class="hb-fig">3 <em>dissents</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#backdrop" style="--h:#8E7A44">
+        <span class="hb-no">04</span>
+        <span class="hb-main"><span class="hb-name">Backdrop</span><span class="hb-teaser">The split, the dissents, the yields</span></span>
+        <span class="hb-fig">30y <em>5.25%</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#status" style="--h:#A2704A">
+        <span class="hb-no">05</span>
+        <span class="hb-main"><span class="hb-name">Where this stands</span><span class="hb-teaser">Week closed, and what carries into August</span></span>
+        <span class="hb-fig">Sat 1 Aug</span>
+      </a></li>
+      <li><a class="hubbtn" href="#crypto" style="--h:#9A7C36">
+        <span class="hb-no">06</span>
+        <span class="hb-main"><span class="hb-name">Crypto, ten largest</span><span class="hb-teaser">Ranked by market cap, updated Saturday</span></span>
+        <span class="hb-fig">BTC <em>$62,869</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#social" style="--h:#92637A">
+        <span class="hb-no">07</span>
+        <span class="hb-main"><span class="hb-name">Retail &amp; social layer</span><span class="hb-teaser">Mention spikes and sentiment, never price</span></span>
+        <span class="hb-fig">AMZN <em>+252%</em></span>
+      </a></li>
+      <li><a class="hubbtn" href="#method" style="--h:#6B7683">
+        <span class="hb-no">08</span>
+        <span class="hb-main"><span class="hb-name">How to read this</span><span class="hb-teaser">What the percentages actually measure</span></span>
+        <span class="hb-fig">Method</span>
+      </a></li>
+      <li><a class="hubbtn" href="#notes" style="--h:#716C81">
+        <span class="hb-no">09</span>
+        <span class="hb-main"><span class="hb-name">Data notes</span><span class="hb-teaser">Provenance of the softer numbers</span></span>
+        <span class="hb-fig">Merged &amp; marked</span>
+      </a></li>
+      <li><a class="hubbtn" href="#sources" style="--h:#5E7482">
+        <span class="hb-no">10</span>
+        <span class="hb-main"><span class="hb-name">Sources</span><span class="hb-teaser">Every source behind every figure</span></span>
+        <span class="hb-fig"><em>59</em></span>
+      </a></li>
+    </ol>
+
+  <footer>
+    Finance Thoughts &middot; week of 27&ndash;31 July 2026, complete &middot; compiled Saturday 1 August 2026<br>
+    Summary of published reporting. Figures are as reported by the sources listed and have not been independently verified against exchange data. Not investment advice.
+  </footer>
+  </nav>
+
+  <section class="view" id="snapshot" style="--h:#5B7899" aria-labelledby="h-snapshot">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>01 / 10</span><span>The week&rsquo;s close</span></div>
+      <h2 class="hero-h" id="h-snapshot">Market snapshot</h2>
+      <div class="hero-lead">All three up &middot; Nasdaq <em>+1.6%</em> &middot; 30y at a 2007 high</div>
+    </div>
+    <div class="view-body">
   <section>
     <div class="stats">
-      <div class="stat"><span class="stat-k">S&amp;P 500</span><span class="stat-v">7,411.98</span><span class="stat-d"><span class="pos">+0.05%</span> Fri &middot; <span class="neg">&minus;0.6%</span> wk</span></div>
-      <div class="stat"><span class="stat-k">Nasdaq Comp</span><span class="stat-v">24,975.82</span><span class="stat-d"><span class="neg">&minus;0.64%</span> Fri &middot; <span class="neg">&minus;2.0%</span> wk</span></div>
-      <div class="stat"><span class="stat-k">Dow Jones</span><span class="stat-v">51,947.25</span><span class="stat-d"><span class="pos">+0.46%</span> Fri &middot; <span class="pos">only index up</span></span></div>
-      <div class="stat"><span class="stat-k">WTI crude</span><span class="stat-v">$89.31</span><span class="stat-d"><span class="neg">&minus;3.1%</span> Fri &middot; <span class="pos">+30%</span> MTD</span></div>
-      <div class="stat"><span class="stat-k">US 10-year</span><span class="stat-v">4.67%</span><span class="stat-d">high since Jan 2025</span></div>
-      <div class="stat"><span class="stat-k">Bitcoin</span><span class="stat-v">~$63.9k</span><span class="stat-d"><span class="pos">+9%</span> in July</span></div>
+      <div class="stat"><span class="stat-k">S&amp;P 500</span><span class="stat-v">7,489.72</span><span class="stat-d"><span class="pos">+0.7%</span> Fri &middot; <span class="pos">+1%</span> wk</span></div>
+      <div class="stat"><span class="stat-k">Nasdaq Comp</span><span class="stat-v">25,373.85</span><span class="stat-d"><span class="pos">+1.0%</span> Fri &middot; <span class="pos">+1.6%</span> wk</span></div>
+      <div class="stat"><span class="stat-k">Dow Jones</span><span class="stat-v">52,485.03</span><span class="stat-d"><span class="pos">+0.53%</span> Fri &middot; <span class="pos">+0.7%</span> July</span></div>
+      <div class="stat"><span class="stat-k">30-year yield</span><span class="stat-v">5.25%</span><span class="stat-d">highest since 2007</span></div>
+      <div class="stat"><span class="stat-k">Fed funds</span><span class="stat-v">3.50&ndash;3.75%</span><span class="stat-d">held &middot; <span class="neg">3 dissents</span> to hike</span></div>
+      <div class="stat"><span class="stat-k">Bitcoin</span><span class="stat-v">$62,869</span><span class="stat-d"><span class="neg">&minus;3.25%</span> Sat &middot; cap $2.25tn</span></div>
     </div>
   </section>
-
-  <section>
-    <div class="sec-head">
-      <h2>Top 10 movers, up and down</h2>
-      <span class="sec-note">bars share one scale, 0&ndash;90%</span>
     </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#" aria-disabled="true">&larr; Prev</a><a href="#movers">Next &rarr;</a></span>
+      <span class="vb-mid">01 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="movers" style="--h:#5F6E9E" aria-labelledby="h-movers">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>02 / 10</span><span>Five sessions, up and down</span></div>
+      <h2 class="hero-h" id="h-movers">The week&rsquo;s movers</h2>
+      <div class="hero-lead">MSFT <em>+21.4%</em> &middot; META <em>&minus;9.0%</em> &middot; AAPL <em>&minus;7.1%</em></div>
+    </div>
+    <div class="view-body">
+      <div class="sec-head">
+        <span class="sec-note">bars share one scale, 0&ndash;40% &middot; each row states whether its figure is the week or a session</span>
+      </div>
 
-    <div class="boards">
+      <div class="boards">
 
-      <div class="board">
-        <div class="board-head">
-          <span class="dir pos">&#9650;</span>
-          <h3>Ten biggest advances</h3>
-          <span class="board-sub">20&ndash;24 Jul</span>
-        </div>
-        <ol class="rows">
+        <div class="board">
+          <div class="board-head">
+            <span class="dir pos">&#9650;</span>
+            <h3>The week&rsquo;s advances</h3>
+            <span class="board-sub">27&ndash;31 jul</span>
+          </div>
+          <ol class="rows">
           <li>
             <span class="rk">01</span>
-            <span class="name"><span class="tkr">UTZ</span><span class="co">Utz Brands</span></span>
-            <span class="pct pos">+89.2%</span>
-            <span class="bar u"><span style="width:99.1%"></span></span>
-            <span class="why"><b>Tue 21</b> &middot; Taken private by Intersnack Group in a $2.9bn deal. The week's only true one-off &mdash; a closed-end event, not a trend.</span>
+            <span class="name"><span class="mk" style="--c:#4A6072" aria-hidden="true">FB</span><span class="tkr">FBRX</span><span class="co">Forte Biosciences</span></span>
+            <span class="px">$77.00</span>
+            <span class="pct pos">+40.0%</span>
+            <span class="bar u"><span style="width:100.0%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Acquired by Argenx for <strong>$2.2bn cash</strong> at $77 a share. A closed-end event, and still the week&rsquo;s largest single move.</span>
           </li>
           <li>
             <span class="rk">02</span>
-            <span class="name"><span class="tkr">SMCI</span><span class="co">Super Micro Computer</span></span>
-            <span class="pct pos">+25.0%</span>
-            <span class="bar u"><span style="width:27.8%"></span></span>
-            <span class="why"><b>Tue&ndash;Wed</b> &middot; Over $60bn of new Q4 orders, record backlog, and gross-margin guidance lifted from 8.2&ndash;8.4% to 15&ndash;17%. Plans an AI data centre with SpaceX.</span>
+            <span class="name"><span class="mk" style="--c:#3C6E9B" aria-hidden="true">MS</span><span class="tkr">MSFT</span><span class="co">Microsoft</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct pos">+21.4%</span>
+            <span class="bar u"><span style="width:53.5%"></span></span>
+            <span class="why"><b>week</b> &middot; <strong>Best week since October 2000.</strong> Azure passed <strong>$100bn</strong> of FY26 revenue, up 41%. Thursday alone was +15.5%, its best session since 2008, adding roughly <strong>$450bn</strong> of market value &mdash; the largest one-day gain in corporate history.</span>
           </li>
           <li>
             <span class="rk">03</span>
-            <span class="name"><span class="tkr">ACHR</span><span class="co">Archer Aviation</span></span>
-            <span class="pct pos">+22.0%</span>
-            <span class="bar u"><span style="width:24.4%"></span></span>
-            <span class="why"><b>Mon 20</b> &middot; Defence-tech partnership; the single largest one-day move of Monday's session.</span>
+            <span class="name"><span class="mk" style="--c:#8E7A44" aria-hidden="true">AM</span><span class="tkr">AMZN</span><span class="co">Amazon</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct pos">+16.9%</span>
+            <span class="bar u"><span style="width:42.2%"></span></span>
+            <span class="why"><b>week</b> &middot; Best week since April 2015. AWS grew <strong>36.7%</strong>, fastest in 18 quarters &mdash; and the market paid up even as 2026 capex was lifted to about <strong>$220bn</strong> from $200bn.</span>
           </li>
           <li>
             <span class="rk">04</span>
-            <span class="name"><span class="tkr">NBIS</span><span class="co">Nebius Group</span></span>
-            <span class="pct pos">+18.9%</span>
-            <span class="bar u"><span style="width:21.0%"></span></span>
-            <span class="why"><b>Tue 21</b> &middot; Nvidia disclosed a 9.3% stake in the neocloud &mdash; ~22.3m shares, tracing to a $2bn March investment. Analyst targets followed.</span>
+            <span class="name"><span class="mk" style="--c:#3E7370" aria-hidden="true">IP</span><span class="tkr">IP</span><span class="co">International Paper</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct pos">+11.2%</span>
+            <span class="bar u"><span style="width:28.0%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; The strongest name in the S&amp;P that session, as materials led a rotation out of tech.</span>
           </li>
           <li>
             <span class="rk">05</span>
-            <span class="name"><span class="tkr">MU</span><span class="co">Micron Technology</span></span>
-            <span class="pct pos">+12.0%</span>
-            <span class="bar u"><span style="width:13.3%"></span></span>
-            <span class="why"><b>Tue 21</b> &middot; Memory melt-up: WDC and STX each rose about the same, the DRAM ETF +11%. Round-tripped by Friday &mdash; see below.</span>
+            <span class="name"><span class="mk" style="--c:#3C6E9B" aria-hidden="true">BH</span><span class="tkr">BKR</span><span class="co">Baker Hughes</span></span>
+            <span class="px">$61.97</span>
+            <span class="pct pos">+8.2%</span>
+            <span class="bar u"><span style="width:20.5%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; EPS 64c vs 50c est on $6.74bn, and closed the <strong>$13.6bn</strong> all-cash Chart Industries deal.</span>
           </li>
           <li>
             <span class="rk">06</span>
-            <span class="name"><span class="tkr">COIN</span><span class="co">Coinbase</span></span>
-            <span class="pct pos">+9.6%</span>
-            <span class="bar u"><span style="width:10.7%"></span></span>
-            <span class="why"><b>Tue 21</b> &middot; Bitcoin hit its highest since 16 June on CLARITY Act optimism and a fifth straight day of spot-ETF inflows.</span>
-          </li>
-          <li>
-            <span class="rk">07</span>
-            <span class="name"><span class="tkr">WULF</span><span class="co">TeraWulf</span></span>
-            <span class="pct pos">+8.0%</span>
-            <span class="bar u"><span style="width:8.9%"></span></span>
-            <span class="why"><b>Tue 21</b> &middot; Carried up in the same crypto-equity bid as COIN and HOOD.</span>
-          </li>
-          <li>
-            <span class="rk">08</span>
-            <span class="name"><span class="tkr">NOW</span><span class="co">ServiceNow</span></span>
-            <span class="pct pos">+7.3%</span>
-            <span class="bar u"><span style="width:8.1%"></span></span>
-            <span class="why"><b>Thu 23</b> &middot; EPS $0.90 vs $0.85&ndash;0.86 est, subscription revenue +23%, FY guidance raised, AI ACV past $1bn. A rare beat that was actually paid for.</span>
-          </li>
-          <li>
-            <span class="rk">09</span>
-            <span class="name"><span class="tkr">HOOD</span><span class="co">Robinhood</span></span>
+            <span class="name"><span class="mk" style="--c:#4574B0" aria-hidden="true">GO</span><span class="tkr">GOOGL</span><span class="co">Alphabet</span></span>
+            <span class="px nil">n/a</span>
             <span class="pct pos">+7.1%</span>
-            <span class="bar u"><span style="width:7.9%"></span></span>
-            <span class="why"><b>Tue 21</b> &middot; Crypto-linked bid; closed at $106.36.</span>
-          </li>
-          <li>
-            <span class="rk">10</span>
-            <span class="name"><span class="tkr">HAS</span><span class="co">Hasbro</span></span>
-            <span class="pct pos">+7.0%</span>
-            <span class="bar u"><span style="width:7.8%"></span></span>
-            <span class="why"><b>Tue 21</b> &middot; Q2 beat on both lines, FY adjusted EBITDA guidance raised.</span>
-          </li>
-        </ol>
-        <div class="also"><b>Just missed</b> DPZ +7.0% (Mon, rose through an EPS miss) &middot; EQT +6.6% (volume guidance raised) &middot; HON +5% (FY outlook up) &middot; CME +5% (best-ever first half) &middot; AAPL +3.5% (Fri) &middot; CRM +4.1%, IBM +3.6% (Fri, Dow leaders)</div>
-      </div>
-
-      <div class="board">
-        <div class="board-head">
-          <span class="dir neg">&#9660;</span>
-          <h3>Ten biggest declines</h3>
-          <span class="board-sub">20&ndash;24 Jul</span>
-        </div>
-        <ol class="rows">
-          <li>
-            <span class="rk">01</span>
-            <span class="name"><span class="tkr">LESL</span><span class="co">Leslie's</span></span>
-            <span class="pct neg">&minus;47.0%</span>
-            <span class="bar d"><span style="width:52.2%"></span></span>
-            <span class="why"><b>Wed 22</b> &middot; Weighing Chapter 11. About $757m of debt against $61m FY25 adjusted EBITDA &mdash; roughly 12.5&times; leverage. Down over 99% since its 2020 IPO.</span>
-          </li>
-          <li>
-            <span class="rk">02</span>
-            <span class="name"><span class="tkr">ACI</span><span class="co">Albertsons</span></span>
-            <span class="pct neg">&minus;22.0%</span>
-            <span class="bar d"><span style="width:24.4%"></span></span>
-            <span class="why"><b>Thu 23</b> &middot; EPS $0.42 vs $0.54 est and FY26 guidance cut to $1.75&ndash;1.85 from $2.22&ndash;2.32. Identical sales flipped to a decline. Losing low-income shoppers to Walmart, Amazon and Aldi.</span>
-          </li>
-          <li>
-            <span class="rk">03</span>
-            <span class="name"><span class="tkr">PEGA</span><span class="co">Pegasystems</span></span>
-            <span class="pct neg">&minus;16.7%</span>
-            <span class="bar d"><span style="width:18.6%"></span></span>
-            <span class="why"><b>Wed 22</b> &middot; Q2 miss, slower contract growth, and a warning that AI-driven spending delays are hitting demand. The clearest "AI eats software" print of the week.</span>
-          </li>
-          <li>
-            <span class="rk">04</span>
-            <span class="name"><span class="tkr">ROL</span><span class="co">Rollins</span></span>
-            <span class="pct neg">&minus;14.7%</span>
-            <span class="bar d"><span style="width:16.3%"></span></span>
-            <span class="why"><b>Wed 22</b> &middot; EPS $0.32 on $1.08bn, both light, and the FY organic growth outlook cut on weak residential demand &mdash; despite a 99th straight quarter of revenue growth.</span>
-          </li>
-          <li>
-            <span class="rk">05</span>
-            <span class="name"><span class="tkr">TSLA</span><span class="co">Tesla</span></span>
-            <span class="pct neg">&minus;14.5%</span>
-            <span class="bar d"><span style="width:16.1%"></span></span>
-            <span class="why"><b>Thu 23</b> &middot; Worst earnings-reaction day on record. Record $28.2bn revenue and 480,126 deliveries, but operating income fell 57%, margin hit 1.4%, FCF turned negative and capex heads past $25bn. Down ~19% on the week.</span>
-          </li>
-          <li>
-            <span class="rk">06</span>
-            <span class="name"><span class="tkr">SNDK</span><span class="co">SanDisk</span></span>
-            <span class="pct neg">&minus;11.0%</span>
-            <span class="bar d"><span style="width:12.2%"></span></span>
-            <span class="why"><b>Fri 24</b> &middot; Memory supply-glut fears as Samsung and SK Hynix add capacity. Still up ~526% YTD &mdash; this reads as profit-taking, not a broken thesis.</span>
+            <span class="bar u"><span style="width:17.8%"></span></span>
+            <span class="why"><b>fri 31</b> &middot; Rallied with the AI winners &mdash; a fortnight after being marked down 7.1% for the same spending the market now rewards elsewhere.</span>
           </li>
           <li>
             <span class="rk">07</span>
-            <span class="name"><span class="tkr">MOH</span><span class="co">Molina Healthcare</span></span>
-            <span class="pct neg">&minus;9.2%</span>
-            <span class="bar d"><span style="width:10.2%"></span></span>
-            <span class="why"><b>Thu 23</b> &middot; Beat on EPS at $1.51 but sold on falling membership and lower premium revenue. Health care is the only S&amp;P sector shrinking this quarter.</span>
+            <span class="name"><span class="mk" style="--c:#3E63A8" aria-hidden="true">SP</span><span class="tkr">SAP</span><span class="co">SAP</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct pos">+7.0%</span>
+            <span class="bar u"><span style="width:17.5%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Second tranche of the &euro;10bn buyback announced in January.</span>
           </li>
           <li>
             <span class="rk">08</span>
-            <span class="name"><span class="tkr">WDC</span><span class="co">Western Digital</span></span>
-            <span class="pct neg">&minus;9.0%</span>
-            <span class="bar d"><span style="width:10.0%"></span></span>
-            <span class="why"><b>Fri 24</b> &middot; Same memory unwind; SK Hynix and Micron fell 6&ndash;8% alongside. Both ends of the round trip inside four sessions.</span>
+            <span class="name"><span class="mk" style="--c:#96444E" aria-hidden="true">BF</span><span class="tkr">BF.B</span><span class="co">Brown-Forman</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct pos">+4.0%</span>
+            <span class="bar u"><span style="width:10.0%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Rejected another unsolicited approach from Sazerac.</span>
           </li>
           <li>
             <span class="rk">09</span>
-            <span class="name"><span class="tkr">INTC</span><span class="co">Intel</span></span>
-            <span class="pct neg">&minus;8.0%</span>
-            <span class="bar d"><span style="width:8.9%"></span></span>
-            <span class="why"><b>Fri 24</b> &middot; Revenue $16.1bn (+25%, fastest in 15 years), EPS $0.42 versus $0.21 est, data-centre and AI +59%. Popped 13% after hours, then gave it all back once capex above $20bn landed.</span>
+            <span class="name"><span class="mk" style="--c:#2F6193" aria-hidden="true">SK</span><span class="tkr">SKHY</span><span class="co">SK Hynix</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct pos">+3.5%</span>
+            <span class="bar u"><span style="width:8.8%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Rose in Seoul on a $950bn AI partnership &mdash; then its US ADR fell 7% the same day.</span>
           </li>
           <li>
             <span class="rk">10</span>
-            <span class="name"><span class="tkr">GOOGL</span><span class="co">Alphabet</span></span>
-            <span class="pct neg">&minus;7.1%</span>
-            <span class="bar d"><span style="width:7.9%"></span></span>
-            <span class="why"><b>Thu 23</b> &middot; Worst earnings reaction since Feb 2025. Revenue $119.8bn (+24%), Cloud +82%, 12th straight double-digit quarter &mdash; erased by FY capex guided to $195&ndash;205bn and a warning that 2027 goes higher still.</span>
+            <span class="name"><span class="mk" style="--c:#3F7A63" aria-hidden="true">NV</span><span class="tkr">NVDA</span><span class="co">Nvidia</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct pos">+3.5%</span>
+            <span class="bar u"><span style="width:8.8%"></span></span>
+            <span class="why"><b>fri 31</b> &middot; Closed the week strongly after falling 5% on Monday, the round trip the whole chip complex traced.</span>
           </li>
-        </ol>
-        <div class="also"><b>Just missed</b> GEV &minus;7% (beat and raised, sold anyway) &middot; RHI &minus;6% &middot; TXN &minus;5.3% (double beat, priced for more) &middot; SPCX &minus;5.3% to a record low &middot; CAVA &minus;5% &middot; AMZN &minus;4%, MSFT &minus;2% (Thu)</div>
+          </ol>
+          <div class="also"><b>Mixed basis, stated per row</b> Full-week figures were published for Microsoft and Amazon; the rest are the single session in which the move happened, and the chip on each row says which. Ranking is by the figure shown, so a 40% takeover pop sits above a 21% week &mdash; they are not the same measure.</div>
+        </div>
+
+        <div class="board">
+          <div class="board-head">
+            <span class="dir neg">&#9660;</span>
+            <h3>The week&rsquo;s declines</h3>
+            <span class="board-sub">27&ndash;31 jul</span>
+          </div>
+          <ol class="rows">
+          <li>
+            <span class="rk">01</span>
+            <span class="name"><span class="mk" style="--c:#A34640" aria-hidden="true">AL</span><span class="tkr">ALAB</span><span class="co">Astera Labs</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;13.0%</span>
+            <span class="bar d"><span style="width:32.5%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Profit-taking, index rebalancing and insider sales &mdash; still up over 113% YTD.</span>
+          </li>
+          <li>
+            <span class="rk">02</span>
+            <span class="name"><span class="mk" style="--c:#96444E" aria-hidden="true">AP</span><span class="tkr">APP</span><span class="co">AppLovin</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;11.0%</span>
+            <span class="bar d"><span style="width:27.5%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; High-beta growth cut ahead of the Fed.</span>
+          </li>
+          <li>
+            <span class="rk">03</span>
+            <span class="name"><span class="mk" style="--c:#A0524A" aria-hidden="true">SD</span><span class="tkr">SNDK</span><span class="co">SanDisk</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;10.8%</span>
+            <span class="bar d"><span style="width:27.0%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; The weakest S&amp;P name that session, as Changxin&rsquo;s Shanghai listing landed on the memory complex.</span>
+          </li>
+          <li>
+            <span class="rk">04</span>
+            <span class="name"><span class="mk" style="--c:#3E63A8" aria-hidden="true">MT</span><span class="tkr">META</span><span class="co">Meta Platforms</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;9.0%</span>
+            <span class="bar d"><span style="width:22.5%"></span></span>
+            <span class="why"><b>wed 29</b> &middot; EPS <strong>$6.18</strong>, missing by $1.04, with Q3 revenue guided to $61&ndash;64bn against a $63.15bn consensus. Spending without the proof.</span>
+          </li>
+          <li>
+            <span class="rk">05</span>
+            <span class="name"><span class="mk" style="--c:#4A6072" aria-hidden="true">AA</span><span class="tkr">AAPL</span><span class="co">Apple</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;7.1%</span>
+            <span class="bar d"><span style="width:17.8%"></span></span>
+            <span class="why"><b>fri 31</b> &middot; Lost roughly <strong>$475bn</strong> of market value in a session. Tim Cook called memory pricing &ldquo;a hundred-year flood&rdquo;; soft guidance and services growth did the rest.</span>
+          </li>
+          <li>
+            <span class="rk">06</span>
+            <span class="name"><span class="mk" style="--c:#2F6BA0" aria-hidden="true">AM</span><span class="tkr">AMKR</span><span class="co">Amkor Technology</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;7.0%</span>
+            <span class="bar d"><span style="width:17.5%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Sold ahead of its own figures.</span>
+          </li>
+          <li>
+            <span class="rk">07</span>
+            <span class="name"><span class="mk" style="--c:#33769B" aria-hidden="true">ST</span><span class="tkr">STX</span><span class="co">Seagate</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;7.0%</span>
+            <span class="bar d"><span style="width:17.5%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Storage caught in the memory unwind.</span>
+          </li>
+          <li>
+            <span class="rk">08</span>
+            <span class="name"><span class="mk" style="--c:#3D6D96" aria-hidden="true">KO</span><span class="tkr">KOS</span><span class="co">Kosmos Energy</span></span>
+            <span class="px">$2.45</span>
+            <span class="pct neg">&minus;6.8%</span>
+            <span class="bar d"><span style="width:17.0%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Energy was the worst sector as Brent fell 8.7% on the Iran pause.</span>
+          </li>
+          <li>
+            <span class="rk">09</span>
+            <span class="name"><span class="mk" style="--c:#2F6193" aria-hidden="true">MU</span><span class="tkr">MU</span><span class="co">Micron</span></span>
+            <span class="px nil">n/a</span>
+            <span class="pct neg">&minus;6.0%</span>
+            <span class="bar d"><span style="width:15.0%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Down again on the Chinese DRAM build-out. Reported between 4% and 6%.</span>
+          </li>
+          <li>
+            <span class="rk">10</span>
+            <span class="name"><span class="mk" style="--c:#3E63A8" aria-hidden="true">AS</span><span class="tkr">ASML</span><span class="co">ASML</span></span>
+            <span class="px">$1,659.32</span>
+            <span class="pct neg">&minus;5.6%</span>
+            <span class="bar d"><span style="width:14.0%"></span></span>
+            <span class="why"><b>mon 27</b> &middot; Fell as much as 8% on a report that a Shanghai state-backed firm has begun mass production of immersion DUV lithography.</span>
+          </li>
+          </ol>
+          <div class="also"><b>Wider still</b> <b>INTC &minus;33.74% across July</b>, its worst month since September 2000 and the month&rsquo;s biggest casualty &mdash; a month figure, so it is not ranked above. Also BA &minus;1.9% and UNH &minus;1.6% Friday. The memory complex supplied five of these ten.</div>
+        </div>
+
+      </div>
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#snapshot">&larr; Prev</a><a href="#bothlists">Next &rarr;</a></span>
+      <span class="vb-mid">02 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="bothlists" style="--h:#4E8A85" aria-labelledby="h-bothlists">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>03 / 10</span><span>Marking our own board</span></div>
+      <h2 class="hero-h" id="h-bothlists">How the ten resolved</h2>
+      <div class="hero-lead">Six marked &middot; four <em>n/a</em> &middot; the split confirmed</div>
+    </div>
+    <div class="view-body">
+      <div class="sec-head">
+        <span class="sec-note">the board this sheet ran last Monday, marked</span>
       </div>
 
+      <div class="boards">
+
+        <div class="board">
+          <div class="board-head">
+            <span class="dir" style="color:var(--h)">&#9679;</span>
+            <h3>How the ten resolved</h3>
+            <span class="board-sub">flagged mon &middot; settled fri</span>
+          </div>
+          <ol class="rows">
+          <li>
+            <span class="rk">01</span>
+            <span class="name"><span class="mk" style="--c:#A2704A" aria-hidden="true">FR</span><span class="tkr">FOMC</span><span class="co">Federal Reserve</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct pos">Held</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Held at <strong>3.50&ndash;3.75%</strong> &mdash; but Hammack, Kashkari and Logan each dissented for a quarter-point hike. <strong>The first time since September 2016</strong> that three policymakers dissented in the same direction.</span>
+          </li>
+          <li>
+            <span class="rk">02</span>
+            <span class="name"><span class="mk" style="--c:#3C6E9B" aria-hidden="true">MS</span><span class="tkr">MSFT</span><span class="co">Microsoft</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct pos">+21.4%</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">The week&rsquo;s biggest winner. Azure past $100bn FY26 revenue, +41%. Added ~$450bn of value on Thursday, the largest one-day market-cap gain in corporate history.</span>
+          </li>
+          <li>
+            <span class="rk">03</span>
+            <span class="name"><span class="mk" style="--c:#3E63A8" aria-hidden="true">MT</span><span class="tkr">META</span><span class="co">Meta Platforms</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct neg">&minus;9.0%</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">The sharpest test failed it. EPS $6.18 missed by $1.04; Q3 revenue guided to $61&ndash;64bn against $63.15bn consensus. Margin held, but the guide did not.</span>
+          </li>
+          <li>
+            <span class="rk">04</span>
+            <span class="name"><span class="mk" style="--c:#4A6072" aria-hidden="true">AA</span><span class="tkr">AAPL</span><span class="co">Apple</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct neg">&minus;7.1%</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Roughly $475bn of market value gone in a session on soft guidance, rising component costs and slowing services. Cook: memory pricing is &ldquo;a hundred-year flood&rdquo;.</span>
+          </li>
+          <li>
+            <span class="rk">05</span>
+            <span class="name"><span class="mk" style="--c:#8E7A44" aria-hidden="true">AM</span><span class="tkr">AMZN</span><span class="co">Amazon</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct pos">+16.9%</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Raised 2026 capex to about $220bn from $200bn <strong>and rose anyway</strong>, because AWS grew 36.7% &mdash; fastest in 18 quarters. The clearest proof of the week&rsquo;s rule.</span>
+          </li>
+          <li>
+            <span class="rk">06</span>
+            <span class="name"><span class="mk" style="--c:#4E6472" aria-hidden="true">BA</span><span class="tkr">BA</span><span class="co">Boeing</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct neg">&minus;1.9%</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Among Friday&rsquo;s biggest decliners; no separate read published on the print itself.</span>
+          </li>
+          <li>
+            <span class="rk">07</span>
+            <span class="name"><span class="mk" style="--c:#6B7683" aria-hidden="true">PC</span><span class="tkr">PCE</span><span class="co">Core PCE</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">n/a</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">No figure survived checking for the Thursday release, so it is left open rather than estimated.</span>
+          </li>
+          <li>
+            <span class="rk">08</span>
+            <span class="name"><span class="mk" style="--c:#2F6BA0" aria-hidden="true">QC</span><span class="tkr">QCOM</span><span class="co">Qualcomm</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">n/a</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Reported Wednesday. No reaction figure in reach.</span>
+          </li>
+          <li>
+            <span class="rk">09</span>
+            <span class="name"><span class="mk" style="--c:#2E7F79" aria-hidden="true">XM</span><span class="tkr">XOM</span><span class="co">ExxonMobil</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">n/a</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Reported Friday into a crude price that had round-tripped. No reaction figure in reach.</span>
+          </li>
+          <li>
+            <span class="rk">10</span>
+            <span class="name"><span class="mk" style="--c:#3E7370" aria-hidden="true">CV</span><span class="tkr">CVX</span><span class="co">Chevron</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">n/a</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">As above.</span>
+          </li>
+          </ol>
+          <div class="also"><b>Six of ten resolved, four did not</b> Core PCE, Qualcomm, Exxon and Chevron reported but no reaction figure survived checking, so they read <code>n/a</code> rather than an estimate. Marking a forecast board honestly means showing where it cannot be marked.</div>
+        </div>
+
+        <div class="board">
+          <div class="board-head">
+            <span class="dir" style="color:var(--h)">&#9632;</span>
+            <h3>Next: 3&ndash;7 August</h3>
+            <span class="board-sub">nothing traded yet</span>
+          </div>
+          <ol class="rows">
+          <li>
+            <span class="rk">01</span>
+            <span class="name"><span class="tkr">MON</span><span class="co">3 Aug</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">&nbsp;</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">August opens with yields at 2007 highs and a Fed carrying three hawkish dissents into its next meeting.</span>
+          </li>
+          <li>
+            <span class="rk">02</span>
+            <span class="name"><span class="tkr">TUE</span><span class="co">4 Aug</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">&nbsp;</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Services PMI and the back half of Q2 earnings; the megacaps are done, the mid-caps are not.</span>
+          </li>
+          <li>
+            <span class="rk">03</span>
+            <span class="name"><span class="tkr">WED</span><span class="co">5 Aug</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">&nbsp;</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Fed speakers begin explaining a hold that three of them voted against.</span>
+          </li>
+          <li>
+            <span class="rk">04</span>
+            <span class="name"><span class="tkr">THU</span><span class="co">6 Aug</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">&nbsp;</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">Jobless claims into a labour market the committee is split on.</span>
+          </li>
+          <li>
+            <span class="rk">05</span>
+            <span class="name"><span class="tkr">FRI</span><span class="co">7 Aug</span></span>
+            <span class="px nil">&mdash;</span>
+            <span class="pct nil">&nbsp;</span>
+            <span class="bar u"><span style="width:0%"></span></span>
+            <span class="why">First full week of August closes; July&rsquo;s fourth straight winning month is the streak to beat.</span>
+          </li>
+          </ol>
+          <div class="also"><b>The question that carries</b> The megacaps have reported and the rule is set: spending is fine if the revenue is already visible. What is unresolved is the Fed &mdash; three members voted to hike into a hold, and the 30-year is at levels last seen in 2007.</div>
+        </div>
+
+      </div>
     </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#movers">&larr; Prev</a><a href="#backdrop">Next &rarr;</a></span>
+      <span class="vb-mid">03 / 10</span>
+    </nav>
   </section>
-
-  <section class="callout">
-    <h3>One name, both lists</h3>
-    <p>Micron and Western Digital appear on opposite boards in the same week. Both rose about 12% on Tuesday as memory pricing ran, then fell 6&ndash;9% on Friday when Samsung and SK Hynix capacity additions revived glut fears. That round trip &mdash; not the Tesla headline &mdash; is the week's cleanest read on how thin the AI-hardware bid actually is: it is a positioning trade, and it unwinds in a session.</p>
-  </section>
-
+  <section class="view" id="backdrop" style="--h:#8E7A44" aria-labelledby="h-backdrop">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>04 / 10</span><span>What decided the week</span></div>
+      <h2 class="hero-h" id="h-backdrop">Backdrop</h2>
+      <div class="hero-lead">Spending rewarded where the revenue showed &mdash; and only there</div>
+    </div>
+    <div class="view-body">
   <section>
     <div class="sec-head"><h2>Backdrop</h2><span class="sec-note">what set the tone</span></div>
     <div class="macro">
       <div class="mcard">
-        <h4>The capex verdict</h4>
-        <p>Alphabet lifted FY26 capex to <strong>$195&ndash;205bn</strong> (Q2 alone $44.9bn, +101% y/y). Intel went past <strong>$20bn</strong>. Tesla past <strong>$25bn</strong>. All three beat; all three fell. Hyperscaler capex is tracking above <strong>$500bn</strong> for 2026.</p>
+        <h4>The capex split</h4>
+        <p>Microsoft and Amazon both raised what they intend to spend and rose <strong>21.4%</strong> and <strong>16.9%</strong> on the week. Meta and Apple guided softly and fell <strong>9%</strong> and <strong>7.1%</strong>. The market is no longer judging the spending &mdash; it is judging whether the revenue has already arrived.</p>
       </div>
       <div class="mcard">
-        <h4>Oil and the Gulf</h4>
-        <p>Brent settled above <strong>$100</strong> Thursday, +7% to $100.69 and the highest since 22 May, after Houthi drone and missile strikes on two Saudi tankers. It slid to about <strong>$95</strong> Friday on US&ndash;Iran talk hopes. Crude is up ~30% this month.</p>
+        <h4>Three dissents</h4>
+        <p>The Fed held at <strong>3.50&ndash;3.75%</strong>, but Hammack, Kashkari and Logan each wanted a quarter-point hike. Three dissents in the same direction is the first since <strong>September 2016</strong> &mdash; a hold that reads more hawkish than the decision itself.</p>
       </div>
       <div class="mcard">
-        <h4>Rates are the other tax</h4>
-        <p>The 10-year sits at <strong>4.67%</strong>, touching ~4.70% &mdash; the highest since January 2025. Funds rate <strong>3.50&ndash;3.75%</strong>, with 2026 inflation projections revised up to 3.6% and Waller flagging risk tilted toward inflation.</p>
+        <h4>Yields at 2007 highs</h4>
+        <p>The 30-year Treasury reached <strong>5.25%</strong>, its highest since 2007, and the 10-year <strong>4.73%</strong>, the highest since January 2025. Equities rose through it anyway, which is the part that should not be taken for granted.</p>
       </div>
       <div class="mcard">
-        <h4>Earnings, flattered</h4>
-        <p>Q2 blended S&amp;P growth jumped to <strong>37.9%</strong> from 24.8% a week earlier &mdash; but Alphabet's GAAP figure carried a <strong>$98bn</strong> one-off gain. Strip it out and the number is <strong>25.9%</strong>. Ten of eleven sectors are growing; health care is the exception.</p>
+        <h4>A hundred-year flood</h4>
+        <p>Tim Cook described memory pricing as <strong>&ldquo;a hundred-year flood&rdquo;</strong>. The memory squeeze that has run through this sheet for three weeks stopped being a chip-sector story and started showing up in Apple&rsquo;s cost line &mdash; and took roughly $475bn of its market value with it.</p>
       </div>
       <div class="mcard">
-        <h4>Under the surface</h4>
-        <p>Tech fell <strong>2.37%</strong> Friday while real estate, financials, materials, health care and staples rose &mdash; 17 S&amp;P names hit 52-week highs, led by JPMorgan. Communication services and consumer discretionary each shed roughly 6% on the week.</p>
+        <h4>Intel&rsquo;s month</h4>
+        <p>Intel closed July down <strong>33.74%</strong>, its worst month since September 2000 and the month&rsquo;s biggest casualty &mdash; a fortnight after beating on revenue and EPS and being sold for its capex anyway.</p>
       </div>
       <div class="mcard">
-        <h4>Next week decides it</h4>
-        <p><strong>FOMC 28&ndash;29 Jul</strong>, no dot plot, Chair Warsh at 2:30pm ET &mdash; a hold is expected but markets price roughly <strong>35%</strong> odds of a hike. Then Microsoft, Meta, Amazon, Apple and Qualcomm all report into the same capex question.</p>
+        <h4>July closed up</h4>
+        <p>Despite all of it, all three indexes finished the week higher and the Dow gained <strong>0.7%</strong> across July &mdash; a <strong>fourth straight winning month</strong>. The volatility was inside the index, not in it.</p>
       </div>
     </div>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#bothlists">&larr; Prev</a><a href="#status">Next &rarr;</a></span>
+      <span class="vb-mid">04 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="status" style="--h:#A2704A" aria-labelledby="h-status">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>05 / 10</span><span>Week closed</span></div>
+      <h2 class="hero-h" id="h-status">Where this stands</h2>
+      <div class="hero-lead">All <em>5</em> sessions done &middot; compiled Sat 1 Aug</div>
+    </div>
+    <div class="view-body">
+  <section class="callout" style="border-left-color:var(--ember)">
+    <h3>Where this stands</h3>
+    <p><strong>The week is complete.</strong> All five sessions have traded, the Fed has decided and all four megacap prints are in, so every equity figure here is final for 27&ndash;31 July. <strong>Crypto is Saturday 1 August</strong> and keeps trading through the weekend, so that board alone will move before Monday. Social buzz is continuous and will have drifted since sampling. What carries into the week of 3&ndash;7 August: yields at 2007 highs, a Fed with three members already voting to hike, and a market that has just told every hyperscaler it will pay for spending only where the revenue is visible.</p>
+  </section>
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#backdrop">&larr; Prev</a><a href="#crypto">Next &rarr;</a></span>
+      <span class="vb-mid">05 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="crypto" style="--h:#9A7C36" aria-labelledby="h-crypto">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>06 / 10</span><span>Ranked by market cap</span></div>
+      <h2 class="hero-h" id="h-crypto">Crypto, ten largest</h2>
+      <div class="hero-lead">BTC <em>$62,869</em> &middot; cap <em>$2.25tn</em>, &minus;2.4%</div>
+    </div>
+    <div class="view-body">
+  <section>
+    <div class="sec-head">
+      <h2>Crypto &mdash; ten largest</h2>
+      <span class="sec-note">by market cap &middot; separate from equities</span>
+    </div>
+    <div class="cboard">
+      <div class="board-head">
+        <h3>Bitcoin and the majors</h3>
+        <span class="board-sub">1 aug &middot; total cap $2.25tn &middot; vol $63.9bn</span>
+      </div>
+      <ol class="crows">
+          <li class="lead">
+            <span class="rk">01</span>
+            <span class="name"><span class="mk" style="--c:#B98430" aria-hidden="true">&#8383;</span><span class="tkr">BTC</span><span class="co">Bitcoin</span></span>
+            <span class="cpx">$62,869</span>
+            <span class="cchg neg">&minus;3.25%</span>
+            <span class="cnote"><b>sat 1 aug</b> &middot; <b>24h</b> &minus;3.25% &middot; Gave up the $65k it reclaimed on Monday and the $62.5k floor traders had flagged is now the level in question. Market cap $1.26tn on $29.8bn of volume; dominance <strong>56%</strong>.</span>
+          </li>
+          <li>
+            <span class="rk">02</span>
+            <span class="name"><span class="mk" style="--c:#5C6B96" aria-hidden="true">&#926;</span><span class="tkr">ETH</span><span class="co">Ethereum</span></span>
+            <span class="cpx">$1,865</span>
+            <span class="cchg neg">&minus;3.18%</span>
+            <span class="cnote"><b>sat 1 aug</b> &middot; <b>24h</b> &minus;3.18% &middot; Handed back Monday&rsquo;s +4.3% and lost $1,900 again on $9.8bn of volume. Dominance 9.99%. Still the one major green on the year.</span>
+          </li>
+          <li>
+            <span class="rk">03</span>
+            <span class="name"><span class="mk" style="--c:#4E6A80" aria-hidden="true">XR</span><span class="tkr">XRP</span><span class="co">XRP</span></span>
+            <span class="cpx">$1.10</span>
+            <span class="cchg nil">~flat</span>
+            <span class="cnote"><b>mon 27 quote</b> &middot; Last sourced at $1.10, inside the band it has held all week. No Saturday print published.</span>
+          </li>
+          <li>
+            <span class="rk">04</span>
+            <span class="name"><span class="mk" style="--c:#A08B3C" aria-hidden="true">BN</span><span class="tkr">BNB</span><span class="co">BNB</span></span>
+            <span class="cpx">$564.57</span>
+            <span class="cchg neg">&minus;0.4%</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; The steadiest major into the weekend; no weekend print published.</span>
+          </li>
+          <li>
+            <span class="rk">05</span>
+            <span class="name"><span class="mk" style="--c:#5D6BA8" aria-hidden="true">SO</span><span class="tkr">SOL</span><span class="co">Solana</span></span>
+            <span class="cpx">$76.33</span>
+            <span class="cchg pos">+1.7%</span>
+            <span class="cnote"><b>mon 27 quote</b> &middot; Last sourced at $76.33. No Saturday print published; the board-wide 2.4% fall will have moved it.</span>
+          </li>
+          <li>
+            <span class="rk">06</span>
+            <span class="name"><span class="mk" style="--c:#9A8443" aria-hidden="true">DG</span><span class="tkr">DOGE</span><span class="co">Dogecoin</span></span>
+            <span class="cpx">~$0.072</span>
+            <span class="cchg neg">&minus;3.5%</span>
+            <span class="cnote"><b>mon 27 quote</b> &middot; Last sourced in a $0.071&ndash;$0.074 band; market cap about $12.4bn on 170.9bn coins.</span>
+          </li>
+          <li>
+            <span class="rk">07</span>
+            <span class="name"><span class="mk" style="--c:#9B4A4A" aria-hidden="true">TX</span><span class="tkr">TRX</span><span class="co">TRON</span></span>
+            <span class="cpx">$0.33</span>
+            <span class="cchg pos">+1.0%</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; The only major up on Friday. Steady network usage and stablecoin activity cited.</span>
+          </li>
+          <li>
+            <span class="rk">08</span>
+            <span class="name"><span class="mk" style="--c:#3D6597" aria-hidden="true">AD</span><span class="tkr">ADA</span><span class="co">Cardano</span></span>
+            <span class="cpx">$0.16</span>
+            <span class="cchg neg">&minus;3.1%</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; Sold with the wider altcoin complex as Friday&rsquo;s risk mood soured.</span>
+          </li>
+          <li>
+            <span class="rk">09</span>
+            <span class="name"><span class="mk" style="--c:#3B63A6" aria-hidden="true">LK</span><span class="tkr">LINK</span><span class="co">Chainlink</span></span>
+            <span class="cpx">$8.32</span>
+            <span class="cchg neg">&minus;2.0%</span>
+            <span class="cnote"><b>fri 24 close</b> &middot; Moved with the altcoin complex; no separate catalyst in coverage.</span>
+          </li>
+          <li>
+            <span class="rk">10</span>
+            <span class="name"><span class="tkr nil">&mdash;</span><span class="co">tenth constituent not confirmed</span></span>
+            <span class="cpx nil">n/a</span>
+            <span class="cchg nil">n/a</span>
+            <span class="cnote">Nine of the ten largest are listed above with sourced figures. No source in reach ranked the tenth slot for 24 July, so it is left open rather than guessed.</span>
+          </li>
+      </ol>
+      <div class="also"><b>Where it stands Saturday</b> The Monday bounce is gone. Total cap <b>$2.25tn</b>, down 2.4% in 24 hours on $63.9bn of volume &mdash; higher volume on a falling tape. Bitcoin and Ethereum both off more than 3%, fear sentiment back. Crypto spent the week going the opposite way to equities, which finished all three indexes higher.</div>
+    </div>
+  </section>
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#status">&larr; Prev</a><a href="#social">Next &rarr;</a></span>
+      <span class="vb-mid">06 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="social" style="--h:#92637A" aria-labelledby="h-social">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>07 / 10</span><span>Chatter volume, held separate</span></div>
+      <h2 class="hero-h" id="h-social">Retail &amp; social layer</h2>
+      <div class="hero-lead">CPRT <em>+1,167%</em> in 24 hours</div>
+    </div>
+    <div class="view-body">
   <section class="reddit">
     <div class="reddit-head">
       <h2>Retail &amp; social layer</h2>
@@ -371,135 +1071,307 @@
     <p class="warn">This block is deliberately walled off from everything above. It is <strong>chatter volume and vendor-computed sentiment</strong>, not price or fundamental data, and it is not a source for any figure on the boards. Mention counts come from third-party scrapers polling r/wallstreetbets on short intervals, so rankings shift intraday and no two vendors agree exactly. Read it as a crowding indicator only.</p>
     <div class="rgrid">
       <div class="rcard">
-        <span class="rrank">MOST DISCUSSED</span>
-        <span class="tkr">INTC</span>
-        <p>The week's runaway topic. Mention volume spiked <strong>+591% to +751%</strong> in 24 hours depending on the snapshot, on the Q2 beat and the capex reversal.</p>
-        <span class="sent">volume spike &middot; direction mixed</span>
+        <span class="rrank">SHARPEST JUMP</span>
+        <span class="tkr">AMZN</span>
+        <p>Mentions up <strong>252% in 24 hours</strong> on the biggest single-day gain in over a decade. AWS growth and the raised capex guide fuelled bullish sentiment.</p>
+        <span class="sent">+252% 24h &middot; bullish</span>
       </div>
       <div class="rcard">
-        <span class="rrank">MOST BEARISH</span>
-        <span class="tkr">TSLA</span>
-        <p>Sentiment tracked <strong>24&ndash;36 of 100</strong> after the print, with the 30-day score around 28 &mdash; firmly bearish. Cited: deliveries, margin collapse, executive departures, BYD charging.</p>
-        <span class="sent">sentiment 28/100 &middot; bearish</span>
+        <span class="rrank">ALSO SPIKING</span>
+        <span class="tkr">AAPL</span>
+        <p>A sharp jump alongside Amazon, in the other direction &mdash; down over 9% from its highs despite beating estimates, on weak Q4 guidance and soft services revenue.</p>
+        <span class="sent">high volume &middot; bearish</span>
       </div>
       <div class="rcard">
-        <span class="rrank">BULLISH CLUSTER</span>
-        <span class="tkr">GOOG &middot; NVDA &middot; AMD</span>
-        <p>Flagged bullish with strong AI scores even as GOOGL fell 7.1% on the tape &mdash; a clean case of the crowd and the price disagreeing.</p>
-        <span class="sent">bullish &middot; diverges from price</span>
+        <span class="rrank">STILL TOP OF THE LIST</span>
+        <span class="tkr">MSFT</span>
+        <p>Among the most discussed tickers all week after the Azure print and the record one-day market-cap gain.</p>
+        <span class="sent">sustained volume</span>
       </div>
       <div class="rcard">
-        <span class="rrank">ALSO TRENDING</span>
-        <span class="tkr">IBM &middot; NOW</span>
-        <p>Rounded out the top five most-talked-about names of 20&ndash;24 Jul across r/wallstreetbets and X, both on earnings.</p>
-        <span class="sent">earnings-driven</span>
+        <span class="rrank">NET SENTIMENT</span>
+        <span class="tkr">Bearish</span>
+        <p>Slightly bearish on a headline-count basis: Apple&rsquo;s market-cap destruction and a wave of earnings disappointments outweighed the Amazon-led AI euphoria.</p>
+        <span class="sent">diverges from the tape</span>
       </div>
     </div>
-    <p class="warn"><strong>Worth noting:</strong> the four names retail talked about most &mdash; INTC, TSLA, GOOGL, IBM &mdash; include three of the ten biggest decliners. Attention concentrated almost entirely on what was falling, and none of the week's actual top advances (UTZ, SMCI, ACHR, NBIS) registered in the top five by mention volume.</p>
+      <div class="rgrid" style="grid-template-columns:1fr">
+        <div class="rcard">
+          <span class="rrank">SPIKE FIGURES, WHERE PUBLISHED</span>
+          <p>Amazon&rsquo;s <strong>+252%</strong> is the only 24-hour spike percentage published for this period. Earlier issues carried a fully ranked spike board; no vendor published comparable figures across names this weekend, so only the sourced one is shown rather than carrying stale numbers forward. <strong>Rank by mention volume and rank by spike are different measures</strong> &mdash; a name can top one and be absent from the other.</p>
+        </div>
+      </div>
+    <p class="warn"><strong>Worth noting:</strong> the crowd read this week as bad and the tape read it as good. Net sentiment finished slightly bearish on headline count, driven by Apple, while the S&amp;P, Nasdaq and Dow all closed the week higher and July became the Dow&rsquo;s fourth straight winning month. Chatter tracks drama, not direction.</p>
   </section>
-
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#crypto">&larr; Prev</a><a href="#method">Next &rarr;</a></span>
+      <span class="vb-mid">07 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="method" style="--h:#6B7683" aria-labelledby="h-method">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>08 / 10</span><span>Method</span></div>
+      <h2 class="hero-h" id="h-method">How to read this</h2>
+      <div class="hero-lead">Single-session reactions, not weekly returns</div>
+    </div>
+    <div class="view-body">
   <section class="method">
-    <b>How to read this.</b> Moves are the <b>single-session reaction</b> to the catalyst named in each row, not full week-over-week returns, because that is how the underlying coverage reports them; the date chip on each row tells you which session. Where a figure was quoted intraday, after hours and at the close, the close is used and the others noted. A few percentages differ by one to two points between outlets covering the same move (SMCI was reported at +13%, +15%, +18% and +25% across venues and sessions) &mdash; the most widely corroborated figure is shown. Bars are scaled to a shared 0&ndash;90% range across both boards, so the two sides are directly comparable. Green and red never carry meaning alone: every value keeps its sign and every row sits in a labelled board. Compiled Saturday 25 July 2026 from the sources below; nothing here is investment advice.
+    <b>How to read this.</b> This issue covers a <b>completed week</b>, 27&ndash;31 July, compiled Saturday 1 August. Mover figures mix full-week and single-session moves and <b>each row states which</b> &mdash; full-week numbers were published only for Microsoft and Amazon, so ranking by the figure shown puts a 40% takeover pop above a 21% week. They are not the same measure and the board says so. Bars share one 0&ndash;40% scale. Prices appear where published; anything unsourced reads <code>n/a</code> rather than an estimate, including four of the ten on the resolution board. Crypto is Saturday 1 August and keeps trading through the weekend. Green and red never carry meaning alone: every value keeps its sign and sits in a labelled board. Nothing here is investment advice.
   </section>
-
-  <details class="src">
-    <summary>Sources &mdash; 50 total, Reddit and social listed separately</summary>
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#social">&larr; Prev</a><a href="#notes">Next &rarr;</a></span>
+      <span class="vb-mid">08 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="notes" style="--h:#716C81" aria-labelledby="h-notes">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>09 / 10</span><span>Crypto and social buzz</span></div>
+      <h2 class="hero-h" id="h-notes">Data notes</h2>
+      <div class="hero-lead">Merged, averaged, and marked where thin</div>
+    </div>
+    <div class="view-body">
+  <section class="prov">
+    <h3>Data notes</h3>
+    <p><strong>Index levels reconcile across the week.</strong> Friday&rsquo;s closes were checked against Monday&rsquo;s: the S&amp;P from 7,413.18 to 7,489.72, the Nasdaq from 24,932.08 to 25,373.85, the Dow from 52,210.08 to 52,485.03. The weekly percentages outlets quoted &mdash; roughly +1% for the Dow and S&amp;P, +1.6% for the Nasdaq &mdash; are consistent with those endpoints.</p>
+    <p><strong>Mover figures use two bases</strong> and the chip on every row states which: <code>week</code> for Microsoft and Amazon, a named session for the rest. That is a limitation of what was published, not a preference &mdash; no source in reach ranked full-week performance across the index. Ranking is by the figure shown, which is why a 40% Monday takeover pop sits above a 21.4% week.</p>
+    <p><strong>Intel&rsquo;s &minus;33.74% is a July figure</strong>, not a weekly one, so it sits in the note beneath the declines board rather than being ranked among them.</p>
+    <p><strong>Crypto</strong> is Saturday 1 August for Bitcoin and Ethereum, from published market reports rather than an exchange feed. XRP, Solana, Dogecoin, BNB, TRON, Cardano and Chainlink had no weekend print in reach and carry their last sourced quote, each saying so on its own row.</p>
+    <p><strong>Social buzz</strong> is chatter volume, never a source for any price figure. Amazon&rsquo;s +252% is the only spike percentage published for this period; everything else is rank by mention volume, a different measure.</p>
+  </section>
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#method">&larr; Prev</a><a href="#sources">Next &rarr;</a></span>
+      <span class="vb-mid">09 / 10</span>
+    </nav>
+  </section>
+  <section class="view" id="sources" style="--h:#5E7482" aria-labelledby="h-sources">
+    <div class="hero">
+      <div class="hero-eyebrow"><span>10 / 10</span><span>Reddit and social listed apart</span></div>
+      <h2 class="hero-h" id="h-sources">Sources</h2>
+      <div class="hero-lead"><em>59</em> in total</div>
+    </div>
+    <div class="view-body">
+  <details class="src" open>
+    <summary>Sources &mdash; 59 total, Reddit and social listed separately</summary>
     <div class="src-body">
 
       <div class="src-group">
-        <h4>Indices, sessions &amp; weekly wrap (1&ndash;11)</h4>
+        <h4>Monday 27 July &mdash; session (1&ndash;12)</h4>
         <ol>
-          <li>1. <a href="https://www.fool.com/coverage/stock-market-today/2026/07/24/stock-market-today-july-24-dow-recovers-and-sandisk-tumbles-11-as-tech-stocks-fall-further/">Motley Fool &mdash; Stock Market Today, July 24</a></li>
-          <li>2. <a href="https://www.fool.com/coverage/stock-market-today/2026/07/24/stock-market-midday-july-24-blue-chip-stocks-rebound-as-oil-prices-plunge/">Motley Fool &mdash; Midday, July 24</a></li>
-          <li>3. <a href="https://www.thestreet.com/stock-market-today/stock-market-today-july-24-2026-dow-futures-rebound-as-oil-retreats-after-market-sell-off">TheStreet &mdash; Market Today, July 24</a></li>
-          <li>4. <a href="https://www.cnbc.com/2026/07/23/stock-market-today-live-updates.html">CNBC &mdash; Market news, July 24</a></li>
-          <li>5. <a href="https://finance.yahoo.com/markets/live/stock-market-today-friday-july-24-dow-sp-500-nasdaq-081854465.html">Yahoo Finance &mdash; Friday live blog</a></li>
-          <li>6. <a href="https://tradingeconomics.com/united-states/stock-market">Trading Economics &mdash; US index</a></li>
-          <li>7. <a href="https://www.vantagemarkets.com/market-analysis/sp500-today-chart-analysis-july-24-2026/">Vantage &mdash; S&amp;P 500, July 24</a></li>
-          <li>8. <a href="https://investrade.com/market-review-july-24-2026/">Investrade &mdash; Market Review, July 24</a></li>
-          <li>9. <a href="https://investrade.com/mid-morning-look-july-24-2026/">Investrade &mdash; Mid-Morning Look</a></li>
-          <li>10. <a href="https://www.trefis.com/stock/spy/articles-v3/608731/17-sp-500-stocks-hit-52-week-highs-on-thursday-3/2026-07-24">Trefis &mdash; 17 S&amp;P 52-week highs</a></li>
-          <li>11. <a href="https://www.bloomberg.com/news/articles/2026-07-24/s-p-500-futures-steady-as-big-tech-rebounds-oil-dips-below-100">Bloomberg &mdash; Futures steady, oil below $100</a></li>
+          <li>1. <a href="https://www.cnbc.com/2026/07/26/stock-market-today-live-updates.html">CNBC &mdash; Market news, Jul 27</a></li>
+          <li>2. <a href="https://www.washingtonpost.com/business/2026/07/27/wall-street-stocks-dow-nasdaq/504db546-89f8-11f1-8912-d71e69d679d7_story.html">Washington Post / AP &mdash; How the indexes fared</a></li>
+          <li>3. <a href="https://www.fool.com/coverage/stock-market-today/2026/07/27/stock-market-today-july-27-dow-rises-on-oil-retreat-and-sandisk-plunges-11-on-memory-weakness/">Motley Fool &mdash; Dow rises, SanDisk &minus;11%</a></li>
+          <li>4. <a href="https://www.fool.com/coverage/stock-market-today/2026/07/27/stock-market-midday-july-27-dow-edges-higher-as-nvidia-drop-weighs-on-nasdaq/">Motley Fool &mdash; Midday, Nvidia weighs</a></li>
+          <li>5. <a href="https://finance.yahoo.com/markets/live/stock-market-today-monday-july-27-dow-sp-500-nasdaq-080412540.html">Yahoo Finance &mdash; Monday live blog</a></li>
+          <li>6. <a href="https://finance.yahoo.com/markets/stocks/articles/stock-market-news-july-27-132000679.html">Yahoo Finance &mdash; Market news, Jul 27</a></li>
+          <li>7. <a href="https://www.cnbc.com/2026/07/27/stocks-making-the-biggest-moves-midday-asml-skhy-sap-fbrx-bfb.html">CNBC &mdash; Midday movers, Jul 27</a></li>
+          <li>8. <a href="https://www.cnbc.com/2026/07/27/stocks-making-the-biggest-moves-premarket-mu-fbrx-xom-bkr.html">CNBC &mdash; Premarket movers, Jul 27</a></li>
+          <li>9. <a href="https://www.benzinga.com/trading-ideas/movers/26/07/60697920/baker-hughes-posts-upbeat-q2-earnings-joins-forte-biosciences-eikon-therapeutics-and-other-big-stocks-moving-higher-on-monday">Benzinga &mdash; Movers higher, Monday</a></li>
+          <li>10. <a href="https://www.benzinga.com/trading-ideas/movers/26/07/60691482/everbright-digital-kosmos-energy-and-other-big-stocks-moving-lower-in-mondays-pre-market-session">Benzinga &mdash; Movers lower, pre-market</a></li>
+          <li>11. <a href="https://investrade.com/morning-preview-july-27-2026/">Investrade &mdash; Morning preview, Jul 27</a></li>
+          <li>12. <a href="https://www.benzinga.com/markets/equities/26/07/60688523/stock-market-today-sp-500-dow-jones-futures-rise-as-us-iran-halt-retaliatory-strikes-microchip-technology-amd-nucor-in-focus">Benzinga &mdash; Futures rise on Iran halt</a></li>
         </ol>
       </div>
 
       <div class="src-group">
-        <h4>Daily movers lists (12&ndash;19)</h4>
+        <h4>Single names (13&ndash;22)</h4>
         <ol>
-          <li>12. <a href="https://www.cnbc.com/2026/07/24/stocks-making-the-biggest-moves-midday-aal-cohr-slb-tsla.html">CNBC &mdash; Midday movers, Jul 24</a></li>
-          <li>13. <a href="https://www.cnbc.com/2026/07/24/stocks-making-the-biggest-moves-premarket-intc-orcl-axp.html">CNBC &mdash; Premarket movers, Jul 24</a></li>
-          <li>14. <a href="https://www.cnbc.com/2026/07/23/stocks-making-the-biggest-moves-midday-googl-tsla-amzn-luv.html">CNBC &mdash; Midday movers, Jul 23</a></li>
-          <li>15. <a href="https://www.cnbc.com/2026/07/22/stocks-making-the-biggest-moves-midday-smci-eqt-air-cb-pega.html">CNBC &mdash; Midday movers, Jul 22</a></li>
-          <li>16. <a href="https://www.cnbc.com/2026/07/21/stocks-making-the-biggest-moves-midday-coin-mu-nbis-has-utz.html">CNBC &mdash; Midday movers, Jul 21</a></li>
-          <li>17. <a href="https://www.cnbc.com/2026/07/21/stocks-making-the-biggest-moves-premarket-gm-mmm-nvs-nbis.html">CNBC &mdash; Premarket movers, Jul 21</a></li>
-          <li>18. <a href="https://www.cnbc.com/2026/07/20/stocks-making-the-biggest-moves-midday-amd-achr-spcx-iren.html">CNBC &mdash; Midday movers, Jul 20</a></li>
-          <li>19. <a href="https://www.cnbc.com/2026/07/20/stocks-making-the-biggest-moves-premarket-amd-spcx-dpz.html">CNBC &mdash; Premarket movers, Jul 20</a></li>
+          <li>13. <a href="https://stockstotrade.com/news/baker-hughes-company-bkr-news-2026_07_27/">StocksToTrade &mdash; BKR beat and $13.6bn deal</a></li>
+          <li>14. <a href="https://www.investing.com/news/company-news/baker-hughes-wins-order-for-venture-global-cp2-lng-project-93CH-4813555">Investing.com &mdash; Baker Hughes CP2 order</a></li>
+          <li>15. <a href="https://www.tradingkey.com/analysis/stocks/more/262055499-950b-ai-deal-boosts-korean-chipmakers-kospi-sk-hynix-samsung-tradingkey">TradingKey &mdash; $950bn AI deal lifts Korean chips</a></li>
+          <li>16. <a href="https://www.fxleaders.com/news/2026/07/27/chip-bloodbath-nvda-mu-and-sndk-plunge-amid-market-fatigue-capex-fears-and-supply-chain-shifts/">FXLeaders &mdash; NVDA, MU, SNDK plunge</a></li>
+          <li>17. <a href="https://intellectia.ai/blog/ai-chip-stocks-valuation-concerns-july-2026">Intellectia &mdash; AI chip valuation concerns</a></li>
+          <li>18. <a href="https://finance.yahoo.com/markets/stocks/articles/sandisk-sinks-11-seagate-falls-160250009.html">Yahoo &mdash; SanDisk &minus;11%, Seagate &minus;7%</a></li>
+          <li>19. <a href="https://www.benzinga.com/trading-ideas/movers/26/07/60705972/spacex-stock-continues-to-slide-whats-going-on">Benzinga &mdash; SpaceX slides to $110.05</a></li>
+          <li>20. <a href="https://www.benzinga.com/trading-ideas/long-ideas/26/07/60687674/nucor-celestica-and-3-stocks-to-watch-heading-into-monday">Benzinga &mdash; Nucor, Celestica to watch</a></li>
+          <li>21. <a href="https://seekingalpha.com/news/4614094-ai-memory-chip-stocks-fall-again-after-brief-recovery-despite-strong-asml-results">Seeking Alpha &mdash; Memory falls despite ASML</a></li>
+          <li>22. <a href="https://247wallst.com/investing/2026/07/24/sk-hynix-and-micron-sink-6-sandisk-drops-9-as-korea-chip-selloff-hits-u-s-memory-stocks/">24/7 Wall St &mdash; Korea chip selloff</a></li>
         </ol>
       </div>
 
       <div class="src-group">
-        <h4>Single names &amp; earnings (20&ndash;39)</h4>
+        <h4>Oil, the Fed and macro (23&ndash;34)</h4>
         <ol>
-          <li>20. <a href="https://www.cnbc.com/2026/07/22/tesla-tsla-q2-2026-earnings-report.html">CNBC &mdash; Tesla Q2 2026</a></li>
-          <li>21. <a href="https://electrek.co/2026/07/23/tesla-tsla-crashes-12-q2-2026-earnings-miss/">Electrek &mdash; Tesla sheds $140bn</a></li>
-          <li>22. <a href="https://www.teslarati.com/tesla-tsla-q2-2026-earnings-results/">Teslarati &mdash; Tesla Q2 results</a></li>
-          <li>23. <a href="https://www.cnbc.com/2026/07/22/google-earnings-q2-goog-live-updates.html">CNBC &mdash; Alphabet Q2 takeaways</a></li>
-          <li>24. <a href="https://www.investing.com/news/transcripts/earnings-call-transcript-alphabet-beats-q2-2026-estimates-shares-fall-on-capex-surge-93CH-4807140">Investing.com &mdash; Alphabet call transcript</a></li>
-          <li>25. <a href="https://www.cnbc.com/2026/07/23/intel-intc-earnings-report-q2-2026.html">CNBC &mdash; Intel Q2 2026</a></li>
-          <li>26. <a href="https://finance.yahoo.com/markets/stocks/article/intel-stock-falls-nearly-8-despite-big-q2-earnings-beat-121538508.html">Yahoo &mdash; Intel falls 8% on a beat</a></li>
-          <li>27. <a href="https://www.cnbc.com/2026/07/22/ibm-q2-earnings-report-2026.html">CNBC &mdash; IBM Q2 2026</a></li>
-          <li>28. <a href="https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-Reports-Second-Quarter-2026-Financial-Results/default.aspx">ServiceNow &mdash; Q2 results release</a></li>
-          <li>29. <a href="https://www.investing.com/news/transcripts/earnings-call-transcript-servicenow-beats-q2-2026-forecasts-shares-rebound-after-hours-93CH-4807190">Investing.com &mdash; ServiceNow transcript</a></li>
-          <li>30. <a href="https://www.cnbc.com/2026/07/21/super-micro-stock-spacex-announcement.html">CNBC &mdash; Super Micro surges 15%</a></li>
-          <li>31. <a href="https://finance.yahoo.com/markets/stocks/articles/super-micro-jumps-13-record-131943171.html">Yahoo &mdash; SMCI $60bn backlog</a></li>
-          <li>32. <a href="https://www.fxleaders.com/news/2026/07/22/smci-stock-jumps-18-as-60b-ai-order-haul-and-margin-surge-reset-super-micros-outlook/">FXLeaders &mdash; SMCI margin reset</a></li>
-          <li>33. <a href="https://www.cnbc.com/2026/07/21/nebius-stock-nvidia-stake-neocloud.html">CNBC &mdash; Nebius +19% on Nvidia stake</a></li>
-          <li>34. <a href="https://www.bloomberg.com/news/articles/2026-07-22/pool-supplier-leslie-s-considers-potential-chapter-11-bankruptcy">Bloomberg &mdash; Leslie's weighs Chapter 11</a></li>
-          <li>35. <a href="https://seekingalpha.com/news/4617097-leslies-sinks-on-the-report-its-considering-chapter-11-bankruptcy">Seeking Alpha &mdash; Leslie's sinks</a></li>
-          <li>36. <a href="https://www.cnbc.com/2026/07/23/albertsons-stock-plunges-on-lowered-outlook-softened-grocery-trends.html">CNBC &mdash; Albertsons plunges</a></li>
-          <li>37. <a href="https://www.thestreet.com/investing/stocks/albertsons-stock-crash-guidance-cut-lower-income-shoppers-aci">TheStreet &mdash; Albertsons &minus;22%</a></li>
-          <li>38. <a href="https://www.benzinga.com/trading-ideas/movers/26/07/60634006/rollins-posts-downbeat-q2-earnings-joins-texas-instruments-alphabet-and-other-big-stocks-moving-lower-in-thursdays-pre-market-session">Benzinga &mdash; Rollins downbeat Q2</a></li>
-          <li>39. <a href="https://www.benzinga.com/markets/earnings/26/07/60649356/molina-healthcare-stung-by-membership-decline-stocks-sinks-12">Benzinga &mdash; Molina membership decline</a></li>
+          <li>23. <a href="https://www.cnbc.com/2026/07/27/oil-price-wti-brent-slide-as-iran-reportedly-may-halt-attacks.html">CNBC &mdash; Brent below $90 as pause holds</a></li>
+          <li>24. <a href="https://www.rigzone.com/news/wire/brent_tumbles_nearly_9_on_diplomacy-27-jul-2026-184226-article/">Rigzone &mdash; Brent tumbles ~9% on diplomacy</a></li>
+          <li>25. <a href="https://www.nbcnews.com/world/iran/oil-prices-slide-us-iran-pause-strikes-trump-diplomacy-hormuz-red-sea-rcna589383">NBC News &mdash; US and Iran pause strikes</a></li>
+          <li>26. <a href="https://www.cnn.com/2026/07/27/world/live-news/iran-war-trump">CNN &mdash; Live: pause allows talks</a></li>
+          <li>27. <a href="https://www.cnn.com/2026/07/27/economy/oil-prices-fall-iran-war">CNN Business &mdash; Why oil keeps tumbling</a></li>
+          <li>28. <a href="https://tradingeconomics.com/commodity/brent-crude-oil/news/521927">Trading Economics &mdash; Brent, US&ndash;Iran talks</a></li>
+          <li>29. <a href="https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html">CNBC &mdash; Fed likely to hold</a></li>
+          <li>30. <a href="https://www.morningstar.com/economy/what-expect-july-fed-meeting">Morningstar &mdash; What to expect from July FOMC</a></li>
+          <li>31. <a href="https://www.cbsnews.com/news/fed-interest-rate-decision-july-meeting/">CBS News &mdash; Will the Fed raise?</a></li>
+          <li>32. <a href="https://www.tradingkey.com/analysis/stocks/us-stocks/262054021-july-fomc-fed-oil-us-oil-tradingkey">TradingKey &mdash; July FOMC preview</a></li>
+          <li>33. <a href="https://intellectia.ai/blog/fed-interest-rate-decision-july-2026-analysis">Intellectia &mdash; Fed decision analysis</a></li>
+          <li>34. <a href="https://www.federalreserve.gov/monetarypolicy/fomcminutes20260617.htm">Federal Reserve &mdash; FOMC minutes, June</a></li>
         </ol>
       </div>
 
       <div class="src-group">
-        <h4>Semis, memory, Apple &amp; macro (40&ndash;50)</h4>
+        <h4>The week&rsquo;s outcome (35&ndash;44)</h4>
         <ol>
-          <li>40. <a href="https://247wallst.com/investing/2026/07/24/sk-hynix-and-micron-sink-6-sandisk-drops-9-as-korea-chip-selloff-hits-u-s-memory-stocks/">24/7 Wall St &mdash; Memory selloff</a></li>
-          <li>41. <a href="https://www.fool.com/investing/2026/07/24/why-did-sandisk-stock-drop-friday/">Motley Fool &mdash; Why SanDisk dropped</a></li>
-          <li>42. <a href="https://www.benzinga.com/markets/earnings/26/07/60625462/texas-instruments-stock-slips-despite-q2-double-beat-strong-outlook">Benzinga &mdash; TXN slips on a double beat</a></li>
-          <li>43. <a href="https://www.fool.com/investing/2026/07/24/why-apple-stock-is-up-today/">Motley Fool &mdash; Why Apple is up</a></li>
-          <li>44. <a href="https://www.tipranks.com/news/heres-what-is-pulling-apple-stock-aapl-higher-today-7-24-2026">TipRanks &mdash; Apple upgrades</a></li>
-          <li>45. <a href="https://insight.factset.com/sp-500-earnings-season-update-july-24-2026">FactSet &mdash; Earnings update, Jul 24</a></li>
-          <li>46. <a href="https://www.cnn.com/2026/07/23/world/live-news/iran-war-trump">CNN &mdash; Oil tops $100, Red Sea</a></li>
-          <li>47. <a href="https://www.cnbc.com/2026/07/23/oil-prices-today-wti-brent-trump-iran-hormuz.html">CNBC &mdash; Oil after tanker attacks</a></li>
-          <li>48. <a href="https://www.federalreserve.gov/releases/h15/">Federal Reserve &mdash; H.15 rates</a></li>
-          <li>49. <a href="https://www.cnbc.com/2026/07/24/stock-market-next-week-outlook-for-july-27-31-2026.html">CNBC &mdash; Week ahead, Jul 27&ndash;31</a></li>
-          <li>50. <a href="https://seekingalpha.com/news/4617586-catalyst-watch-tech-majors-report-fomc-jersey-mikes-ipo-and-more-oil-anxiety">Seeking Alpha &mdash; Catalyst watch, FOMC</a></li>
+          <li>35. <a href="https://www.cnbc.com/2026/07/24/stock-market-next-week-outlook-for-july-27-31-2026.html">CNBC &mdash; Outlook, Jul 27&ndash;31</a></li>
+          <li>36. <a href="https://www.tipranks.com/news/earnings-to-watch-this-week-july-27-31-2026">TipRanks &mdash; Earnings to watch</a></li>
+          <li>37. <a href="https://www.fxleaders.com/news/2026/07/26/top-earnings-to-watch-this-week-july-27-31-what-to-expect-from-msft-meta-aapl-amzn-ko-ba-and-f/">FXLeaders &mdash; MSFT, META, AAPL, AMZN</a></li>
+          <li>38. <a href="https://www.tradingkey.com/analysis/stocks/us-stocks/262054300-weekly-preview-fed-apple-microsoft-meta-amazon-earnings-reports-tradingkey">TradingKey &mdash; Weekly preview</a></li>
+          <li>39. <a href="https://seekingalpha.com/news/4618059-earnings-week-ahead-aapl-msft-amzn-meta-xom-pypl-cvx-f-ko-abbv-v-qcom-ba-mo-sofi-and-more">Seeking Alpha &mdash; Earnings week ahead</a></li>
+          <li>40. <a href="https://earnings-watcher.com/earnings-this-week">Earnings Watcher &mdash; Calendar and expected moves</a></li>
+          <li>41. <a href="https://www.benzinga.com/markets/market-summary/26/07/60855602/fed-hawks-big-tech-split-what-moved-markets-this-week">Benzinga &mdash; Fed hawks, Big Tech split</a></li>
+          <li>42. <a href="https://www.cnbc.com/2026/07/30/stock-market-today-live-updates.html">CNBC &mdash; Friday 31 July close</a></li>
+          <li>43. <a href="https://www.washingtonpost.com/business/2026/07/31/wall-street-stocks-dow-nasdaq/ee08da40-8d1d-11f1-8912-d71e69d679d7_story.html">Washington Post / AP &mdash; Indexes, Fri 31 Jul</a></li>
+          <li>44. <a href="https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-31-2026">TheStreet &mdash; Yields surge, Apple slides</a></li>
+        </ol>
+      </div>
+
+      <div class="src-group">
+        <h4>Crypto (45&ndash;52)</h4>
+        <ol>
+          <li>45. <a href="https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-monday-july-27-2026-can-positive-price-trends-hold-this-week-132757216.html">Yahoo Finance &mdash; BTC and ETH, Jul 27</a></li>
+          <li>46. <a href="https://www.fxstreet.com/cryptocurrencies/news/cryptocurrencies-price-prediction-bitcoin-ethereum-worldcoin-asian-wrap-27-july-202607270416">FXStreet &mdash; Asian wrap, 27 July</a></li>
+          <li>47. <a href="https://www.coingabbar.com/en/crypto-currency-news/crypto-news-today-bitcoin-coinbase-binance-eu-mica-july-27">CoinGabbar &mdash; Crypto news, Jul 27</a></li>
+          <li>48. <a href="https://www.forbes.com/financial-services/top-10-cryptocurrencies-2/">Forbes Advisor &mdash; Top 10 cryptocurrencies, Jul 27</a></li>
+          <li>49. <a href="https://captainaltcoin.com/crypto-price-prediction-for-today-july-27-solana-sol-xrp-dogecoin-doge/">CaptainAltcoin &mdash; SOL, XRP, DOGE levels</a></li>
+          <li>50. <a href="https://sundayguardianlive.com/business/bitcoin-ethereum-and-xrp-price-prediction-july-27-will-crypto-markets-rally-or-slip-further-check-btc-eth-and-xrp-forecast-key-level-and-market-outlook-246854/">Sunday Guardian &mdash; BTC, ETH, XRP levels</a></li>
+          <li>51. <a href="https://coingape.com/markets/crypto-market-brief-july-25/">CoinGape &mdash; Market brief, Jul 25</a></li>
+          <li>52. <a href="https://cryptoslate.com/bitcoin-traders-face-a-65000-reclaim-or-62500-breakdown/">CryptoSlate &mdash; The $65k reclaim level</a></li>
+          <li>53. <a href="https://www.coingabbar.com/en/crypto-currency-news/crypto-news-today-1-august-bitcoin-eth-drops-anthropic-gains">CoinGabbar &mdash; Crypto news, 1 Aug</a></li>
         </ol>
       </div>
 
       <div class="src-group reddit-src">
-        <h4>Reddit &amp; social &mdash; separate, not used for any price figure (R1&ndash;R8)</h4>
+        <h4>Reddit &amp; social &mdash; separate, not used for any price figure (R1&ndash;R6)</h4>
         <ol>
-          <li>R1. <a href="https://www.benzinga.com/markets/equities/26/07/60684194/intel-tesla-ibm-and-more-5-stocks-investors-couldnt-stop-buzzing-about-this-week">Benzinga &mdash; 5 most-discussed, Jul 20&ndash;24</a></li>
+          <li>R1. <a href="https://altindex.com/reddit-stocks">AltIndex &mdash; Most mentioned Reddit stocks</a></li>
           <li>R2. <a href="https://altindex.com/wallstreetbets">AltIndex &mdash; r/wallstreetbets mentions</a></li>
-          <li>R3. <a href="https://altindex.com/reddit-stocks">AltIndex &mdash; Reddit trending stocks</a></li>
+          <li>R3. <a href="https://apewisdom.io/wallstreetbets/">ApeWisdom &mdash; WSB trending</a></li>
           <li>R4. <a href="https://tradestie.com/apps/reddit/wallstreetbets/">Tradestie &mdash; WSB most active</a></li>
-          <li>R5. <a href="https://apewisdom.io/wallstreetbets/">ApeWisdom &mdash; WSB trending</a></li>
-          <li>R6. <a href="https://www.siriusinvestors.com/reddit-stocks">Sirius Investors &mdash; Reddit sentiment</a></li>
-          <li>R7. <a href="https://247wallst.com/investing/2026/03/13/reddit-has-turned-bearish-on-tesla-and-the-crowd-might-actually-be-right-this-time/">24/7 Wall St &mdash; Reddit bearish on Tesla</a></li>
-          <li>R8. <a href="https://stocktwits.com/news-articles/markets/equity/smci-stock-jumps-over-6-but-supermicro-s-60-b-backlog-could-require-fresh-capital/cZZnvXYR7U9">Stocktwits &mdash; SMCI backlog chatter</a></li>
+          <li>R5. <a href="https://adanos.org/reddit-top-100-stocks">Adanos &mdash; Reddit top 100</a></li>
+          <li>R6. <a href="https://dingfeed.com/reddit">DingFeed &mdash; Most mentioned WSB</a></li>
         </ol>
       </div>
 
     </div>
   </details>
-
-  <footer>
-    Weekly tape sheet &middot; week ending 24 July 2026 &middot; compiled 25 July 2026<br>
-    Summary of published reporting. Figures are as reported by the sources listed and have not been independently verified against exchange data. Not investment advice.
-  </footer>
+    </div>
+    <nav class="viewbar">
+      <a href="#" class="vb-back">&uarr; Index</a>
+      <span class="vb-nav"><a href="#notes">&larr; Prev</a><a href="#" aria-disabled="true">Next &rarr;</a></span>
+      <span class="vb-mid">10 / 10</span>
+    </nav>
+  </section>
 
 </div>
+
+<script>
+(function () {
+  var doc = document.documentElement;
+  Array.prototype.slice.call(document.querySelectorAll('a[href^="http"]')).forEach(function (a) {
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener noreferrer');
+  });
+  doc.classList.add('js');                 // only now are views safe to hide
+  var views = Array.prototype.slice.call(document.querySelectorAll('.view'));
+  var ids = views.map(function (v) { return v.id; });
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.hubbtn'));
+
+  function current() { return ids.indexOf((location.hash || '').replace('#', '')); }
+
+  function render(focus) {
+    var i = current();
+    views.forEach(function (v, n) { v.classList.toggle('is-on', n === i); });
+    doc.classList.toggle('in-view', i !== -1);
+    btns.forEach(function (a) {
+      a.setAttribute('aria-current', a.getAttribute('href') === location.hash ? 'page' : 'false');
+    });
+    if (i !== -1) {
+      window.scrollTo(0, 0);
+      if (focus) {
+        var h = views[i].querySelector('.hero-h');
+        if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+      }
+    }
+  }
+
+  window.addEventListener('hashchange', function () { render(true); });
+  render(false);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var i = current();
+    if (e.key === 'Escape' && i !== -1) { location.hash = ''; return; }
+    if (i === -1) return;
+    if (e.key === 'ArrowRight' && i < ids.length - 1) location.hash = ids[i + 1];
+    if (e.key === 'ArrowLeft' && i > 0) location.hash = ids[i - 1];
+  });
+})();
+</script>
+<script>
+(function () {
+  var grid = document.getElementById('live-grid');
+  var meta = document.getElementById('live-meta');
+  if (!grid || !meta) return;
+
+  function money(value, currency) {
+    if (!Number.isFinite(value)) return 'n/a';
+    try {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency', currency: currency || 'USD',
+        maximumFractionDigits: value < 10 ? 2 : 2
+      }).format(value);
+    } catch (_) { return '$' + value.toFixed(2); }
+  }
+
+  function render(data) {
+    var quotes = Array.isArray(data.quotes) ? data.quotes : [];
+    if (!quotes.length) throw new Error('No quotes returned');
+    grid.innerHTML = quotes.map(function (quote) {
+      var pct = Number(quote.changePercent);
+      var direction = pct > 0 ? 'pos' : pct < 0 ? 'neg' : '';
+      var sign = pct > 0 ? '+' : '';
+      return '<article class="live-quote">' +
+        '<div class="live-symbol"><span>' + quote.symbol + '</span>' +
+        '<span class="live-change ' + direction + '">' +
+        (Number.isFinite(pct) ? sign + pct.toFixed(2) + '%' : 'n/a') + '</span></div>' +
+        '<div class="live-name">' + (quote.name || quote.symbol) + '</div>' +
+        '<div class="live-price">' + money(Number(quote.price), quote.currency) + '</div>' +
+        '</article>';
+    }).join('');
+
+    var asOf = data.asOf ? new Date(data.asOf) : null;
+    meta.textContent = asOf && !isNaN(asOf.getTime())
+      ? 'Updated ' + asOf.toLocaleString([], { dateStyle:'medium', timeStyle:'short' })
+      : 'Latest available snapshot';
+    if (window.parent !== window) {
+      window.parent.postMessage({ type:'market-data-ready', asOf:data.asOf || null }, location.origin);
+    }
+  }
+
+  async function load() {
+    var stamp = Date.now();
+    var sources = ['/api/market?refresh=' + stamp, './data/market.json?refresh=' + stamp];
+    var lastError;
+    for (var i = 0; i < sources.length; i += 1) {
+      try {
+        var response = await fetch(sources[i], { cache:'no-store' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        var data = await response.json();
+        render(data);
+        return;
+      } catch (error) { lastError = error; }
+    }
+    grid.innerHTML = '<div class="live-error">Latest quotes are temporarily unavailable. The archived weekly report is still available below.</div>';
+    meta.textContent = 'Data unavailable';
+    console.warn('Market data refresh failed', lastError);
+    if (window.parent !== window) {
+      window.parent.postMessage({ type:'market-data-error' }, location.origin);
+    }
+  }
+
+  load();
+})();
+</script>
